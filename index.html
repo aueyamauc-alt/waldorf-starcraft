@@ -140,7 +140,7 @@ html:not([lang=en]) .intro .quote{font-family:var(--mincho);font-style:normal;fo
 .vessel{background:var(--ink);color:var(--ivory);padding:0;position:relative;overflow:hidden}
 .vgrid{display:grid;grid-template-columns:1.5fr 1fr;min-height:620px}
 .vmain{position:relative;overflow:hidden}
-.vmain img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 50%;filter:saturate(.92) contrast(1.05)}
+
 .vmain::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,26,23,0) 82%,rgba(28,26,23,.9)),linear-gradient(0deg,rgba(28,26,23,.55),transparent 30%)}
 .vcopy{padding:110px 70px 90px 30px;position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center}
 .vcopy .eyebrow{color:var(--gold2)}
@@ -153,8 +153,8 @@ html:not([lang=en]) .intro .quote{font-family:var(--mincho);font-style:normal;fo
 .vspecs span{font-family:var(--sans);font-size:9.5px;letter-spacing:.24em;color:#9d9483;text-transform:uppercase}
 .vthumbs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
 .vthumbs svg{width:100%;height:auto;display:block}
-.vmain{display:flex;align-items:center;background:linear-gradient(180deg,#121628 0%,#121628 20%,#07070a 80%)}
-.vmain svg{position:relative;width:100%;height:auto;display:block}
+.vmain{display:flex;align-items:center;background:linear-gradient(180deg,#0d0e17 0%,#0d0e17 30%,#060606 70%)}
+.vmain img{position:relative;width:100%;height:auto;display:block;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
 @media(max-width:960px){.vgrid{grid-template-columns:1fr}.vmain{min-height:300px}.vmain::after{background:linear-gradient(180deg,rgba(28,26,23,0) 50%,rgba(28,26,23,1))}.vcopy{padding:30px 22px 80px}}
 
 /* plans */
@@ -638,87 +638,7 @@ html[lang=en] .formula .eq{font-size:22px}
 <!-- VESSEL -->
 <section class="vessel" id="vessel">
   <div class="vgrid">
-    <div class="vmain"><svg class="vsvg" viewBox="0 0 900 600" aria-label="STARCRAFT">
-  <defs>
-    <linearGradient id="vSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121628"/><stop offset=".45" stop-color="#2c2a40"/><stop offset=".78" stop-color="#6e5050"/><stop offset="1" stop-color="#c58c5c"/></linearGradient>
-    <linearGradient id="vWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2c34"/><stop offset=".2" stop-color="#17141c"/><stop offset="1" stop-color="#07070a"/></linearGradient>
-    <linearGradient id="vHull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34343e"/><stop offset=".18" stop-color="#0d0d12"/><stop offset=".7" stop-color="#050507"/><stop offset="1" stop-color="#1a1a22"/></linearGradient>
-    <linearGradient id="vLeather" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c06a3a"/><stop offset=".5" stop-color="#93451f"/><stop offset="1" stop-color="#5e2710"/></linearGradient>
-    <linearGradient id="vChrome" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#9aa2aa"/><stop offset="1" stop-color="#e6e9ec"/></linearGradient>
-    <linearGradient id="vMotor" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a2b31"/><stop offset=".6" stop-color="#4a4c55"/><stop offset="1" stop-color="#2a2b31"/></linearGradient>
-    <linearGradient id="vGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9e6ee" stop-opacity=".55"/><stop offset="1" stop-color="#7d93a3" stop-opacity=".2"/></linearGradient>
-    <pattern id="vWin" width="8" height="10" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="3" height="4" fill="#f1c47a" opacity=".6"/></pattern>
-    <filter id="vBlur"><feGaussianBlur stdDeviation="2.2"/></filter>
-    <radialGradient id="vGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd99a" stop-opacity=".9"/><stop offset="1" stop-color="#ffd99a" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="900" height="310" fill="url(#vSky)"/>
-  <g stroke="#f0d6a0" stroke-width=".7" opacity=".1" fill="none"><path d="M450 300 L450 40 M450 300 L330 50 M450 300 L570 50 M450 300 L220 90 M450 300 L680 90 M450 300 L120 150 M450 300 L780 150"/><path d="M250 300 A200 200 0 0 1 650 300"/><path d="M130 300 A320 320 0 0 1 770 300"/></g>
-  <circle cx="720" cy="80" r="16" fill="#f8ebcb" opacity=".95"/><circle cx="720" cy="80" r="60" fill="url(#vGlow)" opacity=".25"/>
-  <!-- skyline -->
-  <g fill="#1b1a26"><rect x="0" y="210" width="60" height="100"/><rect x="60" y="180" width="44" height="130"/><rect x="104" y="226" width="70" height="84"/><rect x="560" y="150" width="54" height="160"/><rect x="614" y="200" width="80" height="110"/><rect x="694" y="170" width="46" height="140"/><rect x="740" y="215" width="90" height="95"/><rect x="830" y="190" width="70" height="120"/></g>
-  <g opacity=".85"><rect x="64" y="186" width="36" height="118" fill="url(#vWin)"/><rect x="564" y="156" width="46" height="148" fill="url(#vWin)"/><rect x="698" y="176" width="38" height="128" fill="url(#vWin)"/><rect x="834" y="196" width="62" height="108" fill="url(#vWin)"/></g>
-  <!-- truss bridge -->
-  <g stroke="#e8d3a6" stroke-width="1.2" fill="none" opacity=".75">
-    <path d="M190 292 Q350 236 510 292"/><path d="M190 292 H510"/>
-    <path d="M222 279 L246 292 L270 266 L294 292 L318 259 L350 292 L382 259 L406 292 L430 266 L454 292 L478 279"/>
-  </g>
-  <rect y="300" width="900" height="300" fill="url(#vWater)"/>
-  <line x1="0" y1="300" x2="900" y2="300" stroke="#c9a067" stroke-opacity=".35"/>
-  <g fill="#f2c27a" opacity=".55">
-    <rect x="70" y="310" width="30" height="1.5"/><rect x="76" y="324" width="18" height="1.2"/><rect x="570" y="312" width="38" height="1.5"/><rect x="578" y="328" width="22" height="1.2"/><rect x="700" y="310" width="30" height="1.5"/><rect x="840" y="316" width="44" height="1.5"/><rect x="300" y="306" width="90" height="1.2" fill="#e8d3a6"/>
-  </g>
-  <g fill="#fbeccb" opacity=".5"><rect x="700" y="318" width="40" height="1.6"/><rect x="708" y="336" width="24" height="1.4"/><rect x="704" y="356" width="32" height="1.2"/></g>
-
-  <g id="vBoat">
-    <!-- outboard -->
-    <path d="M58 300 Q50 300 50 314 L52 350 Q54 362 66 364 L96 364 L100 312 Q100 300 88 300 Z" fill="url(#vMotor)"/>
-    <path d="M60 364 L64 410 L84 410 L88 364 Z" fill="#26272c"/>
-    <path d="M56 306 L94 306" stroke="#7d808a" stroke-width="1"/>
-    <!-- stern lounge -->
-    <path d="M140 330 L140 286 Q140 270 158 270 L318 270 Q334 270 334 286 L334 330 Z" fill="url(#vLeather)"/>
-    <g stroke="#4f200c" stroke-width="1.2" opacity=".6"><path d="M162 274 V326 M186 274 V326 M210 274 V326 M234 274 V326 M258 274 V326 M282 274 V326 M306 274 V326"/></g>
-    <path d="M146 278 Q240 268 328 278" stroke="#e39a68" stroke-width="1.4" fill="none" opacity=".7"/>
-    <!-- bow lounge -->
-    <path d="M520 328 L520 292 Q520 278 536 278 L700 284 Q722 286 728 304 L734 326 Z" fill="url(#vLeather)"/>
-    <g stroke="#4f200c" stroke-width="1.2" opacity=".6"><path d="M546 282 V326 M572 282 V326 M598 283 V326 M624 283 V326 M650 284 V326 M676 285 V326 M702 287 V326"/></g>
-    <path d="M526 286 Q620 278 722 296" stroke="#e39a68" stroke-width="1.4" fill="none" opacity=".7"/>
-    <!-- helm console + windscreen -->
-    <path d="M372 330 L372 270 Q372 256 388 256 L452 256 Q470 256 476 270 L484 330 Z" fill="#08080b"/>
-    <path d="M378 262 Q420 254 470 262" stroke="#4a4a55" stroke-width="1.5" fill="none"/>
-    <path d="M440 256 L470 212 L486 214 L476 258 Z" fill="url(#vGlass)" stroke="url(#vChrome)" stroke-width="1.6"/>
-    <ellipse cx="428" cy="250" rx="13" ry="5" fill="none" stroke="#b9bfc6" stroke-width="2"/>
-    <!-- chrome grab rails -->
-    <g stroke="url(#vChrome)" stroke-width="2.6" fill="none" stroke-linecap="round">
-      <path d="M144 254 H330"/><path d="M528 262 Q640 262 742 290"/>
-    </g>
-    <g stroke="#c6ccd2" stroke-width="1.6"><path d="M150 254 V270 M240 254 V270 M326 254 V270 M534 262 V278 M630 264 V280 M726 284 V296"/></g>
-    <!-- hull -->
-    <path d="M96 330 L760 322 Q812 320 846 340 Q826 372 784 394 L150 400 Q104 398 96 368 Z" fill="url(#vHull)"/>
-    <path d="M98 333 L760 325 Q808 323 842 341" stroke="url(#vChrome)" stroke-width="3" fill="none"/>
-    <path d="M110 346 Q440 338 820 346" stroke="#ffffff" stroke-width="1.2" opacity=".22" fill="none"/>
-    <path d="M118 380 Q440 386 790 380" stroke="#c6ccd2" stroke-width="1.4" opacity=".55" fill="none"/>
-    <path d="M300 352 Q420 346 560 350" stroke="#ffffff" stroke-width="5" opacity=".06" fill="none"/>
-    <!-- courtesy lights -->
-    <g fill="#ffe3a6">
-      <rect x="150" y="358" width="12" height="4" rx="1"/><rect x="222" y="357" width="12" height="4" rx="1"/><rect x="294" y="357" width="12" height="4" rx="1"/><rect x="366" y="356" width="12" height="4" rx="1"/><rect x="438" y="356" width="12" height="4" rx="1"/><rect x="510" y="356" width="12" height="4" rx="1"/><rect x="582" y="356" width="12" height="4" rx="1"/><rect x="654" y="356" width="12" height="4" rx="1"/><rect x="726" y="357" width="12" height="4" rx="1"/>
-    </g>
-    <g fill="url(#vGlow)" opacity=".5">
-      <circle cx="156" cy="360" r="12"/><circle cx="228" cy="359" r="12"/><circle cx="300" cy="359" r="12"/><circle cx="372" cy="358" r="12"/><circle cx="444" cy="358" r="12"/><circle cx="516" cy="358" r="12"/><circle cx="588" cy="358" r="12"/><circle cx="660" cy="358" r="12"/><circle cx="732" cy="359" r="12"/>
-    </g>
-    <circle cx="836" cy="338" r="3" fill="#fff"/><circle cx="836" cy="338" r="14" fill="url(#vGlow)" opacity=".6"/>
-    <!-- champagne on stern lounge -->
-    <g transform="translate(250,250)">
-      <path d="M0 0 H16 Q15 9 8 10 Q1 9 0 0 Z" fill="#e8c76e" opacity=".9" stroke="#f3e3b6" stroke-width=".6"/><path d="M8 10 V20 M2 21 H14" stroke="#f3e3b6" stroke-width="1"/>
-      <path d="M22 2 H38 Q37 11 30 12 Q23 11 22 2 Z" fill="#e8c76e" opacity=".9" stroke="#f3e3b6" stroke-width=".6"/><path d="M30 12 V20 M24 21 H36" stroke="#f3e3b6" stroke-width="1"/>
-    </g>
-  </g>
-  <!-- reflection -->
-  <g opacity=".22" filter="url(#vBlur)" transform="translate(0,800) scale(1,-1)">
-    <use href="#vBoat"/>
-  </g>
-  <rect y="400" width="900" height="200" fill="url(#vWater)" opacity=".45"/>
-  <g stroke="#c9a067" stroke-width=".6" opacity=".2" fill="none"><path d="M120 430 q30 -4 60 0 t60 0 t60 0"/><path d="M480 460 q30 -4 60 0 t60 0"/><path d="M200 520 q26 -4 52 0 t52 0 t52 0"/><path d="M620 540 q30 -4 60 0 t60 0"/></g>
-</svg></div>
+    <div class="vmain"><img src="img/starcraft.jpg" alt="STARCRAFT" loading="lazy"></div>
     <div class="vcopy reveal">
       <div class="eyebrow">The Vessel</div>
       <h2 class="h2" data-ih="v_h">STARCRAFT<small>スタークラフト</small></h2>
