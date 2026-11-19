@@ -8,7 +8,7 @@
 <title>Private River Cruise | Waldorf Astoria Osaka × STARCRAFT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Shippori+Mincho:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Quiet luxury — warm ivory, oak, bronze & deco ink */
@@ -431,6 +431,242 @@ html[lang=en] .formula .eq{font-size:22px}
 .demo-warn{margin-top:22px;border:1px solid rgba(201,154,46,.6);background:rgba(201,154,46,.08);color:#e6bf62;padding:16px 20px;font-size:13px}
 
 
+
+/* ===== Hotel-site styling (Waldorf Astoria Osaka): white & warm grey, black type, navy actions ===== */
+:root{
+  --ink:#121212; --ink2:#1e1e1e; --ink3:#2b2b2b;
+  --ivory:#ffffff; --ivory2:#dcdad6; --paper:#f7f6f4; --stone:#f7f6f4;
+  --oak:#121212; --gold:#032165; --gold2:#ffffff; --gold3:#121212; --navy:#032165; --navy2:#0b318a;
+  --mute:#6b6b6b; --body:#3a3a3a; --line:rgba(18,18,18,.14);
+  --serif:"Jost","Noto Sans JP",sans-serif;
+  --mincho:"Noto Sans JP","Hiragino Sans",sans-serif;
+  --sans:"Jost","Noto Sans JP",sans-serif;
+  --en:"Cormorant Garamond","Noto Serif JP",serif;
+  --lattice:none;
+}
+body{font-family:var(--mincho);font-weight:400;font-size:15px;line-height:1.9;letter-spacing:.04em;color:var(--ink);background:#fff}
+html[lang=en] body{font-family:var(--en);font-size:18px;letter-spacing:0}
+.deco,.arch,.hero::before,.plans::before,.ops::before{display:none!important}
+.eyebrow{font-family:"Jost",sans-serif;font-weight:500;font-size:11px;letter-spacing:.22em;color:var(--ink)}
+.h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.6vw,48px);line-height:1.25;letter-spacing:.01em;margin-top:14px}
+html:not([lang=en]) .h2{font-size:clamp(28px,3.2vw,42px);letter-spacing:.04em}
+.h2 em{font-style:normal;color:inherit}
+.h2 small{font-family:var(--mincho);font-weight:300;letter-spacing:.2em;font-size:13px;color:var(--mute)}
+.lead{color:var(--ink);font-size:15px}
+html[lang=en] .lead{font-size:18.5px}
+.tbd{border-color:var(--ivory2);color:var(--mute)}
+section{padding:110px 0}
+@media(max-width:700px){section{padding:76px 0}}
+
+/* underline link like the hotel ("客室＆スイート") */
+.ulink{display:inline-block;font-family:var(--mincho);font-size:14px;color:var(--ink);text-decoration:none;padding-bottom:3px;border-bottom:1px solid #5f8f86;letter-spacing:.06em}
+html[lang=en] .ulink{font-family:var(--en);font-size:17px}
+.ulink:hover{border-color:var(--ink)}
+
+/* buttons: navy squared */
+.btn{font-family:var(--mincho);font-size:14px;letter-spacing:.08em;text-transform:none;padding:16px 30px;border:1px solid var(--navy);border-radius:0}
+html[lang=en] .btn{font-family:var(--en);font-size:17px;letter-spacing:.02em}
+.btn.gold,.btn.dark{background:var(--navy);color:#fff}
+.btn.gold:hover,.btn.dark:hover{background:var(--navy2);border-color:var(--navy2)}
+.btn.line{background:#fff;color:var(--ink);border-color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:#fff}
+
+/* header */
+header{background:rgba(247,246,244,.96);backdrop-filter:blur(10px);box-shadow:none;border-bottom:1px solid #9a9a9a}
+header.solid{background:rgba(247,246,244,.96);box-shadow:none}
+.hd,header.solid .hd{display:flex;justify-content:space-between;align-items:center;height:78px;max-width:none;padding:0 28px}
+.brand{align-items:flex-start}
+.brand .wa{font-family:"Jost",sans-serif;font-weight:400;font-size:21px;letter-spacing:.06em;margin:0}
+.brand .loc{font-family:"Jost",sans-serif;font-weight:500;font-size:8.5px;letter-spacing:.28em;color:var(--ink);margin:5px 0 0}
+.brand .loc i{font-family:"Jost",sans-serif;font-size:9px;color:var(--ink)}
+.nr{display:flex;align-items:center;gap:26px}
+.nl{display:flex;gap:22px;font-family:"Noto Serif JP",serif;font-size:13.5px;letter-spacing:.04em;text-transform:none}
+html[lang=en] .nl{font-family:var(--en);font-size:16px}
+.nl a,.nr a{opacity:1;color:var(--ink)}
+.nl a:hover{color:var(--navy)}
+.lang{border-left:1px solid #b5b5b5;padding-left:16px}
+.lang button{font-family:"Jost",sans-serif;font-size:11px;color:#8a8a8a}
+.lang button.on{color:var(--ink);border-color:var(--ink)}
+.subbar{display:flex;justify-content:center;align-items:center;gap:0;background:rgba(247,246,244,.96);border-top:1px solid rgba(0,0,0,.08);height:56px;font-family:"Noto Serif JP",serif;font-size:13.5px}
+html[lang=en] .subbar{font-family:var(--en);font-size:16px}
+.subbar span{padding:0 18px;border-right:1px solid #c8c8c8;line-height:34px;white-space:nowrap}
+.subbar span:nth-child(3){border-right:0}
+.subbar .navbook{background:var(--navy);color:#fff!important;border:0;padding:0 22px;line-height:42px;font-size:13.5px;letter-spacing:.04em;text-transform:none;text-decoration:none;margin-left:6px}
+.subbar .navbook:hover{background:var(--navy2)}
+body.rib header{top:26px}
+@media(max-width:960px){
+  .hd,header.solid .hd{height:64px;padding:0 18px}.nl{display:none}.brand .wa{font-size:16px}
+  .subbar{height:50px;justify-content:space-between;padding:0 0 0 18px}.subbar span{display:none}.subbar span:first-child{display:block;border:0;padding:0;font-size:12.5px;overflow:hidden;text-overflow:ellipsis}.subbar .navbook{display:block;line-height:50px;margin:0}
+}
+
+/* hero */
+.hero{padding:134px 0 0;background:#fff}
+.hphoto{position:relative;height:min(74vh,720px);min-height:380px;background:#0d0e17;overflow:hidden}
+.hphoto img{width:100%;height:100%;object-fit:cover;object-position:78% 60%}
+.hrow{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;padding-top:70px;padding-bottom:90px;align-items:start;max-width:1280px}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(36px,4.6vw,60px);line-height:1.12;margin-top:16px;letter-spacing:.01em;color:var(--ink)}
+.hero h1 em{font-style:normal;color:inherit;display:block;padding:0}
+.hero .jp{font-family:"Noto Serif JP",serif;font-size:clamp(17px,1.7vw,21px);letter-spacing:.14em;margin:0;color:var(--ink)}
+html[lang=en] .hero .jp{font-family:var(--en);font-style:italic;font-size:23px;letter-spacing:.01em}
+.hero .lead{margin-top:18px;max-width:none;font-size:15.5px}
+html[lang=en] .hero .lead{font-size:18.5px}
+.hero .cta{display:flex;align-items:center;gap:30px;margin-top:32px}
+.hero-facts{max-width:none;border-top:1px solid var(--line);margin-top:42px}
+.hero-facts b{font-family:"Jost",sans-serif;font-weight:300;font-size:28px}
+.hero-facts span{font-family:"Jost",sans-serif;font-size:10px;letter-spacing:.18em;color:var(--mute)}
+@media(max-width:960px){.hero{padding:116px 0 0}.hphoto{height:auto;min-height:0;aspect-ratio:4/3}.hphoto img{object-position:82% 60%}.hrow{grid-template-columns:1fr;gap:26px;padding-top:44px;padding-bottom:64px}}
+
+/* status strip */
+.status{background:var(--paper);border-color:var(--line)}
+.status .lbl,.status a{color:var(--ink)}
+.status a{text-decoration:none;border-bottom:1px solid #5f8f86;padding-bottom:2px;font-family:var(--mincho)}
+
+/* intro */
+.intro .quote{font-family:"Noto Serif JP",serif;font-style:normal;border-left:1px solid var(--ink);color:var(--ink)}
+html[lang=en] .intro .quote{font-family:var(--en);font-style:italic}
+
+/* vessel — light, image tiles */
+.vessel{background:var(--paper);color:var(--ink);padding:110px 0}
+.vgrid{max-width:1280px;margin:0 auto;padding:0 28px;grid-template-columns:1.2fr 1fr;gap:70px;min-height:0;align-items:center}
+.vmain{display:block;background:none;overflow:visible}
+.vmain::after{display:none}
+.vmain .vthumbs{margin:0;gap:14px}
+.vcopy{padding:0}
+.vcopy .eyebrow{color:var(--ink)}
+.vcopy .h2 small{color:var(--mute)}
+.vcopy .lead{color:var(--ink)}
+.vspecs{border-top:1px solid var(--line)}
+.vspecs div+div{border-left:1px solid var(--line)}
+.vspecs b{font-family:var(--serif);color:var(--ink);font-size:24px}
+html:not([lang=en]) .vspecs b{font-size:21px}
+.vspecs span{color:var(--mute)}
+@media(max-width:960px){.vessel{padding:76px 0}.vgrid{grid-template-columns:1fr;gap:40px;padding:0 18px}}
+
+/* plans */
+.plans{background:#fff}
+.plan{background:#fff;clip-path:none;border:1px solid var(--line);padding:50px 34px 36px}
+.plan::before{display:none}
+.plan:hover{transform:none;box-shadow:0 18px 40px -24px rgba(0,0,0,.25)}
+.plan .no{font-family:"Jost",sans-serif;font-style:normal;font-size:12px;letter-spacing:.2em;color:var(--mute)}
+.plan h3{font-family:var(--serif);font-weight:300;font-size:56px}
+.plan .price{font-family:"Jost",sans-serif;font-weight:300;color:var(--ink);font-size:40px;border-color:var(--line)}
+.plan li{border-color:rgba(18,18,18,.08)}
+.plan li::before{border-color:var(--ink);width:4px;height:4px}
+.plan.feature{background:#fff;color:var(--ink);border:1px solid var(--ink)}
+.plan.feature h3,.plan.feature ul{color:var(--ink)}
+.plan.feature .price{color:var(--ink);border-color:var(--line)}
+.plan.feature li{border-color:rgba(18,18,18,.08)}
+.plan.feature .btn,.plan .btn{background:var(--navy);color:#fff;border-color:var(--navy)}
+.plan.feature .btn:hover,.plan .btn:hover{background:var(--navy2);color:#fff}
+.plan .tag{color:#fff;background:var(--navy);top:0;padding:4px 14px;font-size:9.5px;letter-spacing:.24em}
+
+/* routes / piers / options */
+.routes,#options{background:#fff}
+.rsvg{box-shadow:none;border:1px solid var(--line)}
+.steps>span{background:var(--paper)}
+.steps>span b{color:var(--navy)}
+#piers{background:var(--paper)}
+.pier{background:#fff}
+.pier .ph .badge{color:var(--ink);font-family:"Jost",sans-serif;font-style:normal;font-size:20px;font-weight:300}
+.pier h3{font-family:var(--mincho);font-weight:400;letter-spacing:.08em}
+html[lang=en] .pier h3{font-family:var(--serif);font-weight:300}
+.pier .en{font-family:"Jost",sans-serif;font-style:normal;color:var(--mute);font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.pier dt{color:var(--ink);font-weight:500}
+.pier .map iframe{filter:grayscale(.85) contrast(1.02)}
+.pier .map a.open{background:var(--navy)}
+.reqbox{border:1px solid var(--line);outline:0;background:#fff}
+.reqbox h4,.opt h3{font-family:var(--mincho);font-weight:400}
+html[lang=en] .reqbox h4,html[lang=en] .opt h3{font-family:var(--serif);font-weight:300}
+.opt{background:var(--paper)}
+.opt .vis::after{border-color:rgba(255,255,255,.18)}
+
+/* operations — charcoal like the hotel's overlay panels */
+.ops{background:#262626;color:#fff}
+.ops .lead,.now p,.legend div,.defs div,.bs-note,.judge div,.example{color:#d6d6d6}
+.ops .eyebrow,.ops .h2 small{color:#bdbdbd}
+.card,.judge div,.bs-svg{border-color:rgba(255,255,255,.18)}
+.legend,.legend div,.defs div{border-color:rgba(255,255,255,.12)}
+.legend b{color:#fff}
+.tube{border-color:#cfcfcf}
+.gvals .big{font-family:"Jost",sans-serif;color:#fff}
+.gvals .k{color:#bdbdbd}
+.bsafe{border-color:rgba(255,255,255,.18)}
+.bsafe h3.t{font-family:var(--serif)}
+.formula{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04)}
+.formula b,.defs dt,.example b{color:#fff}
+.formula .eq{font-family:"Jost",sans-serif;font-weight:300;color:#fff}
+.golden{background:rgba(255,255,255,.06);border-left:2px solid #fff;color:#fff}
+.golden .eyebrow{color:#fff}
+.example{border-color:rgba(255,255,255,.25)}
+
+/* booking */
+.book{background:#fff}
+.notice{background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.notice b{color:var(--navy)}
+.stp{border-color:var(--line)}
+.stp h4{font-family:var(--mincho);font-weight:400;letter-spacing:.08em;border-color:var(--line)}
+html[lang=en] .stp h4{font-family:var(--serif);font-weight:300}
+.stp h4 i{font-family:"Jost",sans-serif;font-style:normal;color:var(--navy);font-size:24px}
+.ch{background:#fff;border-color:var(--ivory2)}
+.ch:hover{border-color:var(--ink)}
+.ch.on{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.ch.on::after{background-color:var(--navy)}
+.ch .p{font-family:"Jost",sans-serif;font-weight:300;color:var(--ink)}
+.hint{background:var(--paper)}
+.calh b{font-family:"Jost",sans-serif;font-weight:300}
+.calh button{width:44px;height:44px;border-radius:50%;background:var(--navy);border:0;color:#fff}
+.day.ok{background:#fff}
+.day.ok:hover{border-color:var(--ink)}
+.day.staff{background:repeating-linear-gradient(135deg,#f3f2ef 0 6px,#e9e7e3 6px 12px);color:var(--ink)}
+.lg i.s{background:repeating-linear-gradient(135deg,#f3f2ef 0 3px,#e9e7e3 3px 6px)}
+.day.sel{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+.day.today{outline-color:var(--ink)}
+.staffmsg{background:var(--paper);color:var(--ink);border-left:2px solid var(--navy)}
+.slot{background:#fff}
+.slot.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.slot:hover,.ch:hover{border-color:var(--ink)}
+.stepper{background:#fff}
+.stepper button{color:var(--navy)}
+.stepper output{font-family:"Jost",sans-serif;font-weight:300}
+.optrow{background:#fff}
+.optrow.on{border-color:var(--navy)}
+.optrow .bx{border-color:var(--ink)}
+.optrow.on .bx{background:var(--navy);border-color:var(--navy)}
+.optrow.on .bx::after{border-color:#fff}
+label.f span{color:var(--ink);font-weight:500}
+input:focus,select:focus,textarea:focus{border-color:var(--navy)}
+.sum{background:var(--paper);color:var(--ink);border-top:2px solid var(--ink)}
+.sum::before{display:none}
+.sum .eyebrow{color:var(--ink)}
+.sum h4{font-family:var(--serif)}
+.sum dl div{border-color:var(--line)}
+.sum dt,.sum .tx,.sum .small{color:var(--mute)}
+.sum .tot span{color:var(--ink)}
+.sum .tot b{font-family:"Jost",sans-serif;color:var(--ink)}
+.sum .btn{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sum .btn:hover{background:var(--navy2);border-color:var(--navy2)}
+@media(max-width:1000px){
+  .mbar{background:rgba(247,246,244,.98);color:var(--ink);border-top:1px solid #9a9a9a}
+  .mbar b{font-family:"Jost",sans-serif;color:var(--ink)}
+  .mbar small{color:var(--mute)}
+  .mbar a{background:var(--navy);color:#fff;border-color:var(--navy)}
+}
+.mbox{background:#fff}
+.mbox h3{font-family:var(--serif)}
+.mbox .ref{background:var(--navy);color:#fff}
+
+/* faq & footer — light like the hotel footer */
+.faqsec{background:var(--paper)}
+.faq summary{font-weight:400}
+.faq summary::after{font-family:"Jost",sans-serif;font-weight:300;color:var(--ink)}
+.faq details{border-color:var(--line)}
+footer{background:var(--paper);color:var(--ink);border-top:1px solid #9a9a9a;padding:70px 0 110px}
+footer .brand{color:var(--ink);align-items:center}
+footer .brand .loc{color:var(--ink)}
+footer p{margin-top:26px;font-family:var(--mincho);letter-spacing:.06em}
+footer nav{font-family:"Noto Serif JP",serif;text-transform:none;letter-spacing:.06em;font-size:13px}
+footer nav a{border-bottom:1px solid #5f8f86;padding-bottom:2px}
+.preview{background:#121212;color:#fff}
 </style>
 </head>
 <body>
@@ -439,171 +675,50 @@ html[lang=en] .formula .eq{font-size:22px}
 
 <header id="hdr">
   <div class="hd">
-    <nav class="nl">
-      <a href="#plans" data-i="nav_plans">Cruises</a>
-      <a href="#piers" data-i="nav_piers">Piers</a>
-      <a href="#status" data-i="nav_status">Status</a>
-    </nav>
     <a class="brand" href="#top" aria-label="Home">
       <span class="wa">WALDORF ASTORIA</span>
       <span class="loc">OSAKA <i>×</i> STARCRAFT</span>
     </a>
     <div class="nr">
+      <nav class="nl">
+        <a href="#vessel" data-i="nav_vessel">Vessel</a>
+        <a href="#plans" data-i="nav_plans">Cruises</a>
+        <a href="#piers" data-i="nav_piers">Piers</a>
+        <a href="#options" data-i="nav_opts">Options</a>
+        <a href="#status" data-i="nav_status">Status</a>
+      </nav>
       <div class="lang"><button data-lang="ja" class="on">JP</button><button data-lang="en">EN</button></div>
-      <a href="#book" class="navbook" data-i="nav_book">Reserve</a>
     </div>
+  </div>
+  <div class="subbar">
+    <span data-i="sb_1">宿泊ゲスト専用 プライベートクルーズ</span>
+    <span data-i="sb_2">1艇貸切・最大8名様</span>
+    <span data-i="sb_3">60分 ¥45,000〜</span>
+    <a href="#book" class="navbook" data-i="sb_btn">クルーズを予約</a>
   </div>
 </header>
 
 <main id="top">
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid">
-    <div class="hero-copy">
+  <div class="hphoto"><img src="img/hero.jpg" alt="STARCRAFT" fetchpriority="high"></div>
+  <div class="wrap hrow">
+    <div class="hl">
       <div class="eyebrow reveal" data-i="hero_eye">Exclusively for guests of Waldorf Astoria Osaka</div>
       <h1 class="reveal">A Private<em>River Voyage</em></h1>
-      <div class="deco reveal"><i></i><b></b><i></i></div>
-      <p class="jp reveal" data-i="hero_jp">水都大阪を、貸切の一艇で。</p>
-      <p class="lead reveal" data-i="hero_lead"></p>
-      <div class="cta reveal">
+    </div>
+    <div class="hr reveal">
+      <p class="jp" data-i="hero_jp">水都大阪を、貸切の一艇で。</p>
+      <p class="lead" data-i="hero_lead"></p>
+      <div class="cta">
         <a class="btn gold" href="#book" data-i="cta_book">Reserve a Cruise</a>
-        <a class="btn line" href="#plans" data-i="cta_plans">View Cruises</a>
+        <a class="ulink" href="#plans" data-i="cta_plans">View Cruises</a>
       </div>
-      <div class="hero-facts reveal">
+      <div class="hero-facts">
         <div><b>8</b><span data-i="f_cap">Guests max</span></div>
         <div><b>60 · 90</b><span data-i="f_min">Minutes</span></div>
         <div><b>¥45,000</b><span data-i="f_from">From / boat</span></div>
       </div>
-    </div>
-    <div class="arch reveal">
-      <div class="frame">
-      <svg class="scene" viewBox="0 0 500 660" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs>
-    <linearGradient id="hSky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0a0e1c"/><stop offset=".42" stop-color="#1a1f36"/><stop offset=".68" stop-color="#3a3148"/><stop offset=".86" stop-color="#7d5a52"/><stop offset="1" stop-color="#c79060"/>
-    </linearGradient>
-    <linearGradient id="hWater" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2a2230"/><stop offset=".25" stop-color="#141320"/><stop offset="1" stop-color="#060609"/>
-    </linearGradient>
-    <radialGradient id="hMoon" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fbeccb" stop-opacity=".9"/><stop offset=".35" stop-color="#e8cf98" stop-opacity=".28"/><stop offset="1" stop-color="#e8cf98" stop-opacity="0"/></radialGradient>
-    <radialGradient id="hGlow" cx=".5" cy="1" r=".6"><stop offset="0" stop-color="#f0b56e" stop-opacity=".55"/><stop offset="1" stop-color="#f0b56e" stop-opacity="0"/></radialGradient>
-    <pattern id="hWin" width="7" height="9" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="3" height="4" fill="#f1c47a" opacity=".75"/></pattern>
-    <pattern id="hWin2" width="9" height="7" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="5" height="2" fill="#f6dba6" opacity=".45"/></pattern>
-    <pattern id="hWinS" width="6" height="8" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="2" height="3" fill="#e9b766" opacity=".55"/></pattern>
-    <linearGradient id="hRefl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2c27a" stop-opacity=".7"/><stop offset="1" stop-color="#f2c27a" stop-opacity="0"/></linearGradient>
-  </defs>
-  <rect width="500" height="460" fill="url(#hSky)"/>
-  <ellipse cx="250" cy="462" rx="330" ry="120" fill="url(#hGlow)"/>
-  <!-- deco sunburst -->
-  <g stroke="#f0d6a0" stroke-width=".7" opacity=".13" fill="none">
-    <path d="M250 455 L250 120 M250 455 L170 128 M250 455 L330 128 M250 455 L95 150 M250 455 L405 150 M250 455 L30 190 M250 455 L470 190 M250 455 L-20 250 M250 455 L520 250"/>
-    <path d="M110 455 A140 140 0 0 1 390 455"/><path d="M40 455 A210 210 0 0 1 460 455"/><path d="M-30 455 A280 280 0 0 1 530 455"/>
-  </g>
-  <!-- stars -->
-  <g fill="#f3e6c4">
-    <circle class="tw" cx="60" cy="60" r="1"/><circle class="tw" cx="150" cy="110" r=".8" style="animation-delay:1.2s"/><circle class="tw" cx="230" cy="40" r="1.1" style="animation-delay:2.1s"/><circle class="tw" cx="440" cy="60" r=".9" style="animation-delay:.6s"/><circle class="tw" cx="300" cy="200" r=".7" style="animation-delay:2.8s"/><circle class="tw" cx="40" cy="190" r=".8" style="animation-delay:1.7s"/>
-  </g>
-  <!-- moon -->
-  <circle cx="368" cy="128" r="96" fill="url(#hMoon)"/>
-  <circle cx="368" cy="128" r="21" fill="#f8ebcb"/>
-  <circle cx="361" cy="122" r="4" fill="#eadbb5" opacity=".6"/><circle cx="374" cy="135" r="2.6" fill="#eadbb5" opacity=".5"/>
-  <!-- far skyline -->
-  <g fill="#2a2638" opacity=".95">
-    <rect x="0" y="372" width="44" height="88"/><rect x="40" y="350" width="30" height="110"/><rect x="128" y="360" width="40" height="100"/><rect x="262" y="330" width="34" height="130"/><rect x="292" y="352" width="26" height="108"/><rect x="430" y="344" width="40" height="116"/><rect x="466" y="368" width="34" height="92"/>
-  </g>
-  <g opacity=".7"><rect x="40" y="356" width="30" height="100" fill="url(#hWinS)"/><rect x="262" y="336" width="34" height="120" fill="url(#hWinS)"/><rect x="430" y="350" width="40" height="106" fill="url(#hWinS)"/></g>
-  <!-- deco setback tower -->
-  <g fill="#14141f">
-    <rect x="178" y="300" width="70" height="160"/><rect x="186" y="272" width="54" height="30"/><rect x="196" y="250" width="34" height="24"/><rect x="205" y="232" width="16" height="20"/>
-    <path d="M213 232 L213 196" stroke="#14141f" stroke-width="2"/>
-  </g>
-  <g stroke="#e8c78a" stroke-width=".8" fill="none" opacity=".85">
-    <path d="M186 272 H240 M196 250 H230 M205 232 H221"/><path d="M213 196 V232"/>
-  </g>
-  <circle cx="213" cy="196" r="1.8" fill="#ffd28a"/>
-  <rect x="182" y="306" width="62" height="150" fill="url(#hWin)"/>
-  <rect x="190" y="278" width="46" height="20" fill="url(#hWin)" opacity=".8"/>
-  <!-- glass tower with crown -->
-  <g fill="#101019"><rect x="318" y="262" width="56" height="198"/><path d="M318 262 L346 236 L374 262 Z"/></g>
-  <g stroke="#f0cf95" stroke-width=".6" opacity=".55"><path d="M325 270 V456 M333 270 V456 M341 270 V456 M349 270 V456 M357 270 V456 M365 270 V456"/></g>
-  <path d="M322 262 L346 240 L370 262" stroke="#f3d8a2" stroke-width="1" fill="none" opacity=".9"/>
-  <!-- right block -->
-  <g fill="#14131c"><rect x="384" y="318" width="60" height="142"/><rect x="440" y="380" width="60" height="80"/></g>
-  <rect x="388" y="324" width="52" height="130" fill="url(#hWin2)"/>
-  <rect x="444" y="386" width="52" height="70" fill="url(#hWin)" opacity=".7"/>
-  <!-- public hall with dome -->
-  <g fill="#1b1720">
-    <rect x="26" y="404" width="128" height="56"/>
-    <path d="M60 404 Q60 360 90 352 Q120 360 120 404 Z"/>
-    <rect x="86" y="338" width="8" height="16"/><path d="M84 338 L90 330 L96 338 Z"/>
-    <rect x="22" y="398" width="136" height="8"/>
-  </g>
-  <g fill="#f0bd72" opacity=".8">
-    <path d="M36 450 V428 a5 5 0 0 1 10 0 V450 Z"/><path d="M56 450 V428 a5 5 0 0 1 10 0 V450 Z"/><path d="M76 450 V428 a5 5 0 0 1 10 0 V450 Z"/><path d="M94 450 V428 a5 5 0 0 1 10 0 V450 Z"/><path d="M114 450 V428 a5 5 0 0 1 10 0 V450 Z"/><path d="M134 450 V428 a5 5 0 0 1 10 0 V450 Z"/>
-  </g>
-  <path d="M60 404 Q60 360 90 352 Q120 360 120 404" fill="none" stroke="#c9a067" stroke-width=".8" opacity=".7"/>
-  <!-- mid block -->
-  <g fill="#12121b"><rect x="248" y="372" width="72" height="88"/><rect x="152" y="390" width="30" height="70"/></g>
-  <rect x="252" y="378" width="64" height="76" fill="url(#hWin2)" opacity=".9"/>
-  <!-- embankment & lamps -->
-  <rect x="0" y="452" width="500" height="10" fill="#0c0b10"/>
-  <line x1="0" y1="452" x2="500" y2="452" stroke="#c9a067" stroke-width=".6" opacity=".6"/>
-  <g fill="#ffd796">
-    <circle cx="20" cy="446" r="1.8"/><circle cx="70" cy="446" r="1.8"/><circle cx="120" cy="446" r="1.8"/><circle cx="170" cy="446" r="1.8"/><circle cx="220" cy="446" r="1.8"/><circle cx="270" cy="446" r="1.8"/><circle cx="320" cy="446" r="1.8"/><circle cx="370" cy="446" r="1.8"/><circle cx="420" cy="446" r="1.8"/><circle cx="470" cy="446" r="1.8"/>
-  </g>
-  <g stroke="#0c0b10" stroke-width="1"><path d="M20 446 V452 M70 446 V452 M120 446 V452 M170 446 V452 M220 446 V452 M270 446 V452 M320 446 V452 M370 446 V452 M420 446 V452 M470 446 V452"/></g>
-  <!-- water -->
-  <rect y="462" width="500" height="198" fill="url(#hWater)"/>
-  <!-- reflections -->
-  <g>
-    <rect x="182" y="466" width="62" height="70" fill="url(#hRefl)" opacity=".22"/>
-    <rect x="318" y="466" width="56" height="90" fill="url(#hRefl)" opacity=".16"/>
-    <rect x="36" y="466" width="110" height="40" fill="url(#hRefl)" opacity=".2"/>
-  </g>
-  <g fill="#f2c27a">
-    <rect class="refl" x="18" y="470" width="5" height="1.5"/><rect class="refl" x="68" y="474" width="5" height="1.5" style="animation-delay:.4s"/><rect class="refl" x="118" y="470" width="5" height="1.5" style="animation-delay:.8s"/><rect class="refl" x="168" y="476" width="5" height="1.5" style="animation-delay:1.2s"/><rect class="refl" x="218" y="471" width="5" height="1.5" style="animation-delay:.2s"/><rect class="refl" x="268" y="475" width="5" height="1.5" style="animation-delay:1.6s"/><rect class="refl" x="318" y="470" width="5" height="1.5" style="animation-delay:.6s"/><rect class="refl" x="368" y="474" width="5" height="1.5" style="animation-delay:1.9s"/><rect class="refl" x="418" y="471" width="5" height="1.5" style="animation-delay:1s"/><rect class="refl" x="468" y="476" width="5" height="1.5" style="animation-delay:1.4s"/>
-    <rect class="refl" x="196" y="492" width="34" height="1.2" style="animation-delay:.3s"/><rect class="refl" x="204" y="510" width="20" height="1.2" style="animation-delay:1.1s"/><rect class="refl" x="330" y="498" width="30" height="1.2" style="animation-delay:.7s"/><rect class="refl" x="338" y="520" width="16" height="1.2" style="animation-delay:1.8s"/>
-    <rect class="refl" x="60" y="490" width="60" height="1.2" style="animation-delay:.9s"/>
-  </g>
-  <g fill="#fbeccb">
-    <rect class="refl" x="350" y="484" width="36" height="1.6"/><rect class="refl" x="356" y="502" width="24" height="1.4" style="animation-delay:.5s"/><rect class="refl" x="346" y="522" width="44" height="1.4" style="animation-delay:1s"/><rect class="refl" x="358" y="546" width="20" height="1.2" style="animation-delay:1.5s"/><rect class="refl" x="352" y="574" width="32" height="1.2" style="animation-delay:2s"/><rect class="refl" x="362" y="604" width="12" height="1" style="animation-delay:2.4s"/>
-  </g>
-  <!-- boat : STARCRAFT (open limousine boat, black hull, cognac leather) -->
-  <g class="boat2">
-    <g transform="translate(0,552)">
-      <path d="M-24 22 C-80 26 -140 30 -210 34" stroke="#e8c78a" stroke-width=".7" opacity=".35" fill="none"/>
-      <path d="M-20 28 C-70 34 -120 38 -170 44" stroke="#e8c78a" stroke-width=".6" opacity=".2" fill="none"/>
-      <!-- outboard -->
-      <path d="M-14 -6 Q-20 -6 -20 2 L-18 14 L-10 14 L-8 26 L-4 26 L-4 4 Q-4 -6 -10 -6 Z" fill="#3a3a42" stroke="#9a9aa4" stroke-width=".5"/>
-      <!-- seats (cognac leather) -->
-      <path d="M8 -1 Q8 -9 16 -9 L58 -9 Q64 -9 64 -3 L64 2 L8 2 Z" fill="#8c4424"/>
-      <path d="M10 -7 L60 -7" stroke="#c46c3e" stroke-width="1" opacity=".8"/>
-      <path d="M104 -1 Q104 -8 112 -8 L146 -8 Q152 -8 152 -2 L152 2 L104 2 Z" fill="#8c4424"/>
-      <path d="M106 -6 L148 -6" stroke="#c46c3e" stroke-width="1" opacity=".8"/>
-      <!-- console + windscreen -->
-      <path d="M72 2 L72 -12 Q72 -16 78 -16 L92 -16 L98 2 Z" fill="#0c0b10" stroke="#d9b779" stroke-width=".6"/>
-      <path d="M90 -16 L96 -24 L99 -24" stroke="#cfd6dd" stroke-width=".9" fill="none" opacity=".8"/>
-      <!-- chrome rails -->
-      <path d="M6 -12 H62 M104 -11 H150" stroke="#e4e6ea" stroke-width=".8" opacity=".75"/>
-      <path d="M8 -12 V-1 M60 -12 V-1 M106 -11 V-1 M148 -11 V-1" stroke="#e4e6ea" stroke-width=".6" opacity=".6"/>
-      <!-- hull -->
-      <path d="M-4 2 L170 2 Q186 3 198 12 Q186 24 160 26 L22 26 Q4 26 0 18 Z" fill="#050508" stroke="#d9b779" stroke-width=".9"/>
-      <path d="M2 10 L190 10" stroke="#cfd6dd" stroke-width=".6" opacity=".55"/>
-      <path d="M6 21 Q90 23 170 21" stroke="#d9b779" stroke-width=".5" opacity=".5" fill="none"/>
-      <!-- courtesy lights -->
-      <g fill="#ffe2a8"><circle cx="20" cy="15" r="1"/><circle cx="44" cy="15" r="1"/><circle cx="68" cy="15" r="1"/><circle cx="92" cy="15" r="1"/><circle cx="116" cy="15" r="1"/><circle cx="140" cy="15" r="1"/><circle cx="164" cy="15" r="1"/></g>
-      <circle cx="194" cy="8" r="1.6" fill="#fff"/>
-      <g fill="#ffe2a8" opacity=".25"><rect x="20" y="30" width="140" height="1.4"/><rect x="40" y="40" width="90" height="1.2"/><rect x="60" y="50" width="40" height="1"/></g>
-    </g>
-  </g>
-  <!-- ripples -->
-  <g stroke="#c9a067" stroke-width=".6" fill="none" opacity=".18">
-    <path d="M30 600 q20 -4 40 0 t40 0"/><path d="M200 630 q20 -4 40 0 t40 0 t40 0"/><path d="M380 640 q16 -3 32 0 t32 0"/>
-  </g>
-</svg>
-      </div>
-      <div class="cap">NAKANOSHIMA · OSAKA</div>
-      <div class="base"></div>
     </div>
   </div>
 </section>
@@ -638,18 +753,7 @@ html[lang=en] .formula .eq{font-size:22px}
 <!-- VESSEL -->
 <section class="vessel" id="vessel">
   <div class="vgrid">
-    <div class="vmain"><img src="img/starcraft.jpg" alt="STARCRAFT" loading="lazy"></div>
-    <div class="vcopy reveal">
-      <div class="eyebrow">The Vessel</div>
-      <h2 class="h2" data-ih="v_h">STARCRAFT<small>スタークラフト</small></h2>
-      <div class="deco"><i></i><b></b><i></i></div>
-      <p class="lead" data-i="v_p"></p>
-      <div class="vspecs">
-        <div><b>8</b><span data-i="f_cap">Guests max</span></div>
-        <div><b data-i="v_open">Open</b><span data-i="v_deck">Deck</span></div>
-        <div><b data-i="v_leather">Leather</b><span data-i="v_seat">Seating</span></div>
-      </div>
-      <div class="vthumbs"><svg viewBox="0 0 300 380" class="vplan" aria-label="Deck plan">
+    <div class="vmain"><div class="vthumbs"><svg viewBox="0 0 300 380" class="vplan" aria-label="Deck plan">
   <rect width="300" height="380" fill="#1c1a17"/>
   <rect x="8" y="8" width="284" height="364" fill="none" stroke="#cfb27f" stroke-opacity=".35"/>
   <text x="150" y="34" text-anchor="middle" fill="#cfb27f" font-family="Jost" font-size="8.5" letter-spacing="3" data-svg="v_plan">DECK PLAN</text>
@@ -705,7 +809,18 @@ html[lang=en] .formula .eq{font-size:22px}
     <circle cx="20" cy="15" r="1" fill="#fff"/><circle cx="32" cy="12" r="1.2" fill="#fff"/>
   </g>
   <rect x="8" y="8" width="284" height="364" fill="none" stroke="#cfb27f" stroke-opacity=".35"/>
-</svg></div>
+</svg></div></div>
+    <div class="vcopy reveal">
+      <div class="eyebrow">The Vessel</div>
+      <h2 class="h2" data-ih="v_h">STARCRAFT<small>スタークラフト</small></h2>
+      <div class="deco"><i></i><b></b><i></i></div>
+      <p class="lead" data-i="v_p"></p>
+      <div class="vspecs">
+        <div><b>8</b><span data-i="f_cap">Guests max</span></div>
+        <div><b data-i="v_open">Open</b><span data-i="v_deck">Deck</span></div>
+        <div><b data-i="v_leather">Leather</b><span data-i="v_seat">Seating</span></div>
+      </div>
+      
     </div>
   </div>
 </section>
@@ -1112,7 +1227,7 @@ const T = {
   v_h:["STARCRAFT<small>スタークラフト</small>","STARCRAFT"],
   v_p:["漆黒に輝く艇体に、コニャック色のレザーソファ。屋根のないオープンデッキで、川風と大阪の街並みを間近にお楽しみいただけます。ご一行だけの、水上のリムジンです。","A gleaming black hull and cognac leather lounges. On the open deck, the river breeze and the city skyline feel close enough to touch — a private limousine on the water, for your party alone."],
   v_open:["オープン","Open"], v_deck:["デッキ","Deck"], v_leather:["レザー","Leather"], v_seat:["ソファシート","Lounge seating"],
-  nav_plans:["クルーズ","Cruises"], nav_piers:["乗船場所","Piers"], nav_status:["運航状況","Status"], nav_book:["ご予約","Reserve"],
+  nav_plans:["クルーズ","Cruises"], nav_vessel:["船について","The Vessel"], nav_opts:["オプション","Options"], sb_1:["宿泊ゲスト専用 プライベートクルーズ","Private cruises for hotel guests"], sb_2:["1艇貸切・最大8名様","One boat · up to 8 guests"], sb_3:["60分 ¥45,000〜","60 min from ¥45,000"], sb_btn:["クルーズを予約","Reserve a Cruise"], nav_piers:["乗船場所","Piers"], nav_status:["運航状況","Status"], nav_book:["ご予約","Reserve"],
   hero_eye:["ウォルドーフ・アストリア大阪 ご宿泊のお客様専用","Exclusively for guests of Waldorf Astoria Osaka"],
   hero_jp:["水都大阪を、貸切の一艇で。","The water city of Osaka, aboard your own private boat."],
   cta_book:["ご予約はこちら","Reserve a Cruise"], cta_plans:["プランを見る","View Cruises"],
