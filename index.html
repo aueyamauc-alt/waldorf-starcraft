@@ -514,7 +514,7 @@ html[lang=en] .hero .lead{font-size:18.5px}
 .hero-facts{max-width:none;border-top:1px solid var(--line);margin-top:42px}
 .hero-facts b{font-family:"Jost",sans-serif;font-weight:300;font-size:28px}
 .hero-facts span{font-family:"Jost",sans-serif;font-size:10px;letter-spacing:.18em;color:var(--mute)}
-@media(max-width:960px){.hero{padding:116px 0 0}.hphoto{height:auto;min-height:0;aspect-ratio:4/3}.hphoto img{object-position:82% 60%}.hrow{grid-template-columns:1fr;gap:26px;padding-top:44px;padding-bottom:64px}}
+@media(max-width:960px){.hero{padding:116px 0 0}.hphoto{height:auto;min-height:0;aspect-ratio:4/3}.hrow{grid-template-columns:1fr;gap:26px;padding-top:44px;padding-bottom:64px}}
 
 /* status strip */
 .status{background:var(--paper);border-color:var(--line)}
@@ -667,6 +667,20 @@ footer p{margin-top:26px;font-family:var(--mincho);letter-spacing:.06em}
 footer nav{font-family:"Noto Serif JP",serif;text-transform:none;letter-spacing:.06em;font-size:13px}
 footer nav a{border-bottom:1px solid #5f8f86;padding-bottom:2px}
 .preview{background:#121212;color:#fff}
+
+/* hero slideshow (hotel-style carousel) */
+.hphoto .sl{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity 1.4s ease}
+.hphoto .sl.on{opacity:1}
+.hcap{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 28px;border-bottom:1px solid var(--line);background:#fff}
+.hcap .ct b{display:none;font-family:var(--mincho);font-weight:400;font-size:17px;letter-spacing:.06em}
+.hcap .ct span{display:none;font-size:14px;color:var(--body)}
+.hcap .ct .on{display:block}
+html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
+.hcap .cn{display:flex;align-items:center;gap:10px;flex:none}
+.hcap .cn span{font-family:"Jost",sans-serif;font-size:14px;margin-right:6px}
+.hcap .cn button{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-size:24px;line-height:1;display:grid;place-items:center;padding-bottom:3px}
+.hcap .cn button:hover{background:var(--navy2)}
+@media(max-width:960px){.hcap{padding:14px 18px}.hcap .ct b{font-size:15px}.hcap .ct span{font-size:12.5px}.hcap .cn button{width:38px;height:38px}}
 </style>
 </head>
 <body>
@@ -701,7 +715,22 @@ footer nav a{border-bottom:1px solid #5f8f86;padding-bottom:2px}
 <main id="top">
 <!-- HERO -->
 <section class="hero">
-  <div class="hphoto"><img src="img/hero.jpg" alt="STARCRAFT" fetchpriority="high"></div>
+  <div class="hphoto" id="hslides">
+    <img class="sl on" src="img/cruise-1.jpg" alt="" fetchpriority="high">
+    <img class="sl" src="img/cruise-2.jpg" alt="" loading="lazy">
+    <img class="sl" src="img/cruise-3.jpg" alt="" loading="lazy">
+  </div>
+  <div class="hcap">
+    <div class="ct">
+      <b data-i="hs1_t" class="cap-t on">水面から見上げる、夜の大阪</b>
+      <b data-i="hs2_t" class="cap-t">水辺を彩る、噴水のライトアップ</b>
+      <b data-i="hs3_t" class="cap-t">歴史ある石橋と、きらめくビル群</b>
+      <span data-i="hs1_p" class="cap-p on">高架の灯りと月を眺めながら、川面をすべるように進みます。</span>
+      <span data-i="hs2_p" class="cap-p">色とりどりの光が、水面いっぱいに映り込みます。</span>
+      <span data-i="hs3_p" class="cap-p">船の上からしか見られない角度で、街の夜景をお楽しみください。</span>
+    </div>
+    <div class="cn"><span id="hsNo">1 / 3</span><button id="hsPrev" aria-label="previous">&#8249;</button><button id="hsNext" aria-label="next">&#8250;</button></div>
+  </div>
   <div class="wrap hrow">
     <div class="hl">
       <div class="eyebrow reveal" data-i="hero_eye">Exclusively for guests of Waldorf Astoria Osaka</div>
@@ -1227,7 +1256,7 @@ const T = {
   v_h:["STARCRAFT<small>スタークラフト</small>","STARCRAFT"],
   v_p:["漆黒に輝く艇体に、コニャック色のレザーソファ。屋根のないオープンデッキで、川風と大阪の街並みを間近にお楽しみいただけます。ご一行だけの、水上のリムジンです。","A gleaming black hull and cognac leather lounges. On the open deck, the river breeze and the city skyline feel close enough to touch — a private limousine on the water, for your party alone."],
   v_open:["オープン","Open"], v_deck:["デッキ","Deck"], v_leather:["レザー","Leather"], v_seat:["ソファシート","Lounge seating"],
-  nav_plans:["クルーズ","Cruises"], nav_vessel:["船について","The Vessel"], nav_opts:["オプション","Options"], sb_1:["宿泊ゲスト専用 プライベートクルーズ","Private cruises for hotel guests"], sb_2:["1艇貸切・最大8名様","One boat · up to 8 guests"], sb_3:["60分 ¥45,000〜","60 min from ¥45,000"], sb_btn:["クルーズを予約","Reserve a Cruise"], nav_piers:["乗船場所","Piers"], nav_status:["運航状況","Status"], nav_book:["ご予約","Reserve"],
+  nav_plans:["クルーズ","Cruises"], nav_vessel:["船について","The Vessel"], hs1_t:["水面から見上げる、夜の大阪","Osaka by night, from the water"], hs1_p:["高架の灯りと月を眺めながら、川面をすべるように進みます。","Glide along the river beneath the moon and the lights of the city."], hs2_t:["水辺を彩る、噴水のライトアップ","Fountains of light along the river"], hs2_p:["色とりどりの光が、水面いっぱいに映り込みます。","Colours of every hue shimmer across the water."], hs3_t:["歴史ある石橋と、きらめくビル群","Historic stone bridges and glittering towers"], hs3_p:["船の上からしか見られない角度で、街の夜景をお楽しみください。","See the city's night skyline from an angle only the river can offer."], nav_opts:["オプション","Options"], sb_1:["宿泊ゲスト専用 プライベートクルーズ","Private cruises for hotel guests"], sb_2:["1艇貸切・最大8名様","One boat · up to 8 guests"], sb_3:["60分 ¥45,000〜","60 min from ¥45,000"], sb_btn:["クルーズを予約","Reserve a Cruise"], nav_piers:["乗船場所","Piers"], nav_status:["運航状況","Status"], nav_book:["ご予約","Reserve"],
   hero_eye:["ウォルドーフ・アストリア大阪 ご宿泊のお客様専用","Exclusively for guests of Waldorf Astoria Osaka"],
   hero_jp:["水都大阪を、貸切の一艇で。","The water city of Osaka, aboard your own private boat."],
   cta_book:["ご予約はこちら","Reserve a Cruise"], cta_plans:["プランを見る","View Cruises"],
@@ -1614,6 +1643,12 @@ const App = (() => {
   };
 })();
 App.init();
+</script>
+<script>
+(()=>{const sl=[...document.querySelectorAll('#hslides .sl')],ts=[...document.querySelectorAll('.hcap .cap-t')],ps=[...document.querySelectorAll('.hcap .cap-p')],no=document.getElementById('hsNo');let i=0,t;
+const go=n=>{i=(n+sl.length)%sl.length;[sl,ts,ps].forEach(a=>a.forEach((e,k)=>e.classList.toggle('on',k===i)));no.textContent=(i+1)+' / '+sl.length};
+const auto=()=>{clearInterval(t);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)t=setInterval(()=>go(i+1),6500)};
+document.getElementById('hsPrev').onclick=()=>{go(i-1);auto()};document.getElementById('hsNext').onclick=()=>{go(i+1);auto()};auto();})();
 </script>
 </body>
 </html>
