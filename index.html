@@ -1337,7 +1337,7 @@ const CONFIG = {
     { id:"p90", min:90, price:50000, feature:true, name:{ja:"プライベートクルーズ 90分", en:"Private Cruise — 90 min"},
       sub:{ja:"貸切・最大8名", en:"Private charter · up to 8"},
       pts:{ja:["中之島を一周し、大阪城付近まで","オプションのお食事・ワインに最適","乗船場所へ戻る周遊ルート"], en:["Around Nakanoshima and up to Osaka Castle","Ideal with wine or unagi options","Round trip returning to your pier"]}},
-    { id:"dtb90", min:90, price:50000, special:true, name:{ja:"道頓堀クルーズ 90分", en:"Dotonbori Cruise — 90 min"},
+    { id:"dtb90", min:90, lastDepart:"20:00", price:50000, special:true, name:{ja:"道頓堀クルーズ 90分", en:"Dotonbori Cruise — 90 min"},
       sub:{ja:"特別プラン・最大8名", en:"Signature plan · up to 8"},
       pts:{ja:["大阪を代表する道頓堀を船上から","ネオンきらめく街並みを間近に","乗船・下船場所は別途ご案内"], en:["Osaka's iconic Dotonbori from the water","Neon-lit streets up close","Boarding point announced separately"]}}
   ],
@@ -1461,7 +1461,7 @@ const T = {
   vd_ok:["運航可","Available"], vd_ck:["要確認","Check"], vd_ng:["運航不可","Not possible"], vd_past:["終了","Passed"],
   wx_na:["予報なし","No forecast yet"], wx_wind:["風","Wind"], wx_rain:["雨","Rain"],
   today:["今日","Today"], wpoint:["大阪（気象庁 潮位表の予測値）","Osaka (JMA tide prediction)"],
-  slot_note:["{m}分コースは最終下船22:00に合わせ、最終出航は{last}です（大きい数字が出航、小さい数字が下船予定）","For the {m}-min cruise, the last departure is {last} so you are back by 22:00 (departure, with return time below)"],
+  slot_note:["このコース（{m}分）の最終出航は{last}、下船予定は{end}です（大きい数字が出航、小さい数字が下船予定）","Last departure for this {m}-min cruise is {last}, returning at {end} (departure, with return time below)"],
   slot_note0:["出航は10:00から。22:00までに船着場へ戻る時間でご案内します（プランにより最終出航が変わります）","Departures from 10:00. All cruises return to the pier by 22:00 (last departure depends on the plan)"],
   slot_ng:["潮位が高く、橋の下を通れない時間帯です","Tide too high to pass under bridges at this time"],
   why_tide:["潮位が高く橋の余裕が不足","Tide too high for bridge clearance"], why_tideck:["橋の余裕が少なめ","Bridge margin is tight"],
@@ -1751,7 +1751,8 @@ const App = (() => {
   const mm = n => `${String(Math.floor(n/60)).padStart(2,"0")}:${String(n%60).padStart(2,"0")}`;
   function bookSlots(){
     const p = planOf(), dur = p ? p.min : 60, H = CONFIG.hours, out = [];
-    for (let m = hm(H.firstDepart); m + dur <= hm(H.lastReturn); m += H.step) out.push({s:mm(m), end:mm(m+dur)});
+    const lastStart = Math.min(hm(H.lastReturn) - dur, p && p.lastDepart ? hm(p.lastDepart) : 1e9);
+    for (let m = hm(H.firstDepart); m <= lastStart; m += H.step) out.push({s:mm(m), end:mm(m+dur)});
     return out;
   }
   function renderSlots(){
@@ -1759,7 +1760,7 @@ const App = (() => {
     if (S.time && !list.some(x=>x.s===S.time)) S.time = null;
     if (S.date && S.time && OPS.tide){ const b=bridgeCheck(S.date,hm(S.time)); if(b&&b.st==="FAIL") S.time=null; }
     const p = planOf();
-    $("slotNote").textContent = p ? t("slot_note").replace("{m}", p.min).replace("{last}", list.length?list[list.length-1].s:"—") : t("slot_note0");
+    $("slotNote").textContent = p ? t("slot_note").replace("{m}", p.min).replace("{last}", list.length?list[list.length-1].s:"—").replace("{end}", list.length?list[list.length-1].end:"—") : t("slot_note0");
     $("slots").innerHTML = list.map(({s,end})=>{
       const b = (S.date && OPS.tide) ? bridgeCheck(S.date, hm(s)) : null, ng = b && b.st==="FAIL";
       const inner = `${s}<small>〜${end}</small>`;
