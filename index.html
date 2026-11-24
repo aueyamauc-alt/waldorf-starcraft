@@ -1315,15 +1315,35 @@ const CONFIG = {
     // 汽船315号：STARCRAFT MARINE AURORA 2015（改造）／長さ5.58m・幅2.58m・深さ1.23m・1.9t／ヤマハ船外機150PS（船舶検査手帳より）
     // 検査書類にエアドラフト（水面から最も高い所まで）の記載なし → 幌を上げた状態などを実測して airDraft に入れる
     vessel: { airDraft: 1.60, minMargin: 0.30 },   // ★要実測：airDraft(m)。minMargin＝必要マージン(m)
-    tideToBridgeDatum: 0.00,     // ★要確認：潮位表基準面 → 橋の桁下高の基準面(O.P.)への換算値(m)
-    // ★要確認：桁下高はアドバイザー（HANDOVER_JA）の仮データ。offset＝出航から橋を通過するまでの分
+    tideToBridgeDatum: 0.49,     // 潮位表基準面(大阪 T.P.−0.807m) → O.P.(T.P.−1.300m) への換算：O.P.潮位＝表の潮位＋0.49m
+    // 桁下高＝提供資料「大阪市内河川 橋梁桁下高・水位一覧」の航路幅10m考慮値（O.P.）。offset＝90分コースで出航から通過するまでの分（地図ルートの距離から按分）
     bridges: [
-      { ja:"水晶橋",       en:"Suisho Bridge",          clear:3.95, offset:25 },
-      { ja:"難波橋",       en:"Naniwa Bridge",          clear:4.10, offset:33 },
-      { ja:"天満橋",       en:"Tenma Bridge",           clear:4.30, offset:40 },
-      { ja:"天満橋（復路）", en:"Tenma Bridge (return)",  clear:4.30, offset:52 },
-      { ja:"難波橋（復路）", en:"Naniwa Bridge (return)", clear:4.10, offset:60 },
-      { ja:"淀屋橋",       en:"Yodoya Bridge",          clear:4.25, offset:66 }
+      { ja:"大江橋", en:"Oe Bridge", clear:3.30, offset:1 },
+      { ja:"水晶橋", en:"Suisho Bridge", clear:3.20, offset:4 },
+      { ja:"鉾流橋", en:"Hokonagare Bridge", clear:4.40, offset:6 },
+      { ja:"難波橋（北側）", en:"Naniwa Bridge (north)", clear:4.82, offset:9 },
+      { ja:"天神橋（北側）", en:"Tenjin Bridge (north)", clear:7.25, offset:13 },
+      { ja:"天満橋", en:"Tenma Bridge", clear:5.82, offset:17 },
+      { ja:"天満橋（復路）", en:"Tenma Bridge (return)", clear:5.82, offset:33 },
+      { ja:"天神橋（南側）", en:"Tenjin Bridge (south)", clear:7.26, offset:36 },
+      { ja:"難波橋（南側）", en:"Naniwa Bridge (south)", clear:4.86, offset:40 },
+      { ja:"栴檀木橋", en:"Sendanoki Bridge", clear:4.50, offset:45 },
+      { ja:"淀屋橋", en:"Yodoya Bridge", clear:3.24, offset:48 },
+      { ja:"錦橋", en:"Nishiki Bridge", clear:2.90, offset:51 },
+      { ja:"肥後橋", en:"Higo Bridge", clear:4.35, offset:53 },
+      { ja:"筑前橋", en:"Chikuzen Bridge", clear:4.90, offset:56 },
+      { ja:"常安橋", en:"Joan Bridge", clear:5.50, offset:59 },
+      { ja:"越中橋", en:"Etchu Bridge", clear:6.25, offset:61 },
+      { ja:"土佐堀橋", en:"Tosabori Bridge", clear:3.59, offset:64 },
+      { ja:"湊橋", en:"Minato Bridge", clear:4.66, offset:66 },
+      { ja:"端建蔵橋", en:"Hatakezo Bridge", clear:4.68, offset:67 },
+      { ja:"船津橋", en:"Funatsu Bridge", clear:4.83, offset:68 },
+      { ja:"上船津橋", en:"Kami-Funatsu Bridge", clear:4.70, offset:70 },
+      { ja:"堂島大橋", en:"Dojima-ohashi Bridge", clear:3.52, offset:73 },
+      { ja:"玉江橋", en:"Tamae Bridge", clear:5.14, offset:78 },
+      { ja:"田蓑橋", en:"Tamino Bridge", clear:5.11, offset:81 },
+      { ja:"渡辺橋", en:"Watanabe Bridge", clear:4.49, offset:85 },
+      { ja:"中之島ガーデンブリッジ", en:"Nakanoshima Garden Bridge", clear:5.68, offset:88 }
     ],
     wind: { caution: 7, stop: 10, gustStop: 15 },   // 風速 m/s
     rain: { caution: 3, stop: 10 },                 // 1時間降水量 mm
@@ -1416,7 +1436,7 @@ const T = {
   svg_m_p1:["堂島浜船着場","Dojimahama Pier"], svg_m_p2:["中央卸売市場前港","Central Market Pier"], svg_m_note:["ルートは目安です","ROUTE IS APPROXIMATE"], svg_m_course:["90分コース","90 MINUTES"], svg_m_fukushima:["福島","FUKUSHIMA"], svg_m_tenma:["天満","TENMA"], svg_m_kitahama:["北浜","KITAHAMA"], svg_m_higo:["肥後橋","HIGOBASHI"],
   svg_m_b_oe:["大江橋","Oe"], svg_m_b_yodoya:["淀屋橋","Yodoya"], svg_m_b_naniwa:["難波橋","Naniwa"], svg_m_b_tenjin:["天神橋","Tenjin"], svg_m_b_tenma:["天満橋","Tenma"],
   svg_m_museum:["中之島美術館","Museum of Art"], svg_m_hall:["中央公会堂","Public Hall"], svg_m_park:["中之島公園","Nakanoshima Park"], svg_m_walk:["徒歩・お車","On foot / by car"],
-  svg_m_lg_route:["クルーズルート（矢印は進行方向）","Cruise route (arrows show direction)"], svg_m_lg_pier:["船着場","Pier"], svg_m_lg_bridge:["主な橋","Bridge"], svg_m_okawa:["大川","OKAWA RIVER"], svg_m_neya:["寝屋川","NEYA RIVER"], svg_m_castle:["大阪城","Osaka Castle"], svg_m_turn:["折り返し地点","Turning point"], svg_m_turn2:["大阪城付近・出航から約45分","NEAR OSAKA CASTLE · ~45 MIN"],
+  svg_m_lg_route:["クルーズルート（矢印は進行方向）","Cruise route (arrows show direction)"], svg_m_lg_pier:["船着場","Pier"], svg_m_lg_bridge:["主な橋","Bridge"], svg_m_okawa:["大川","OKAWA RIVER"], svg_m_neya:["寝屋川","NEYA RIVER"], svg_m_castle:["大阪城","Osaka Castle"], svg_m_turn:["折り返し地点","Turning point"], svg_m_turn2:["大阪城付近","NEAR OSAKA CASTLE"],
   svg_v_plan:["デッキプラン","DECK PLAN"], svg_v_bow:["船首ソファ","BOW"], svg_v_helm:["操縦席","HELM"], svg_v_side:["サイド","SIDE"], svg_v_stern:["船尾ソファ","STERN"], svg_v_illu:["イメージ図","ILLUSTRATIVE"],
   svg_datum:["基準面","Datum"], svg_bridge:["橋（いちばん低い部分）","Bridge (lowest point)"], svg_clear:["桁下高","Clearance"], svg_tide:["潮位","Tide"], svg_air:["船の高さ","Air draft"], svg_margin:["マージン（残りの余裕）","Margin (space left)"],
   rule:["ご乗船希望日の<b>4日前まで</b>オンライン予約を承っております。<b>3日前から当日</b>のご予約をご希望の場合は、ホテルスタッフまでお問い合わせください。","Online reservations are available up to <b>4 days before</b> your cruise. For cruises <b>within 3 days</b> (including today), please contact the hotel staff."],
