@@ -6,6 +6,7 @@
 <meta name="google" content="notranslate">
 <meta name="robots" content="noindex,nofollow">
 <title>Private River Cruise | Waldorf Astoria Osaka × STARCRAFT</title>
+<script src="backend.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -1243,6 +1244,7 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
             <label class="f full"><span><b data-i="fm">ご要望・記念日など</b></span><textarea name="note"></textarea></label>
           </div>
           <label class="agree"><input type="checkbox" id="agree"><span data-ih="agree">運航状況（河川水位・天候）により欠航となる場合があることを了承します。</span></label>
+          <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <p class="err hidden" id="formErr"></p>
         </div>
       </form>
@@ -1313,7 +1315,7 @@ const CONFIG = {
   // 予約の出航時間：最初の出航〜最終下船の間で、プランの所要時間から自動で作る
   hours: { firstDepart: "10:00", lastReturn: "22:00", step: 30 }, // step＝出航時間の間隔（分）
   timeSlots: ["10:00","11:30","13:00","14:30","16:00","17:30","19:00","20:30"], // 運航状況の「出航時間ごとの判定」表で使う代表時刻
-  submitEndpoint: null,          // 予約データ送信先（Supabase等）。nullの間はデモ動作
+  // 予約データの送信先は backend.js（Supabase）。未設定の間はデモ動作（送信しない）
 
   // 運航状況：green=通常運航 / yellow=確認中 / red=欠航
   status: {
@@ -1512,6 +1514,7 @@ const T = {
   today:["今日","Today"], wpoint:["大阪（気象庁 潮位表の予測値）","Osaka (JMA tide prediction)"],
   slot_note:["このコース（{m}分）の最終出航は{last}、下船予定は{end}です（大きい数字が出航、小さい数字が下船予定）","Last departure for this {m}-min cruise is {last}, returning at {end} (departure, with return time below)"],
   slot_note0:["出航は10:00から。22:00までに船着場へ戻る時間でご案内します（プランにより最終出航が変わります）","Departures from 10:00. All cruises return to the pier by 22:00 (last departure depends on the plan)"],
+  slot_taken:["ご予約済みの時間帯です","Already booked"], err_taken:["申し訳ございません。この時間帯は先にご予約が入りました。別の時間をお選びください。","Sorry, this time has just been booked. Please choose another time."], err_date:["オンラインでのご予約期間外です。ホテルスタッフまでお問い合わせください。","This date is outside the online booking period. Please contact the hotel staff."],
   slot_ng:["潮位が高く、橋の下を通れない時間帯です","Tide too high to pass under bridges at this time"],
   why_tide:["潮位が高く橋の余裕が不足","Tide too high for bridge clearance"], why_tideck:["橋の余裕が少なめ","Bridge margin is tight"],
   why_wind:["強風","Strong wind"], why_windck:["風がやや強い","Breezy"], why_rain:["大雨","Heavy rain"], why_rainck:["雨","Rain"],
@@ -1789,15 +1792,29 @@ const App = (() => {
     for (let m = hm(H.firstDepart); m <= lastStart; m += H.step) out.push({s:mm(m), end:mm(m+dur)});
     return out;
   }
+  const BUSY = {};   // "YYYY-MM" → [{date,busy_from,busy_to}]
+  async function loadBusy(key, force){
+    const B = window.WA_BACKEND; if (!B || !key) return;
+    const ym = key.slice(0,7); if (BUSY[ym] && !force) return;
+    const [y,m] = ym.split("-").map(Number), last = new Date(y, m, 0).getDate();
+    try{
+      const r = await fetch(B.url + "/rest/v1/rpc/wa_busy", { method:"POST", headers:{ apikey:B.key, Authorization:"Bearer " + B.key, "Content-Type":"application/json" }, body:JSON.stringify({ p_from: ym + "-01", p_to: ym + "-" + String(last).padStart(2,"0") }) });
+      if (r.ok){ BUSY[ym] = await r.json(); renderSlots(); }
+    }catch(_){}
+  }
+  const isBusy = (key, s, dur) => (BUSY[key.slice(0,7)]||[]).some(b => b.date===key && hm(b.busy_from.slice(0,5)) < hm(s)+dur && hm(b.busy_to.slice(0,5)) > hm(s));
   function renderSlots(){
     const list = bookSlots();
     if (S.time && !list.some(x=>x.s===S.time)) S.time = null;
     if (S.date && S.time && OPS.tide){ const b=bridgeCheck(S.date,hm(S.time)); if(b&&b.st==="FAIL") S.time=null; }
     const p = planOf();
     $("slotNote").textContent = p ? t("slot_note").replace("{m}", p.min).replace("{last}", list.length?list[list.length-1].s:"—").replace("{end}", list.length?list[list.length-1].end:"—") : t("slot_note0");
+    const dur = p ? p.min : 60;
+    if (S.time && S.date && isBusy(S.date, S.time, dur)) S.time = null;
     $("slots").innerHTML = list.map(({s,end})=>{
       const b = (S.date && OPS.tide) ? bridgeCheck(S.date, hm(s)) : null, ng = b && b.st==="FAIL";
       const inner = `${s}<small>〜${end}</small>`;
+      if (S.date && isBusy(S.date, s, dur)) return `<button type="button" class="slot ng" disabled title="${t("slot_taken")}">${inner}</button>`;
       return ng ? `<button type="button" class="slot ng" disabled title="${t("slot_ng")}">${inner}</button>`
                 : `<button type="button" class="slot ${S.time===s?'on':''}" onclick="App.pickTime('${s}')">${inner}</button>`;
     }).join("");
@@ -1861,24 +1878,41 @@ const App = (() => {
     // 送信直前に締切を再チェック（日付をまたいだ場合など）
     if (dayState(new Date(S.date+"T00:00"))!=="ok"){ S.date=null; S.time=null; renderCal(); renderSummary(); $("staffMsg").classList.remove("hidden"); return; }
     const f = $("bk"), v = n => f.querySelector(`[name=${n}]`).value.trim();
-    const d = new Date(), ref = `WA-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
+    const p = planOf(), tt = totals();
+    let sum = p.price||0; S.opts.forEach(id=>{ const o=CONFIG.options.find(x=>x.id===id); if(o.menu) sum+=menuSum(o); else if(o.price!=null) sum+=o.price; });
+    const isReq = S.pier==="other" && S.plan!=="dtb90";
     const payload = {
-      ref, created_at:d.toISOString(), lang: L?"en":"ja",
-      type: (S.pier==="other" && S.plan!=="dtb90") ? "pier_request" : "reservation",
-      plan:S.plan, pier:S.plan==="dtb90"?null:S.pier, req_from:v("reqFrom"), req_to:v("reqTo"),
-      date:S.date, time:S.time, guests:S.guests, options:[...S.opts], unagi_items: S.opts.has("unagi") ? menuLines(CONFIG.options.find(o=>o.id==="unagi")).map(x=>({id:x.id, name:x.name.ja, qty:x.qty, price:x.price})) : [],
-      price_plan: planOf().price, name:v("name"), room:v("room"), email:v("email"), tel:v("tel"),
+      hp: v("hp"), lang: L?"en":"ja",
+      type: isReq ? "pier_request" : "reservation",
+      plan:S.plan, plan_name:p.name.ja, minutes:p.min,
+      pier:S.plan==="dtb90"?"dtb":S.pier, pier_name:S.plan==="dtb90"?T.dtb_pier_lbl[0]:(isReq?"その他の船着場（リクエスト）":(CONFIG.piers.find(x=>x.id===S.pier)||{name:{ja:""}}).name.ja),
+      req_from:v("reqFrom"), req_to:v("reqTo"),
+      date:S.date, time:S.time, guests:S.guests, options:[...S.opts],
+      unagi_items: S.opts.has("unagi") ? menuLines(CONFIG.options.find(o=>o.id==="unagi")).map(x=>({id:x.id, name:x.name.ja, qty:x.qty, price:x.price})) : [],
+      price_plan:p.price, price_total:sum, price_note: tt.unknown ? "＋料金未定のオプション" : "",
+      name:v("name"), room:v("room"), email:v("email"), tel:v("tel"),
       checkin:v("checkin"), checkout:v("checkout"), note:v("note")
     };
     $("submitBtn").disabled = true;
+    let ref;
+    const fail = msg => { $("formErr").textContent = msg; $("formErr").classList.remove("hidden"); $("formErr").scrollIntoView({behavior:"smooth",block:"center"}); $("submitBtn").disabled=false; };
     try {
-      if (CONFIG.submitEndpoint){
-        const r = await fetch(CONFIG.submitEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      const B = window.WA_BACKEND;
+      if (B){
+        const r = await fetch(B.url + "/rest/v1/rpc/wa_create_booking", { method:"POST", headers:{ apikey:B.key, Authorization:"Bearer " + B.key, "Content-Type":"application/json" }, body:JSON.stringify({ p: payload }) });
         if (!r.ok) throw new Error(r.status);
+        const res = await r.json();
+        if (!res.ok){
+          if (res.error==="taken"){ await loadBusy(S.date, true); S.time=null; renderSlots(); renderSummary(); return fail(t("err_taken")); }
+          if (res.error==="date") return fail(t("err_date"));
+          throw new Error(res.error);
+        }
+        ref = res.ref; loadBusy(S.date, true);
       } else {
-        try { const a = JSON.parse(localStorage.getItem("wa_requests")||"[]"); a.push(payload); localStorage.setItem("wa_requests", JSON.stringify(a)); } catch(_){}
+        const d = new Date(); ref = `WA-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}-DEMO`;
+        try { const a = JSON.parse(localStorage.getItem("wa_requests")||"[]"); a.push({...payload, ref}); localStorage.setItem("wa_requests", JSON.stringify(a)); } catch(_){}
       }
-    } catch(err){ $("formErr").textContent = L?"Could not send. Please try again or contact the hotel staff.":"送信できませんでした。時間をおいて再度お試しいただくか、ホテルスタッフまでお問い合わせください。"; $("formErr").classList.remove("hidden"); $("submitBtn").disabled=false; return; }
+    } catch(err){ return fail(L?"Could not send. Please try again or contact the hotel staff.":"送信できませんでした。時間をおいて再度お試しいただくか、ホテルスタッフまでお問い合わせください。"); }
     $("dRef").textContent = `${t("ref")}  ${ref}`;
     $("dList").innerHTML = [["k_plan",loc(planOf().name)],["k_date",fmtDate(S.date)+" "+S.time],["k_pier",pierLabel()],["k_guests",`${S.guests} ${t("guests_u")}`],["k_total",totals().txt]]
       .map(([k,val])=>`<div><dt>${t(k)}</dt><dd>${val}</dd></div>`).join("");
@@ -1920,7 +1954,7 @@ const App = (() => {
     pickPier(id){ S.pier=id; renderChoices(); renderSummary(); },
     pickDate(key, st){
       if (st==="staff"){ S.date=null; S.time=null; $("staffMsg").classList.remove("hidden"); $("slotWrap").classList.add("hidden"); }
-      else { S.date=key; $("staffMsg").classList.add("hidden"); $("slotWrap").classList.remove("hidden"); renderSlots(); }
+      else { S.date=key; $("staffMsg").classList.add("hidden"); $("slotWrap").classList.remove("hidden"); renderSlots(); loadBusy(key); }
       renderCal(); renderSummary();
     },
     pickTime(s){ S.time=s; renderSlots(); renderSummary(); },

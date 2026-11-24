@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>予約管理 | Waldorf Astoria Osaka × StarCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16181d;--navy:#032165;--navy2:#0b3a9c;--paper:#f7f6f4;--line:#e3e0da;--mute:#6f6a62;--gold:#a8854f;
+  --new:#b5651d;--new-bg:#fbf0e4;--ok:#1f6b45;--ok-bg:#e6f3ec;--done:#3d4f7a;--done-bg:#e9edf6;--cx:#8a8580;--cx-bg:#efedea;--warn:#b3261e}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:14px;line-height:1.6}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+a{color:var(--navy)}
+.hidden,[hidden]{display:none!important}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.top .in{max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:20px}
+.logo{display:flex;flex-direction:column;line-height:1.1}
+.logo b{font-family:Jost,sans-serif;font-weight:500;letter-spacing:.18em;font-size:15px}
+.logo small{font-family:Jost,sans-serif;letter-spacing:.24em;font-size:9.5px;color:var(--mute);margin-top:4px}
+.tabs{display:flex;gap:4px;margin-left:12px}
+.tabs button{padding:8px 14px;border-bottom:2px solid transparent;color:var(--mute);font-weight:500}
+.tabs button.on{color:var(--ink);border-color:var(--navy)}
+.me{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--mute)}
+.me .org{font-size:11px;border:1px solid var(--line);padding:2px 8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--line);background:#fff;font-size:13px;white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn.pri{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.pri:hover{background:var(--navy2)}
+.btn:disabled{opacity:.45;cursor:default}
+.demo{background:#fff6dd;border-bottom:1px solid #ecd9a0;color:#6b5210;font-size:12.5px;text-align:center;padding:7px 16px}
+
+main{max-width:1280px;margin:0 auto;padding:24px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.stat{border:1px solid var(--line);padding:14px 16px;background:#fff;text-align:left}
+.stat small{display:block;font-size:11.5px;color:var(--mute)}
+.stat b{font-family:Jost,sans-serif;font-size:28px;font-weight:400}
+.stat.alert b{color:var(--new)}
+button.stat:hover{border-color:var(--ink)}
+
+/* filters */
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12.5px;background:#fff}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip i{font-style:normal;opacity:.7;margin-left:4px}
+.bar select,.bar input{border:1px solid var(--line);padding:7px 10px;background:#fff}
+.bar input[type=search]{min-width:220px}
+.bar .sp{flex:1}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;background:#fff}
+.tbl th{font-size:11px;font-weight:500;color:var(--mute);text-align:left;padding:9px 10px;border-bottom:1px solid var(--ink);white-space:nowrap}
+.tbl td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr.row{cursor:pointer}
+.tbl tr.row:hover td{background:#fafaf8}
+.tbl tr.cx td{color:var(--cx)}
+.tbl .when b{display:block;font-family:Jost,sans-serif;font-size:15px;font-weight:500}
+.tbl .when small{color:var(--mute)}
+.tbl small{display:block;color:var(--mute);font-size:11.5px}
+.tbl .num{text-align:right;font-family:Jost,sans-serif;white-space:nowrap}
+.st{display:inline-block;font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:2px;white-space:nowrap}
+.st.new{color:var(--new);background:var(--new-bg)}.st.confirmed{color:var(--ok);background:var(--ok-bg)}
+.st.done{color:var(--done);background:var(--done-bg)}.st.cancelled{color:var(--cx);background:var(--cx-bg)}
+.tag{display:inline-block;font-size:10.5px;border:1px solid var(--line);padding:0 6px;margin:2px 4px 0 0;color:var(--mute)}
+.tag.req{border-color:#e7c79a;color:var(--new)}
+.empty{padding:60px 20px;text-align:center;color:var(--mute);border:1px dashed var(--line)}
+.dayhd td{background:var(--paper);font-weight:500;font-size:12.5px;padding:8px 10px}
+
+/* calendar */
+.cal-h{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.cal-h h2{font-family:Jost,sans-serif;font-weight:400;font-size:22px;min-width:140px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.cal .wd{font-size:11px;color:var(--mute);padding:6px 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
+.cal .d{min-height:110px;padding:6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.cal .d.out{background:#fbfaf8;color:#c3beb6}
+.cal .d.today{box-shadow:inset 0 0 0 2px var(--navy)}
+.cal .d .n{font-family:Jost,sans-serif;font-size:12px;margin-bottom:4px}
+.cal .ev{display:block;width:100%;text-align:left;font-size:11.5px;padding:3px 6px;margin-bottom:3px;border-left:3px solid;background:var(--paper);line-height:1.35;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cal .ev.new{border-color:var(--new)}.cal .ev.confirmed{border-color:var(--ok)}.cal .ev.done{border-color:var(--done)}.cal .ev.cancelled{border-color:var(--cx);color:var(--cx);text-decoration:line-through}
+
+/* unagi */
+.ug{border:1px solid var(--line);margin-bottom:14px;background:#fff}
+.ug h3{font-size:14px;font-weight:500;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper);display:flex;justify-content:space-between;gap:10px}
+.ug h3 small{font-weight:400;color:var(--mute)}
+.ug .sum{padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px 18px;border-bottom:1px solid var(--line)}
+.ug .sum span b{font-family:Jost,sans-serif;font-size:16px;margin-left:4px}
+.ug ul{list-style:none;padding:8px 16px 12px}
+.ug li{padding:6px 0;border-bottom:1px dotted var(--line);font-size:13px;display:flex;gap:12px;flex-wrap:wrap}
+.ug li:last-child{border:0}
+.ug li a{cursor:pointer;text-decoration:underline}
+.note{font-size:12px;color:var(--mute);margin:-4px 0 16px}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(20,20,20,.35);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:#fff;z-index:41;overflow:auto;box-shadow:-20px 0 50px rgba(0,0,0,.12);display:flex;flex-direction:column}
+.dr-h{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:12px;position:sticky;top:0;background:#fff;z-index:1}
+.dr-h h2{font-size:18px;font-weight:500}
+.dr-h small{display:block;color:var(--mute);font-family:Jost,sans-serif;letter-spacing:.06em}
+.dr-h .x{margin-left:auto;font-size:22px;line-height:1;padding:4px 8px}
+.dr-b{padding:18px 24px 30px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 20px}
+.acts .btn.on,.acts .btn.on:disabled{background:var(--ink);color:#fff;border-color:var(--ink);opacity:1}
+dl.kv{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--line)}
+dl.kv dt,dl.kv dd{padding:9px 0;border-bottom:1px solid var(--line)}
+dl.kv dt{font-size:12px;color:var(--mute)}
+dl.kv dd{word-break:break-word}
+.sec{font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--mute);margin:22px 0 8px}
+textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10px;resize:vertical}
+.memo-f{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px;color:var(--mute)}
+.log{list-style:none;font-size:12.5px}
+.log li{padding:7px 0;border-bottom:1px dotted var(--line);display:grid;grid-template-columns:130px 1fr;gap:10px}
+.log li span{color:var(--mute)}
+
+/* login */
+.login{min-height:100vh;display:grid;place-items:center;background:var(--paper);padding:24px}
+.login form{width:min(380px,100%);background:#fff;border:1px solid var(--line);padding:34px 30px}
+.login .logo{align-items:center;margin-bottom:24px}
+.login h1{font-size:16px;font-weight:500;text-align:center;margin-bottom:20px}
+.login label{display:block;font-size:12px;color:var(--mute);margin-bottom:12px}
+.login input{display:block;width:100%;border:1px solid var(--line);padding:10px 12px;margin-top:4px;color:var(--ink)}
+.login .btn{width:100%;justify-content:center;padding:11px;margin-top:6px}
+.login .msg{font-size:12.5px;color:var(--warn);margin-bottom:12px}
+.login .lk{display:block;text-align:center;margin-top:14px;font-size:12px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;font-size:13px;z-index:60}
+.toast.err{background:var(--warn)}
+
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .top .in{flex-wrap:wrap;padding:10px 16px}
+  .tabs{order:3;width:100%;margin:0;overflow-x:auto}
+  main{padding:16px}
+  .tbl thead{display:none}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr.row{border:1px solid var(--line);margin-bottom:10px;padding:10px 12px}
+  .tbl td{border:0;padding:3px 0}
+  .tbl .num{text-align:left}
+  .tbl td.hide-sm{display:none}
+  .dayhd{display:block}
+  .cal .d{min-height:70px;padding:3px}
+  .cal .ev{font-size:10px;padding:2px 3px}
+  .bar input[type=search]{min-width:0;flex:1}
+  dl.kv{grid-template-columns:96px 1fr}
+}
+@media print{.top,.bar,.tabs,.drawer,.scrim,.demo{display:none!important}}
+</style>
+<script src="backend.js"></script>
+</head>
+<body>
+
+<!-- ログイン -->
+<div class="login" id="vLogin" hidden>
+  <form id="fLogin" autocomplete="on">
+    <div class="logo"><b>WALDORF ASTORIA</b><small>OSAKA × STARCRAFT</small></div>
+    <h1>予約管理 ログイン</h1>
+    <p class="msg" id="lMsg" hidden></p>
+    <label>メールアドレス<input id="lMail" type="email" autocomplete="username" required></label>
+    <label>パスワード<input id="lPass" type="password" autocomplete="current-password" required></label>
+    <button class="btn pri" id="lBtn">ログイン</button>
+    <a href="#" class="lk" id="lForgot">パスワードを忘れた／初めて設定する</a>
+  </form>
+  <form id="fPass" hidden>
+    <div class="logo"><b>WALDORF ASTORIA</b><small>OSAKA × STARCRAFT</small></div>
+    <h1>パスワードの設定</h1>
+    <p style="font-size:12.5px;color:var(--mute);text-align:center;margin:-10px 0 16px" id="pWho"></p>
+    <p class="msg" id="pMsg" hidden></p>
+    <label>新しいパスワード（8文字以上）<input id="pNew" type="password" autocomplete="new-password" required></label>
+    <label>もう一度<input id="pNew2" type="password" autocomplete="new-password" required></label>
+    <button class="btn pri" id="pBtn">設定してログイン</button>
+  </form>
+</div>
+
+<!-- 本体 -->
+<div id="vApp" hidden>
+  <div class="demo" id="demoBar" hidden>デモ表示です（サンプルデータ）。保存先の設定（backend.js）をすると、実際の予約が表示されます。</div>
+  <header class="top"><div class="in">
+    <div class="logo"><b>WALDORF ASTORIA</b><small>OSAKA × STARCRAFT ／ 予約管理</small></div>
+    <nav class="tabs" role="tablist">
+      <button data-v="list" class="on">予約一覧</button>
+      <button data-v="cal">カレンダー</button>
+      <button data-v="unagi">鰻の発注</button>
+    </nav>
+    <div class="me"><span id="who"></span><span class="org" id="org"></span><button class="btn" id="bOut">ログアウト</button></div>
+  </div></header>
+
+  <main>
+    <div class="stats">
+      <button class="stat alert" data-quick="new"><small>未対応（新規）</small><b id="nNew">0</b></button>
+      <button class="stat" data-quick="today"><small>本日の乗船</small><b id="nToday">0</b></button>
+      <button class="stat" data-quick="week"><small>今後7日間の便</small><b id="nWeek">0</b></button>
+      <button class="stat" data-quick="upcoming"><small>今後の予約（キャンセル除く）</small><b id="nAll">0</b></button>
+    </div>
+
+    <!-- 一覧 -->
+    <section id="vList">
+      <div class="bar">
+        <div class="chips" id="fStatus"></div>
+        <select id="fRange" aria-label="期間">
+          <option value="upcoming">今日以降</option>
+          <option value="today">本日</option>
+          <option value="week">今後7日間</option>
+          <option value="past">過去</option>
+          <option value="all">すべて</option>
+        </select>
+        <input type="search" id="fQ" placeholder="名前・部屋番号・予約番号・メールで検索">
+        <span class="sp"></span>
+        <span id="upd" style="font-size:12px;color:var(--mute)"></span>
+        <button class="btn" id="bReload">更新</button>
+        <button class="btn" id="bCsv">CSV出力</button>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>乗船日時</th><th>状態</th><th>お客様</th><th>プラン・人数</th><th>船着場</th><th>オプション</th><th class="num">合計</th><th>受付</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>該当する予約はありません</div>
+    </section>
+
+    <!-- カレンダー -->
+    <section id="vCal" hidden>
+      <div class="cal-h">
+        <button class="btn" id="cPrev" aria-label="前の月">‹</button>
+        <h2 id="cTitle"></h2>
+        <button class="btn" id="cNext" aria-label="次の月">›</button>
+        <button class="btn" id="cToday">今月</button>
+      </div>
+      <div class="cal" id="cal"></div>
+    </section>
+
+    <!-- 鰻 -->
+    <section id="vUnagi" hidden>
+      <p class="note">今日以降・キャンセル以外の予約から、柴藤への発注数を日別にまとめています。品目をクリックすると、その予約を開きます。</p>
+      <div id="ugList"></div>
+    </section>
+  </main>
+</div>
+
+<!-- 詳細 -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="予約の詳細">
+  <div class="dr-h"><div><small id="dRef"></small><h2 id="dTitle"></h2></div><button class="x" id="dClose" aria-label="閉じる">×</button></div>
+  <div class="dr-b">
+    <div class="sec">状態を変更</div>
+    <div class="acts" id="dActs"></div>
+    <dl class="kv" id="dKv"></dl>
+    <div class="sec">スタッフメモ（ホテル・弊社で共有）</div>
+    <textarea class="memo" id="dMemo" placeholder="例：柴藤に発注済み／お誕生日のケーキ持込みあり"></textarea>
+    <div class="memo-f"><span id="dMemoInfo"></span><button class="btn pri" id="dMemoSave">メモを保存</button></div>
+    <div class="sec">変更履歴</div>
+    <ul class="log" id="dLog"></ul>
+  </div>
+</aside>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var CFG = window.WA_BACKEND || null, DEMO = !CFG;
+var $ = function(id){ return document.getElementById(id); };
+var ST = { new:"新規", confirmed:"確定", done:"乗船済み", cancelled:"キャンセル" };
+var ORG = { hotel:"ホテル", company:"スタークラフト" };
+var OPT = { wine:"ワイン", unagi:"柴藤の鰻" };
+var S = { rows:[], view:"list", status:"active", range:"upcoming", q:"", calY:0, calM:0, open:null, me:null };
+
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function pad(n){ return String(n).padStart(2,"0"); }
+function ymd(d){ return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()); }
+function today(){ return ymd(new Date()); }
+function addDays(k, n){ var p = k.split("-").map(Number), d = new Date(p[0], p[1]-1, p[2]); d.setDate(d.getDate()+n); return ymd(d); }
+var WD = ["日","月","火","水","木","金","土"];
+function fdate(k){ var p = k.split("-").map(Number), d = new Date(p[0], p[1]-1, p[2]); return p[1] + "/" + p[2] + "（" + WD[d.getDay()] + "）"; }
+function hm(t){ return String(t || "").slice(0,5); }
+function yen(n){ return n == null ? "—" : "¥" + Number(n).toLocaleString("ja-JP"); }
+function dt(iso){ var d = new Date(iso); return (d.getMonth()+1) + "/" + d.getDate() + " " + pad(d.getHours()) + ":" + pad(d.getMinutes()); }
+function toast(m, bad){ var t = $("toast"); t.textContent = m; t.className = "toast" + (bad ? " err" : ""); t.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(function(){ t.hidden = true; }, bad ? 5000 : 2200); }
+
+/* ── 認証（Supabase Auth。ログインはこのタブの中だけ有効） ── */
+var sess = null;
+try{ sess = JSON.parse(sessionStorage.getItem("wa-staff") || "null"); }catch(e){}
+function saveSess(d){
+  sess = d ? { at:d.access_token, rt:d.refresh_token, exp:Date.now() + (d.expires_in || 3600) * 1000 } : null;
+  try{ sess ? sessionStorage.setItem("wa-staff", JSON.stringify(sess)) : sessionStorage.removeItem("wa-staff"); }catch(e){}
+}
+function auth(path, body){
+  return fetch(CFG.url + "/auth/v1/" + path, { method:"POST", headers:{ apikey:CFG.key, "Content-Type":"application/json" }, body:JSON.stringify(body) })
+    .then(function(r){ return r.json().then(function(d){ if(!r.ok) throw new Error(d.error_description || d.msg || d.message || "ログインできませんでした"); return d; }); });
+}
+function fresh(){
+  if(!sess) return Promise.reject(new Error("auth"));
+  if(sess.exp - Date.now() > 60000) return Promise.resolve();
+  return auth("token?grant_type=refresh_token", { refresh_token:sess.rt }).then(saveSess).catch(function(){ saveSess(null); throw new Error("auth"); });
+}
+function api(path, opt){
+  opt = opt || {};
+  return fresh().then(function(){
+    var h = { apikey:CFG.key, Authorization:"Bearer " + sess.at, "Content-Type":"application/json" };
+    if(opt.prefer) h.Prefer = opt.prefer;
+    return fetch(CFG.url + "/rest/v1/" + path, { method:opt.method || "GET", headers:h, body:opt.body ? JSON.stringify(opt.body) : undefined });
+  }).then(function(r){
+    return r.text().then(function(t){
+      var d = t ? JSON.parse(t) : null;
+      if(r.status === 401){ saveSess(null); throw new Error("auth"); }
+      if(!r.ok) throw new Error((d && d.message) || ("HTTP " + r.status));
+      return d;
+    });
+  }).catch(function(e){ if(e.message === "auth") showLogin("ログインの有効期限が切れました。もう一度ログインしてください。"); throw e; });
+}
+function showLogin(msg){
+  $("vApp").hidden = true; $("vLogin").hidden = false; closeDrawer();
+  $("fLogin").hidden = false; $("fPass").hidden = true;
+  $("lMsg").hidden = !msg; $("lMsg").textContent = msg || "";
+  $("lMail").focus();
+}
+function checkStaff(){
+  return api("rpc/wa_me", { method:"POST", body:{} }).then(function(me){
+    if(!me){ saveSess(null); throw new Error("このアカウントには予約管理の権限がありません。管理者に登録を依頼してください。"); }
+    S.me = me; return me;
+  });
+}
+$("fLogin").addEventListener("submit", function(e){
+  e.preventDefault();
+  var b = $("lBtn"); b.disabled = true; $("lMsg").hidden = true;
+  auth("token?grant_type=password", { email:$("lMail").value.trim(), password:$("lPass").value })
+    .then(function(d){ saveSess(d); $("lPass").value = ""; return checkStaff(); })
+    .then(start)
+    .catch(function(err){ if(err.message !== "auth") showLogin(/Invalid login/i.test(err.message) ? "メールアドレスまたはパスワードが違います。" : err.message); })
+    .then(function(){ b.disabled = false; });
+});
+$("lForgot").addEventListener("click", function(e){
+  e.preventDefault();
+  var m = $("lMail").value.trim();
+  if(!m){ $("lMsg").textContent = "メールアドレスを入力してから押してください。"; $("lMsg").hidden = false; $("lMail").focus(); return; }
+  auth("recover?redirect_to=" + encodeURIComponent(location.origin + location.pathname), { email:m }).catch(function(){}).then(function(){
+    $("lMsg").textContent = "登録済みのアドレスであれば、パスワード設定用のメールを送りました。メールのリンクから設定してください。"; $("lMsg").hidden = false;
+  });
+});
+// 招待・再設定メールのリンク（#access_token=…&type=invite|recovery）
+function handleInvite(){
+  var h = new URLSearchParams(location.hash.slice(1));
+  if(!(h.get("access_token") && /invite|recovery|signup|magiclink/.test(h.get("type") || ""))) return false;
+  var tmp = { access_token:h.get("access_token"), refresh_token:h.get("refresh_token"), expires_in:+h.get("expires_in") || 3600 };
+  history.replaceState(null, "", location.pathname);
+  $("vLogin").hidden = false; $("fLogin").hidden = true; $("fPass").hidden = false;
+  fetch(CFG.url + "/auth/v1/user", { headers:{ apikey:CFG.key, Authorization:"Bearer " + tmp.access_token } }).then(function(r){ return r.json(); })
+    .then(function(u){ $("pWho").textContent = u.email || ""; }).catch(function(){});
+  $("fPass").addEventListener("submit", function(e){
+    e.preventDefault();
+    var a = $("pNew").value, b = $("pNew2").value, msg = $("pMsg"); msg.hidden = true;
+    if(a.length < 8){ msg.textContent = "8文字以上で入力してください。"; msg.hidden = false; return; }
+    if(a !== b){ msg.textContent = "2回の入力が一致しません。"; msg.hidden = false; return; }
+    $("pBtn").disabled = true;
+    fetch(CFG.url + "/auth/v1/user", { method:"PUT", headers:{ apikey:CFG.key, Authorization:"Bearer " + tmp.access_token, "Content-Type":"application/json" }, body:JSON.stringify({ password:a }) })
+      .then(function(r){ return r.json().then(function(d){ if(!r.ok) throw new Error(d.msg || d.message || "設定できませんでした"); return d; }); })
+      .then(function(){ saveSess(tmp); $("pNew").value = $("pNew2").value = ""; return checkStaff(); })
+      .then(start)
+      .catch(function(err){ msg.textContent = /expired|invalid/i.test(err.message) ? "リンクの有効期限が切れています。ログイン画面の「パスワードを忘れた」からもう一度送ってください。" : err.message; msg.hidden = false; })
+      .then(function(){ $("pBtn").disabled = false; });
+  });
+  return true;
+}
+$("bOut").addEventListener("click", function(){
+  if(DEMO){ toast("デモ表示ではログアウトはありません"); return; }
+  if(sess) fetch(CFG.url + "/auth/v1/logout", { method:"POST", headers:{ apikey:CFG.key, Authorization:"Bearer " + sess.at } }).catch(function(){});
+  saveSess(null); showLogin();
+});
+
+/* ── デモデータ ── */
+function demoRows(){
+  var t = today(), now = new Date().toISOString();
+  function r(ref, dd, time, min, plan, pname, pier, g, st, name, room, opts, items, total, note, memo){
+    var p = time.split(":").map(Number), e = p[0]*60 + p[1] + min;
+    return { ref:ref, created_at:new Date(Date.now() - (Math.random()*9+1)*864e5).toISOString(), type:pier === "other" ? "pier_request" : "reservation",
+      plan:plan, plan_name:pname, minutes:min, date:addDays(t, dd), time:time + ":00", end_time:pad(Math.floor(e/60)) + ":" + pad(e%60) + ":00",
+      pier:pier, pier_name:{ dojimahama:"堂島浜船着場", ichiba:"中央卸売市場前港", other:"その他の船着場（リクエスト）" }[pier] || "道頓堀",
+      req_from:pier === "other" ? "八軒家浜船着場" : "", req_to:pier === "other" ? "堂島浜船着場" : "", guests:g, options:opts, unagi_items:items,
+      price_plan:null, price_total:total, price_note:opts.indexOf("wine") >= 0 ? "＋オプション" : "", name:name, room:room, email:"guest" + ref.slice(-2).toLowerCase() + "@example.com",
+      tel:"090-0000-00" + ref.slice(-2).replace(/\D/g, "0"), checkin:addDays(t, dd - 1), checkout:addDays(t, dd + 1), note:note, lang:/[A-Za-z]/.test(name) ? "en" : "ja",
+      status:st, memo:memo || "", updated_at:now, updated_by:"guest" };
+  }
+  return [
+    r("WA-DEMO-0A11", 0, "17:30", 90, "p90", "プライベートクルーズ 90分", "dojimahama", 4, "confirmed", "山本 真理", "3801", ["unagi"], [{ id:"sakura", name:"大阪まむし 桜", qty:4, price:7450 }], 79800, "結婚記念日です", "柴藤に発注済み（17:00受取）"),
+    r("WA-DEMO-0B22", 0, "20:00", 60, "p60", "プライベートクルーズ 60分", "dojimahama", 2, "new", "Emily Carter", "4210", [], [], 45000, "", ""),
+    r("WA-DEMO-0C33", 1, "13:00", 90, "dtb90", "道頓堀クルーズ 90分", "dtb", 6, "confirmed", "李 美玲", "2905", ["wine"], [], 50000, "子ども2名", ""),
+    r("WA-DEMO-0D44", 3, "11:00", 60, "p60", "プライベートクルーズ 60分", "ichiba", 3, "new", "佐藤 健", "", ["unagi"], [{ id:"kiku", name:"大阪まむし 菊", qty:2, price:4920 }, { id:"uzakuS", name:"うざく 小", qty:1, price:1840 }], 56680, "", ""),
+    r("WA-DEMO-0E55", 5, "16:00", 90, "p90", "プライベートクルーズ 90分", "other", 8, "new", "Michael Brown", "5102", [], [], 50000, "Pick-up near Hachikenya if possible", ""),
+    r("WA-DEMO-0F66", 6, "19:00", 90, "p90", "プライベートクルーズ 90分", "dojimahama", 2, "cancelled", "田中 花子", "3307", [], [], 50000, "", "お客様都合でキャンセル（電話）"),
+    r("WA-DEMO-0G77", 9, "14:30", 90, "p90", "プライベートクルーズ 90分", "dojimahama", 5, "confirmed", "高橋 一郎", "4408", ["unagi", "wine"], [{ id:"ran", name:"大阪まむし 蘭", qty:2, price:8870 }, { id:"mini", name:"ミニまむし", qty:2, price:2890 }, { id:"yawata3", name:"八幡巻 3巻", qty:1, price:3030 }], 76550, "", ""),
+    r("WA-DEMO-0H88", -2, "18:00", 60, "p60", "プライベートクルーズ 60分", "dojimahama", 2, "done", "Sophie Martin", "3609", [], [], 45000, "", "")
+  ];
+}
+
+/* ── データ ── */
+function load(quiet){
+  if(DEMO){ if(!S.rows.length) S.rows = demoRows(); render(); return Promise.resolve(); }
+  return api("wa_bookings?select=*&order=date.asc,time.asc").then(function(rows){
+    S.rows = rows || [];
+    $("upd").textContent = "最終更新 " + dt(new Date().toISOString());
+    render();
+    if(S.open) fillDrawer();
+  }).catch(function(e){ if(e.message !== "auth" && !quiet) toast("読み込めませんでした：" + e.message, true); });
+}
+function patch(ref, body){
+  if(DEMO){
+    var r = find(ref), who = S.me.email;
+    if(body.status && body.status !== r.status) (r._log = r._log || []).push({ at:new Date().toISOString(), who:who, action:"status", detail:r.status + " → " + body.status });
+    if(body.memo != null && body.memo !== r.memo) (r._log = r._log || []).push({ at:new Date().toISOString(), who:who, action:"memo", detail:body.memo });
+    Object.assign(r, body, { updated_at:new Date().toISOString(), updated_by:who });
+    return Promise.resolve(r);
+  }
+  return api("wa_bookings?ref=eq." + encodeURIComponent(ref), { method:"PATCH", body:body, prefer:"return=representation" }).then(function(d){
+    var i = S.rows.findIndex(function(x){ return x.ref === ref; }); if(i >= 0 && d && d[0]) S.rows[i] = d[0];
+    return d && d[0];
+  });
+}
+function loadLog(ref){
+  if(DEMO){ var r = find(ref); return Promise.resolve([{ at:r.created_at, who:"guest", action:"created", detail:"" }].concat(r._log || [])); }
+  return api("wa_log?ref=eq." + encodeURIComponent(ref) + "&order=at.asc");
+}
+function find(ref){ return S.rows.find(function(x){ return x.ref === ref; }); }
+
+/* ── 絞り込み ── */
+function inRange(r, range){
+  var t = today();
+  if(range === "today") return r.date === t;
+  if(range === "week") return r.date >= t && r.date <= addDays(t, 6);
+  if(range === "upcoming") return r.date >= t;
+  if(range === "past") return r.date < t;
+  return true;
+}
+function filtered(){
+  var q = S.q.trim().toLowerCase();
+  return S.rows.filter(function(r){
+    if(S.status === "active" ? r.status === "cancelled" : (S.status !== "all" && r.status !== S.status)) return false;
+    if(!inRange(r, S.range)) return false;
+    if(q && [r.name, r.room, r.ref, r.email, r.tel, r.note, r.memo].join(" ").toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  }).sort(function(a, b){ var k = (a.date + a.time).localeCompare(b.date + b.time); return S.range === "past" ? -k : k; });
+}
+
+/* ── 表示 ── */
+function optHtml(r){
+  var h = (r.options || []).map(function(o){ return '<span class="tag">' + esc(OPT[o] || o) + "</span>"; }).join("");
+  if(r.type === "pier_request") h = '<span class="tag req">船着場リクエスト</span>' + h;
+  return h || '<span style="color:var(--mute)">—</span>';
+}
+function render(){
+  var t = today(), act = S.rows.filter(function(r){ return r.status !== "cancelled"; });
+  $("nNew").textContent = S.rows.filter(function(r){ return r.status === "new" && r.date >= t; }).length;
+  $("nToday").textContent = act.filter(function(r){ return r.date === t; }).length;
+  $("nWeek").textContent = act.filter(function(r){ return inRange(r, "week"); }).length;
+  $("nAll").textContent = act.filter(function(r){ return r.date >= t; }).length;
+
+  var counts = { active:0, all:0, new:0, confirmed:0, done:0, cancelled:0 };
+  S.rows.filter(function(r){ return inRange(r, S.range); }).forEach(function(r){ counts.all++; counts[r.status]++; if(r.status !== "cancelled") counts.active++; });
+  $("fStatus").innerHTML = [["active","有効"],["new","新規"],["confirmed","確定"],["done","乗船済み"],["cancelled","キャンセル"],["all","すべて"]].map(function(c){
+    return '<button class="chip' + (S.status === c[0] ? " on" : "") + '" data-s="' + c[0] + '">' + c[1] + "<i>" + counts[c[0]] + "</i></button>";
+  }).join("");
+
+  var list = filtered(), last = "", h = "";
+  list.forEach(function(r){
+    if(r.date !== last){ last = r.date; h += '<tr class="dayhd"><td colspan="8">' + fdate(r.date) + (r.date === t ? "　本日" : "") + "</td></tr>"; }
+    var items = (r.unagi_items || []).map(function(x){ return esc(x.name) + "×" + x.qty; }).join("、");
+    h += '<tr class="row' + (r.status === "cancelled" ? " cx" : "") + '" data-ref="' + esc(r.ref) + '">' +
+      '<td class="when"><b>' + hm(r.time) + "〜" + hm(r.end_time) + "</b><small>" + fdate(r.date) + "</small></td>" +
+      '<td><span class="st ' + r.status + '">' + ST[r.status] + "</span></td>" +
+      "<td>" + esc(r.name) + (r.room ? "<small>部屋 " + esc(r.room) + "</small>" : "") + (r.lang === "en" ? "<small>英語</small>" : "") + "</td>" +
+      "<td>" + esc(r.plan_name) + "<small>" + r.guests + "名</small></td>" +
+      "<td>" + esc(r.pier_name) + (r.type === "pier_request" ? "<small>" + esc(r.req_from || "—") + " → " + esc(r.req_to || "—") + "</small>" : "") + "</td>" +
+      "<td>" + optHtml(r) + (items ? "<small>" + items + "</small>" : "") + "</td>" +
+      '<td class="num">' + yen(r.price_total) + (r.price_note ? "<small>" + esc(r.price_note) + "</small>" : "") + "</td>" +
+      '<td class="hide-sm"><small>' + dt(r.created_at) + "</small><small>" + esc(r.ref) + "</small></td></tr>";
+  });
+  $("rows").innerHTML = h;
+  $("empty").hidden = list.length > 0;
+  if(S.view === "cal") renderCal();
+  if(S.view === "unagi") renderUnagi();
+}
+function renderCal(){
+  var y = S.calY, m = S.calM, first = new Date(y, m, 1), start = new Date(y, m, 1 - first.getDay()), t = today();
+  $("cTitle").textContent = y + "年 " + (m+1) + "月";
+  var h = WD.map(function(w){ return '<div class="wd">' + w + "</div>"; }).join("");
+  for(var i = 0; i < 42; i++){
+    var d = new Date(start); d.setDate(start.getDate() + i); var k = ymd(d);
+    if(i >= 35 && d.getMonth() !== m) break;
+    var evs = S.rows.filter(function(r){ return r.date === k; }).sort(function(a, b){ return a.time.localeCompare(b.time); });
+    h += '<div class="d' + (d.getMonth() !== m ? " out" : "") + (k === t ? " today" : "") + '"><div class="n">' + d.getDate() + "</div>" +
+      evs.map(function(r){ return '<button class="ev ' + r.status + '" data-ref="' + esc(r.ref) + '" title="' + esc(ST[r.status] + " " + r.name) + '">' + hm(r.time) + " " + esc(r.name) + "（" + r.guests + "）</button>"; }).join("") + "</div>";
+  }
+  $("cal").innerHTML = h;
+}
+function renderUnagi(){
+  var t = today(), byDay = {};
+  S.rows.filter(function(r){ return r.date >= t && r.status !== "cancelled" && (r.unagi_items || []).length; })
+    .sort(function(a, b){ return (a.date + a.time).localeCompare(b.date + b.time); })
+    .forEach(function(r){ (byDay[r.date] = byDay[r.date] || []).push(r); });
+  var days = Object.keys(byDay).sort();
+  if(!days.length){ $("ugList").innerHTML = '<div class="empty">今日以降の鰻の注文はありません</div>'; return; }
+  $("ugList").innerHTML = days.map(function(k){
+    var tot = {}, sum = 0;
+    byDay[k].forEach(function(r){ r.unagi_items.forEach(function(x){ tot[x.name] = (tot[x.name] || 0) + x.qty; sum += x.qty * x.price; }); });
+    return '<div class="ug"><h3>' + fdate(k) + (k === t ? "　本日" : "") + "<small>柴藤価格の合計 " + yen(sum) + "</small></h3>" +
+      '<div class="sum">' + Object.keys(tot).map(function(n){ return "<span>" + esc(n) + "<b>×" + tot[n] + "</b></span>"; }).join("") + "</div><ul>" +
+      byDay[k].map(function(r){ return '<li><a data-ref="' + esc(r.ref) + '">' + hm(r.time) + "出航　" + esc(r.name) + "</a>" +
+        '<span class="st ' + r.status + '">' + ST[r.status] + "</span><span>" + r.unagi_items.map(function(x){ return esc(x.name) + "×" + x.qty; }).join("、") + "</span></li>"; }).join("") +
+      "</ul></div>";
+  }).join("");
+}
+
+/* ── 詳細 ── */
+function openDrawer(ref){ S.open = ref; $("scrim").hidden = false; $("drawer").hidden = false; fillDrawer(); }
+function closeDrawer(){ S.open = null; $("scrim").hidden = true; $("drawer").hidden = true; }
+function fillDrawer(){
+  var r = find(S.open); if(!r){ closeDrawer(); return; }
+  $("dRef").textContent = r.ref;
+  $("dTitle").textContent = fdate(r.date) + " " + hm(r.time) + "〜" + hm(r.end_time) + "　" + r.name + " 様";
+  $("dActs").innerHTML = [["new","新規に戻す"],["confirmed","確定にする"],["done","乗船済みにする"],["cancelled","キャンセルにする"]].map(function(a){
+    return '<button class="btn' + (r.status === a[0] ? " on" : "") + '" data-st="' + a[0] + '"' + (r.status === a[0] ? " disabled" : "") + ">" + (r.status === a[0] ? "● " + ST[a[0]] : a[1]) + "</button>";
+  }).join("");
+  var items = (r.unagi_items || []).map(function(x){ return esc(x.name) + " ×" + x.qty + "　" + yen(x.qty * x.price); }).join("<br>");
+  var kv = [
+    ["状態", '<span class="st ' + r.status + '">' + ST[r.status] + "</span>"],
+    ["種別", r.type === "pier_request" ? "その他の船着場リクエスト（要確認）" : "予約リクエスト"],
+    ["プラン", esc(r.plan_name) + "（" + r.minutes + "分）"],
+    ["乗船日時", fdate(r.date) + " " + hm(r.time) + " 出航 → " + hm(r.end_time) + " 下船予定"],
+    ["船着場", esc(r.pier_name) + (r.type === "pier_request" ? "<br>乗船：" + esc(r.req_from || "—") + "<br>下船：" + esc(r.req_to || "—") : "")],
+    ["人数", r.guests + "名"],
+    ["オプション", (r.options || []).map(function(o){ return esc(OPT[o] || o); }).join("、") || "なし"],
+    ["鰻の注文", items || "—"],
+    ["合計（表示額）", yen(r.price_total) + (r.price_note ? " " + esc(r.price_note) : "")],
+    ["お名前", esc(r.name) + (r.lang === "en" ? "（英語ページから）" : "")],
+    ["部屋番号", esc(r.room) || "—"],
+    ["メール", '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + "</a>"],
+    ["電話", '<a href="tel:' + esc(r.tel) + '">' + esc(r.tel) + "</a>"],
+    ["宿泊", (r.checkin ? fdate(r.checkin) : "—") + " 〜 " + (r.checkout ? fdate(r.checkout) : "—")],
+    ["ご要望", esc(r.note).replace(/\n/g, "<br>") || "—"],
+    ["受付", dt(r.created_at)],
+    ["最終更新", dt(r.updated_at) + "（" + esc(r.updated_by) + "）"]
+  ];
+  $("dKv").innerHTML = kv.map(function(x){ return "<dt>" + x[0] + "</dt><dd>" + x[1] + "</dd>"; }).join("");
+  if(document.activeElement !== $("dMemo")) $("dMemo").value = r.memo || "";
+  $("dMemoInfo").textContent = "";
+  loadLog(r.ref).then(function(log){
+    if(S.open !== r.ref) return;
+    var A = { created:"予約を受付", status:"状態を変更", memo:"メモを更新" };
+    $("dLog").innerHTML = (log || []).slice().reverse().map(function(l){
+      var det = l.action === "status" ? l.detail.replace(/\w+/g, function(w){ return ST[w] || w; }) : l.detail;
+      return "<li><span>" + dt(l.at) + "</span><div>" + (A[l.action] || esc(l.action)) + (det ? "：" + esc(det) : "") + '<br><span>' + (l.who === "guest" ? "お客様" : esc(l.who)) + "</span></div></li>";
+    }).join("") || "<li>履歴はありません</li>";
+  }).catch(function(){});
+}
+$("dActs").addEventListener("click", function(e){
+  var b = e.target.closest("[data-st]"); if(!b) return;
+  var r = find(S.open), st = b.dataset.st;
+  if(st === "cancelled" && !confirm(r.name + " 様の予約をキャンセルにします。よろしいですか？\n（お客様への連絡はこの画面からは送られません）")) return;
+  b.disabled = true;
+  patch(r.ref, { status:st }).then(function(){ toast("「" + ST[st] + "」にしました"); render(); fillDrawer(); })
+    .catch(function(err){ if(err.message !== "auth") toast("変更できませんでした：" + err.message, true); b.disabled = false; });
+});
+$("dMemoSave").addEventListener("click", function(){
+  var r = find(S.open), v = $("dMemo").value; if(v === (r.memo || "")){ $("dMemoInfo").textContent = "変更はありません"; return; }
+  $("dMemoSave").disabled = true;
+  patch(r.ref, { memo:v }).then(function(){ render(); fillDrawer(); $("dMemoInfo").textContent = "保存しました"; })
+    .catch(function(err){ if(err.message !== "auth") toast("保存できませんでした：" + err.message, true); })
+    .then(function(){ $("dMemoSave").disabled = false; });
+});
+$("dClose").onclick = closeDrawer; $("scrim").onclick = closeDrawer;
+document.addEventListener("keydown", function(e){ if(e.key === "Escape" && S.open) closeDrawer(); });
+
+/* ── CSV ── */
+$("bCsv").addEventListener("click", function(){
+  var cols = [["予約番号","ref"],["状態",function(r){ return ST[r.status]; }],["乗船日","date"],["出航",function(r){ return hm(r.time); }],["下船予定",function(r){ return hm(r.end_time); }],
+    ["プラン","plan_name"],["人数","guests"],["船着場","pier_name"],["乗船希望地","req_from"],["下船希望地","req_to"],
+    ["オプション",function(r){ return (r.options || []).map(function(o){ return OPT[o] || o; }).join("・"); }],
+    ["鰻の注文",function(r){ return (r.unagi_items || []).map(function(x){ return x.name + "×" + x.qty; }).join("・"); }],
+    ["合計（表示額）","price_total"],["お名前","name"],["部屋番号","room"],["メール","email"],["電話","tel"],["チェックイン","checkin"],["チェックアウト","checkout"],
+    ["ご要望","note"],["スタッフメモ","memo"],["受付日時",function(r){ return dt(r.created_at); }],["最終更新者","updated_by"]];
+  var rows = filtered().map(function(r){ return cols.map(function(c){ var v = typeof c[1] === "function" ? c[1](r) : r[c[1]]; v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); });
+  var csv = "﻿" + cols.map(function(c){ return c[0]; }).join(",") + "\n" + rows.join("\n");
+  var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type:"text/csv" })); a.download = "予約一覧_" + today() + ".csv"; a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+});
+
+/* ── 操作 ── */
+document.querySelector(".tabs").addEventListener("click", function(e){
+  var b = e.target.closest("[data-v]"); if(!b) return; setView(b.dataset.v);
+});
+function setView(v){
+  S.view = v;
+  document.querySelectorAll(".tabs button").forEach(function(x){ x.classList.toggle("on", x.dataset.v === v); });
+  $("vList").hidden = v !== "list"; $("vCal").hidden = v !== "cal"; $("vUnagi").hidden = v !== "unagi";
+  render();
+}
+$("fStatus").addEventListener("click", function(e){ var b = e.target.closest("[data-s]"); if(!b) return; S.status = b.dataset.s; render(); });
+$("fRange").addEventListener("change", function(){ S.range = this.value; render(); });
+$("fQ").addEventListener("input", function(){ S.q = this.value; render(); });
+$("bReload").addEventListener("click", function(){ load(); });
+document.querySelector(".stats").addEventListener("click", function(e){
+  var b = e.target.closest("[data-quick]"); if(!b) return; var k = b.dataset.quick;
+  S.status = k === "new" ? "new" : "active"; S.range = k === "new" ? "upcoming" : k; $("fRange").value = S.range; setView("list");
+});
+document.addEventListener("click", function(e){
+  var el = e.target.closest("[data-ref]"); if(el && !e.target.closest("#drawer")) openDrawer(el.dataset.ref);
+});
+$("cPrev").onclick = function(){ S.calM--; if(S.calM < 0){ S.calM = 11; S.calY--; } renderCal(); };
+$("cNext").onclick = function(){ S.calM++; if(S.calM > 11){ S.calM = 0; S.calY++; } renderCal(); };
+$("cToday").onclick = function(){ var d = new Date(); S.calY = d.getFullYear(); S.calM = d.getMonth(); renderCal(); };
+
+var timer = null;
+function start(){
+  $("vLogin").hidden = true; $("vApp").hidden = false; $("demoBar").hidden = !DEMO;
+  $("who").textContent = S.me.name ? S.me.name + "（" + S.me.email + "）" : S.me.email;
+  $("org").textContent = ORG[S.me.org] || "";
+  var d = new Date(); S.calY = d.getFullYear(); S.calM = d.getMonth();
+  load();
+  clearInterval(timer); if(!DEMO) timer = setInterval(function(){ if(!document.hidden) load(true); }, 60000);
+}
+
+if(DEMO){ S.me = { email:"demo@example.com", name:"デモ", org:"company" }; start(); }
+else if(!handleInvite()){
+  if(sess) checkStaff().then(start).catch(function(err){ if(err.message !== "auth") showLogin(err.message); });
+  else showLogin();
+}
+})();
+</script>
+</body>
+</html>
