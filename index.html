@@ -238,6 +238,23 @@ html[lang=en] .reqbox h4{font-family:var(--serif);font-size:24px;letter-spacing:
 html[lang=en] .opt h3{font-family:var(--serif);font-weight:400;font-size:30px;letter-spacing:0}
 .opt p{font-size:13.5px;color:var(--body);margin-top:14px}
 html[lang=en] .opt p{font-size:16px}
+.umenu{margin-top:16px;border-top:1px solid var(--ivory2)}
+.umenu summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0 4px;font-size:13px;font-family:var(--sans)}
+.umenu summary::-webkit-details-marker{display:none}
+.umenu summary::after{content:"+";font-size:18px;color:var(--gold3);margin-left:auto}
+.umenu[open] summary::after{content:"−"}
+.umenu summary span{font-size:12px;color:var(--mute)}
+.umenu .ui{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dotted var(--ivory2);font-size:13.5px}
+.umenu .ui small,.uqty .uq small{display:block;font-size:11px;color:var(--mute)}
+.umenu .ui b{font-weight:500;white-space:nowrap}
+.us{font-size:11px;color:var(--mute);margin-top:10px;line-height:1.7}
+.uqty{border:1px solid var(--ink);border-top:0;background:#fff;padding:6px 22px 16px}
+.uqty>p:first-child{font-size:12px;color:var(--mute);margin:8px 0 4px}
+.uq{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dotted var(--ivory2);font-size:13.5px}
+.uq .st{display:flex;align-items:center;border:1px solid var(--ivory2);flex:none}
+.uq .st button{width:34px;height:34px;font-size:16px;color:var(--gold3)}
+.uq .st button:disabled{opacity:.3}
+.uq .st output{min-width:28px;text-align:center;font-family:var(--sans)}
 .opt .pr{margin-top:18px;display:flex;gap:10px;align-items:center;font-size:13px}
 @media(max-width:980px){.ogrid{grid-template-columns:1fr}}
 @media(max-width:560px){.opt{grid-template-columns:1fr}.opt .vis{min-height:180px}}
@@ -1383,7 +1400,18 @@ const CONFIG = {
     { id:"wine", price:null, name:{ja:"ワイン", en:"Wine"}, en:"Wine Selection",
       desc:{ja:"クルーズ中にお楽しみいただけるワインをご用意します。銘柄は後日ご案内いたします。", en:"A selection of wines to enjoy on board. The list will be announced soon."}},
     { id:"unagi", price:null, name:{ja:"柴藤の鰻", en:"Unagi by Shibato"}, en:"Shibato Unagi",
-      desc:{ja:"大阪の老舗「柴藤」の鰻を、水上でお召し上がりいただけます。内容は後日ご案内いたします。", en:"Grilled eel from Shibato, a long-established Osaka restaurant, served on board. Details to follow."}}
+      desc:{ja:"創業約300年、大阪・高麗橋の老舗「本家柴藤」の鰻を、お持ち帰りメニューから船上へお届けします。ご注文を受けてから焼き上げます。", en:"Unagi from Honke Shibato, a Koraibashi institution of some 300 years, chosen from their takeaway menu and grilled to order for your cruise."},
+      // 価格＝本家柴藤 公式「お持ち帰り/配達メニュー」（shibato.net/takeout.html、2026-11確認）。店側で予告なく改定あり
+      menu:[
+        { id:"ran",    price:8870, name:{ja:"大阪まむし 蘭", en:"Osaka Mamushi — Ran"},    d:{ja:"名物のまむし（鰻たっぷり）", en:"The signature eel rice, most eel"} },
+        { id:"sakura", price:7450, name:{ja:"大阪まむし 桜", en:"Osaka Mamushi — Sakura"}, d:{ja:"名物のまむし", en:"The signature eel rice"} },
+        { id:"kiku",   price:4920, name:{ja:"大阪まむし 菊", en:"Osaka Mamushi — Kiku"},   d:{ja:"名物のまむし（控えめ）", en:"The signature eel rice, lighter"} },
+        { id:"mini",   price:2890, name:{ja:"ミニまむし", en:"Mini Mamushi"},            d:{ja:"お子様・少食の方に", en:"For children or light appetites"} },
+        { id:"yawata5",price:5050, name:{ja:"八幡巻 5巻", en:"Yawata-maki (5 pcs)"},      d:{ja:"鰻でごぼうを巻いた焼物", en:"Eel rolled around burdock"} },
+        { id:"yawata3",price:3030, name:{ja:"八幡巻 3巻", en:"Yawata-maki (3 pcs)"},      d:{ja:"鰻でごぼうを巻いた焼物", en:"Eel rolled around burdock"} },
+        { id:"uzakuL", price:3680, name:{ja:"うざく 大", en:"Uzaku (large)"},             d:{ja:"鰻と胡瓜の酢の物", en:"Eel and cucumber in vinegar"} },
+        { id:"uzakuS", price:1840, name:{ja:"うざく 小", en:"Uzaku (small)"},             d:{ja:"鰻と胡瓜の酢の物", en:"Eel and cucumber in vinegar"} }
+      ]}
   ]
 };
 
@@ -1468,7 +1496,7 @@ const T = {
   open_map:["Googleマップで開く ↗","Open in Google Maps ↗"],
   photo_soon:["船着場の写真 近日掲載","Pier photo coming soon"],
   landmark:["目印","Landmark"], access:["アクセス","Access"], route:["ルート","Route"],
-  opt_req:["ご希望として承ります","Request"], price_tba:["料金 近日公開","Price TBA"],
+  opt_req:["ご希望として承ります","Request"], u_pick:["メニューと数量をお選びください","Choose items and quantities"], u_none:["メニュー未選択","No items chosen"], u_from:["〜","from "], u_src:["価格は本家柴藤のお持ち帰り価格です（2026年11月時点・店舗の改定により変わる場合があります）","Prices are Honke Shibato takeaway prices (as of Nov 2026; subject to change by the restaurant)"], u_menu:["メニューと料金を見る","View menu & prices"], price_tba:["料金 近日公開","Price TBA"],
   guests_u:["名","guests"], none:["なし","None"],
   st_green:["通常運航","Operating normally"], st_yellow:["運航確認中","Checking conditions"], st_red:["欠航","Suspended"],
   st_green_m:["現在、運航可能です。","Cruises are operating as scheduled."],
@@ -1507,7 +1535,7 @@ const loc = o => o ? (o[L?"en":"ja"]) : "";
    APP
    ============================================================ */
 const App = (() => {
-  const S = { plan:null, pier:null, date:null, time:null, guests:2, opts:new Set() };
+  const S = { plan:null, pier:null, date:null, time:null, guests:2, opts:new Set(), menu:{} };
   const today = new Date(); today.setHours(0,0,0,0);
   let viewY = today.getFullYear(), viewM = today.getMonth();
   const $ = id => document.getElementById(id);
@@ -1593,7 +1621,8 @@ const App = (() => {
           <div class="eyebrow">${o.en}</div>
           <h3 style="margin-top:6px">${loc(o.name)}</h3>
           <p>${loc(o.desc)}</p>
-          <div class="pr">${o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}</div>
+          ${o.menu?`<details class="umenu"><summary>${t("u_menu")}<span>${yen(Math.min(...o.menu.map(m=>m.price)))}〜${yen(Math.max(...o.menu.map(m=>m.price)))}</span></summary>${o.menu.map(m=>`<div class="ui"><span>${loc(m.name)}<small>${loc(m.d)}</small></span><b>${yen(m.price)}</b></div>`).join("")}<p class="us">${t("u_src")}</p></details>`
+            :`<div class="pr">${o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}</div>`}
         </div>
       </div>`).join("");
   }
@@ -1730,8 +1759,8 @@ const App = (() => {
     $("cOpt").innerHTML = CONFIG.options.map(o=>`
       <div class="optrow ${S.opts.has(o.id)?'on':''}" onclick="App.toggleOpt('${o.id}')" role="checkbox" aria-checked="${S.opts.has(o.id)}" tabindex="0">
         <div class="l"><span class="bx"></span><div><b style="font-weight:500">${loc(o.name)}</b><small>${t("opt_req")}</small></div></div>
-        ${o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}
-      </div>`).join("");
+        ${o.menu?`<b>${t("u_from")==="〜"?yen(Math.min(...o.menu.map(m=>m.price)))+"〜":"from "+yen(Math.min(...o.menu.map(m=>m.price)))}</b>`:o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}
+      </div>${o.menu&&S.opts.has(o.id)?`<div class="uqty"><p>${t("u_pick")}</p>${o.menu.map(m=>{const q=S.menu[m.id]||0;return `<div class="uq"><span>${loc(m.name)}<small>${yen(m.price)}</small></span><span class="st"><button type="button" ${q?"":"disabled"} onclick="App.menuQty('${m.id}',-1)" aria-label="-">−</button><output>${q}</output><button type="button" ${q>=20?"disabled":""} onclick="App.menuQty('${m.id}',1)" aria-label="+">＋</button></span></div>`}).join("")}<p class="us">${t("u_src")}</p></div>`:""}`).join("");
   }
 
   function renderCal(){
@@ -1783,10 +1812,14 @@ const App = (() => {
     if (S.pier==="other"){ const f=document.querySelector("[name=reqFrom]").value, to=document.querySelector("[name=reqTo]").value; return `${t("other_pier")}${f||to?`<br><small>${f||"—"} → ${to||"—"}</small>`:""}`; }
     const p = CONFIG.piers.find(x=>x.id===S.pier); return p ? loc(p.name) : "—";
   }
+  function menuLines(o){ return o.menu.filter(m=>S.menu[m.id]).map(m=>({id:m.id, name:m.name, qty:S.menu[m.id], price:m.price})); }
+  function menuSum(o){ return menuLines(o).reduce((a,x)=>a+x.qty*x.price,0); }
   function totals(){
     const p = planOf(); if (!p) return {txt:"—", unknown:false};
     let unknown = p.price==null, sum = p.price||0;
-    S.opts.forEach(id=>{ const o=CONFIG.options.find(x=>x.id===id); if(o.price==null) unknown=true; else sum+=o.price; });
+    S.opts.forEach(id=>{ const o=CONFIG.options.find(x=>x.id===id);
+      if(o.menu){ const s=menuSum(o); if(!s) unknown=true; else sum+=s; }
+      else if(o.price==null) unknown=true; else sum+=o.price; });
     if (p.price==null) return {txt:t("ask"), unknown:true};
     return {txt: yen(sum) + (unknown? (L?" + options":" ＋オプション") : ""), unknown};
   }
@@ -1796,7 +1829,9 @@ const App = (() => {
     $("sDate").textContent = S.date && dayState(new Date(S.date+"T00:00"))==="ok" ? fmtDate(S.date) + (S.time?` ${S.time}〜${mm(hm(S.time)+(p?p.min:60))}`:"") : "—";
     $("sPier").innerHTML = (S.plan==="dtb90"||S.pier) ? pierLabel() : "—";
     $("sGuests").textContent = `${S.guests} ${t("guests_u")}`;
-    $("sOpt").innerHTML = S.opts.size ? [...S.opts].map(id=>loc(CONFIG.options.find(o=>o.id===id).name)+` <span class="tbd" style="color:var(--gold2)">${t("ask")}</span>`).join("<br>") : t("none");
+    $("sOpt").innerHTML = S.opts.size ? [...S.opts].map(id=>{ const o=CONFIG.options.find(x=>x.id===id);
+      if(o.menu){ const ls=menuLines(o); return loc(o.name)+"<br>"+(ls.length? ls.map(x=>`<small>${loc(x.name)} ×${x.qty}　${yen(x.qty*x.price)}</small>`).join("<br>") : `<small style="color:var(--gold2)">${t("u_none")}</small>`); }
+      return loc(o.name)+` <span class="tbd" style="color:var(--gold2)">${t("ask")}</span>`; }).join("<br>") : t("none");
     const tt = totals(); $("sTotal").textContent = tt.txt; $("mTotal").textContent = tt.txt;
     $("sTotal").style.fontSize = tt.txt.length > 12 ? "26px" : "";
     const reqMode = S.pier==="other" && S.plan!=="dtb90";
@@ -1831,7 +1866,7 @@ const App = (() => {
       ref, created_at:d.toISOString(), lang: L?"en":"ja",
       type: (S.pier==="other" && S.plan!=="dtb90") ? "pier_request" : "reservation",
       plan:S.plan, pier:S.plan==="dtb90"?null:S.pier, req_from:v("reqFrom"), req_to:v("reqTo"),
-      date:S.date, time:S.time, guests:S.guests, options:[...S.opts],
+      date:S.date, time:S.time, guests:S.guests, options:[...S.opts], unagi_items: S.opts.has("unagi") ? menuLines(CONFIG.options.find(o=>o.id==="unagi")).map(x=>({id:x.id, name:x.name.ja, qty:x.qty, price:x.price})) : [],
       price_plan: planOf().price, name:v("name"), room:v("room"), email:v("email"), tel:v("tel"),
       checkin:v("checkin"), checkout:v("checkout"), note:v("note")
     };
@@ -1890,7 +1925,8 @@ const App = (() => {
     },
     pickTime(s){ S.time=s; renderSlots(); renderSummary(); },
     pickDay(k){ OPS.day=k; renderDCheck(); },
-    toggleOpt(id){ S.opts.has(id)?S.opts.delete(id):S.opts.add(id); renderChoices(); renderSummary(); }
+    toggleOpt(id){ if(S.opts.has(id)){ S.opts.delete(id); if(id==="unagi") S.menu={}; } else S.opts.add(id); renderChoices(); renderSummary(); },
+    menuQty(mid,d){ const q=Math.max(0,Math.min(20,(S.menu[mid]||0)+d)); if(q) S.menu[mid]=q; else delete S.menu[mid]; renderChoices(); renderSummary(); }
   };
 })();
 App.init();
