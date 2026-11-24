@@ -320,6 +320,8 @@ html[lang=en] .ch .t{font-size:18px}
 .slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-top:22px}
 .slot{border:1px solid var(--ivory2);padding:11px 0;text-align:center;font-family:var(--sans);font-size:14px;background:var(--paper);transition:.2s}
 .slot.on{background:var(--ink);color:var(--gold2);border-color:var(--ink)}
+.slot small{display:block;font-size:10.5px;letter-spacing:.04em;color:#8a8276;margin-top:2px}
+.slot.on small{color:var(--gold2);opacity:.8}
 .slot:hover{border-color:var(--gold)}
 .stepper{display:flex;align-items:center;border:1px solid var(--ivory2);width:max-content;background:var(--paper)}
 .stepper button{width:54px;height:54px;font-size:22px;color:var(--gold3)}
@@ -1197,6 +1199,7 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
           </div>
           <div id="slotWrap" class="hidden">
             <p style="font-size:13px;margin-top:22px;color:#4a463f"><span data-i="pick_time">ご希望の出航時間</span> <span class="tbd" data-i="tentative">Tentative</span></p>
+            <p id="slotNote" style="font-size:12px;margin-top:6px;color:#7a7368"></p>
             <div class="slots" id="slots"></div>
           </div>
         </div>
@@ -1289,7 +1292,9 @@ const CONFIG = {
   bookingLeadDays: 4,            // 何日前までオンライン予約可か
   maxAheadDays: 120,             // 何日先まで予約を受け付けるか
   closedDates: [],               // 運休日 例: ["2026-12-31","2027-01-01"]
-  timeSlots: ["10:00","11:30","13:00","14:30","16:00","17:30","19:00","20:30"], // 仮
+  // 予約の出航時間：最初の出航〜最終下船の間で、プランの所要時間から自動で作る
+  hours: { firstDepart: "10:00", lastReturn: "22:00", step: 30 }, // step＝出航時間の間隔（分）
+  timeSlots: ["10:00","11:30","13:00","14:30","16:00","17:30","19:00","20:30"], // 運航状況の「出航時間ごとの判定」表で使う代表時刻
   submitEndpoint: null,          // 予約データ送信先（Supabase等）。nullの間はデモ動作
 
   // 運航状況：green=通常運航 / yellow=確認中 / red=欠航
@@ -1456,6 +1461,8 @@ const T = {
   vd_ok:["運航可","Available"], vd_ck:["要確認","Check"], vd_ng:["運航不可","Not possible"], vd_past:["終了","Passed"],
   wx_na:["予報なし","No forecast yet"], wx_wind:["風","Wind"], wx_rain:["雨","Rain"],
   today:["今日","Today"], wpoint:["大阪（気象庁 潮位表の予測値）","Osaka (JMA tide prediction)"],
+  slot_note:["{m}分コースは最終下船22:00に合わせ、最終出航は{last}です（大きい数字が出航、小さい数字が下船予定）","For the {m}-min cruise, the last departure is {last} so you are back by 22:00 (departure, with return time below)"],
+  slot_note0:["出航は10:00から。22:00までに船着場へ戻る時間でご案内します（プランにより最終出航が変わります）","Departures from 10:00. All cruises return to the pier by 22:00 (last departure depends on the plan)"],
   slot_ng:["潮位が高く、橋の下を通れない時間帯です","Tide too high to pass under bridges at this time"],
   why_tide:["潮位が高く橋の余裕が不足","Tide too high for bridge clearance"], why_tideck:["橋の余裕が少なめ","Bridge margin is tight"],
   why_wind:["強風","Strong wind"], why_windck:["風がやや強い","Breezy"], why_rain:["大雨","Heavy rain"], why_rainck:["雨","Rain"],
@@ -1741,12 +1748,23 @@ const App = (() => {
     $("calNext").disabled = (new Date(viewY, viewM+1, 1) > maxD);
   }
 
+  const mm = n => `${String(Math.floor(n/60)).padStart(2,"0")}:${String(n%60).padStart(2,"0")}`;
+  function bookSlots(){
+    const p = planOf(), dur = p ? p.min : 60, H = CONFIG.hours, out = [];
+    for (let m = hm(H.firstDepart); m + dur <= hm(H.lastReturn); m += H.step) out.push({s:mm(m), end:mm(m+dur)});
+    return out;
+  }
   function renderSlots(){
+    const list = bookSlots();
+    if (S.time && !list.some(x=>x.s===S.time)) S.time = null;
     if (S.date && S.time && OPS.tide){ const b=bridgeCheck(S.date,hm(S.time)); if(b&&b.st==="FAIL") S.time=null; }
-    $("slots").innerHTML = CONFIG.timeSlots.map(s=>{
+    const p = planOf();
+    $("slotNote").textContent = p ? t("slot_note").replace("{m}", p.min).replace("{last}", list.length?list[list.length-1].s:"—") : t("slot_note0");
+    $("slots").innerHTML = list.map(({s,end})=>{
       const b = (S.date && OPS.tide) ? bridgeCheck(S.date, hm(s)) : null, ng = b && b.st==="FAIL";
-      return ng ? `<button type="button" class="slot ng" disabled title="${t("slot_ng")}">${s}</button>`
-                : `<button type="button" class="slot ${S.time===s?'on':''}" onclick="App.pickTime('${s}')">${s}</button>`;
+      const inner = `${s}<small>〜${end}</small>`;
+      return ng ? `<button type="button" class="slot ng" disabled title="${t("slot_ng")}">${inner}</button>`
+                : `<button type="button" class="slot ${S.time===s?'on':''}" onclick="App.pickTime('${s}')">${inner}</button>`;
     }).join("");
   }
 
@@ -1769,7 +1787,7 @@ const App = (() => {
   function renderSummary(){
     const p = planOf();
     $("sPlan").textContent = p ? loc(p.name) : "—";
-    $("sDate").textContent = S.date && dayState(new Date(S.date+"T00:00"))==="ok" ? fmtDate(S.date) + (S.time?` ${S.time}`:"") : "—";
+    $("sDate").textContent = S.date && dayState(new Date(S.date+"T00:00"))==="ok" ? fmtDate(S.date) + (S.time?` ${S.time}〜${mm(hm(S.time)+(p?p.min:60))}`:"") : "—";
     $("sPier").innerHTML = (S.plan==="dtb90"||S.pier) ? pierLabel() : "—";
     $("sGuests").textContent = `${S.guests} ${t("guests_u")}`;
     $("sOpt").innerHTML = S.opts.size ? [...S.opts].map(id=>loc(CONFIG.options.find(o=>o.id===id).name)+` <span class="tbd" style="color:var(--gold2)">${t("ask")}</span>`).join("<br>") : t("none");
@@ -1857,7 +1875,7 @@ const App = (() => {
 
   return {
     init, closeDone,
-    pickPlan(id, inForm){ S.plan=id; renderChoices(); renderSummary(); },
+    pickPlan(id, inForm){ S.plan=id; renderChoices(); renderSlots(); renderSummary(); },
     pickPier(id){ S.pier=id; renderChoices(); renderSummary(); },
     pickDate(key, st){
       if (st==="staff"){ S.date=null; S.time=null; $("staffMsg").classList.remove("hidden"); $("slotWrap").classList.add("hidden"); }
