@@ -704,7 +704,7 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
 .dc-row.hd{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#9d9d9d;padding:10px 0}
 .dc-row .tm{font-family:var(--serif);font-size:22px;color:#fff}
 .dc-row small{display:block;color:#9d9d9d;font-size:11px;margin-top:2px}
-.dc-row.past{opacity:.38}
+.dc-row.past{opacity:.5}
 .vd{display:inline-block;text-align:center;font-size:11.5px;letter-spacing:.08em;padding:6px 8px;border:1px solid}
 .vd.ok{color:#8fd3a8;border-color:rgba(143,211,168,.5)}.vd.ck{color:#e6c46e;border-color:rgba(230,196,110,.5)}.vd.ng{color:#ec8f82;border-color:rgba(236,143,130,.55)}.vd.past{color:#9d9d9d;border-color:rgba(255,255,255,.2)}
 .dc-src{font-family:var(--sans);font-size:11px;color:#9d9d9d;margin-top:18px;line-height:1.8}
@@ -1663,7 +1663,8 @@ const App = (() => {
   function autoLevel(){
     const o=CONFIG.ops; if(o.override) return o.override;
     if(!OPS.tide) return CONFIG.status.level;
-    const key=dkey(new Date()); let js=CONFIG.timeSlots.map(s=>judge(key,s)); const rest=js.filter(j=>!j.past); if(rest.length) js=rest;
+    let key=dkey(new Date()), js=CONFIG.timeSlots.map(s=>judge(key,s)); const rest=js.filter(j=>!j.past);
+    if(rest.length) js=rest; else { const d=new Date(); d.setDate(d.getDate()+1); key=dkey(d); js=CONFIG.timeSlots.map(s=>judge(key,s)); } // 本日の出航が終わったら翌日で判定
     if(js.every(j=>j.v==="ng")) return "red";
     if(js.some(j=>j.v!=="ok")) return "yellow";
     return "green";
@@ -1692,7 +1693,8 @@ const App = (() => {
 
   function renderDCheck(){
     if(!OPS.tide){ $("dcRows").innerHTML=""; return; }
-    const today=new Date(); if(!OPS.day) OPS.day=dkey(today);
+    const today=new Date();
+    if(!OPS.day){ const lastDep=hm(CONFIG.timeSlots[CONFIG.timeSlots.length-1]), nowM=today.getHours()*60+today.getMinutes(); const d0=new Date(today); if(nowM>lastDep) d0.setDate(d0.getDate()+1); OPS.day=dkey(d0); }
     const days=[...Array(7)].map((_,i)=>{const d=new Date(today);d.setDate(d.getDate()+i);return d;});
     $("dcDays").innerHTML=days.map((d,i)=>{const k=dkey(d);return `<button type="button" class="${k===OPS.day?'on':''}" onclick="App.pickDay('${k}')"><b>${i===0?t("today"):(d.getMonth()+1)+"/"+d.getDate()}</b>${T.wd[L][d.getDay()]}</button>`}).join("");
     const key=OPS.day, js=CONFIG.timeSlots.map(s=>judge(key,s)), lim=maxTide();
@@ -1710,10 +1712,10 @@ const App = (() => {
     $("dcChart").innerHTML=g;
     const hd=`<div class="dc-row hd"><span>${t("dc_h_time")}</span><span class="c-tide">${t("dc_h_tide")}</span><span class="c-br">${t("dc_h_br")}</span><span class="c-wx">${t("dc_h_wx")}</span><span>${t("dc_h_vd")}</span></div>`;
     $("dcRows").innerHTML=hd+js.map(j=>{
-      const vd=j.past?"past":j.v;
+      const vd=j.v;
       const br=j.br?`${j.br.avail.toFixed(2)}m<small>${loc(j.br)}</small>`:"—";
       const wx=j.wx?`${t("wx_wind")} ${j.wx.wind.toFixed(0)}m/s・${t("wx_rain")} ${j.wx.pp}%<small>${j.wx.temp!=null?j.wx.temp.toFixed(0)+"°C":""}</small>`:`<span style="color:#8d8d8d">${t("wx_na")}</span>`;
-      return `<div class="dc-row ${j.past?'past':''}"><span class="tm">${j.slot}</span><span class="c-tide">${j.br?j.br.tide.toFixed(2)+"m":"—"}</span><span class="c-br">${br}</span><span class="c-wx">${wx}</span><span><span class="vd ${vd}">${t("vd_"+vd)}</span>${j.why.length&&!j.past?`<small>${j.why.join("・")}</small>`:""}</span></div>`;
+      return `<div class="dc-row ${j.past?'past':''}"><span class="tm">${j.slot}</span><span class="c-tide">${j.br?j.br.tide.toFixed(2)+"m":"—"}</span><span class="c-br">${br}</span><span class="c-wx">${wx}</span><span><span class="vd ${vd}">${t("vd_"+vd)}</span>${j.past?`<small>${t("vd_past")}</small>`:(j.why.length?`<small>${j.why.join("・")}</small>`:"")}</span></div>`;
     }).join("");
   }
 
