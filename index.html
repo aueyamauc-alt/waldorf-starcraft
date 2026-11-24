@@ -406,7 +406,7 @@ footer .deco{justify-content:center;margin:34px 0}
 .bsafe h3.t{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,42px);line-height:1.15}
 .bsafe h3.t small{display:block;font-family:var(--mincho);font-size:13px;letter-spacing:.3em;color:#a59e90;margin-top:10px}
 html[lang=en] .bsafe h3.t small{display:none}
-.bs-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;margin-top:44px;align-items:start}
+.bs-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:44px;margin-top:44px;align-items:start}
 @media(max-width:900px){.bs-grid{grid-template-columns:1fr}}
 .bs-svg{width:100%;height:auto;border:1px solid rgba(184,154,94,.35);background:#141310}
 .formula{border:1px solid var(--gold3);background:rgba(184,154,94,.08);padding:22px 24px;font-size:15px;line-height:1.8;text-align:center}
@@ -1009,39 +1009,7 @@ html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
       </div>
       <div class="bs-grid">
         <div class="reveal">
-          <svg class="bs-svg" viewBox="0 0 560 360" aria-hidden="true">
-            <defs><linearGradient id="bw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a4d63"/><stop offset="1" stop-color="#0f1c26"/></linearGradient></defs>
-            <!-- datum -->
-            <line x1="20" y1="320" x2="540" y2="320" stroke="#8d877b" stroke-dasharray="4 5"/>
-            <text x="26" y="342" fill="#8d877b" font-family="Jost" font-size="11" letter-spacing="1" data-svg="datum">基準面</text>
-            <!-- bridge -->
-            <path d="M20 60 H540 V92 H20 Z" fill="#1d1d23" stroke="#b89a5e"/>
-            <path d="M60 92 V320 M500 92 V320" stroke="#3a3a42" stroke-width="18"/>
-            <text x="280" y="82" text-anchor="middle" fill="#d8c08a" font-family="Shippori Mincho" font-size="13" data-svg="bridge">橋（いちばん低い部分）</text>
-            <!-- water -->
-            <path d="M20 232 Q 60 226 100 232 T 180 232 T 260 232 T 340 232 T 420 232 T 500 232 T 540 232 V320 H20 Z" fill="url(#bw)" opacity=".9"/>
-            <!-- boat -->
-            <g transform="translate(190,232)">
-              <path d="M0 -26 Q0 -34 8 -34 L60 -34 Q66 -34 66 -28 L66 0 L0 0 Z" fill="#8c4424"/>
-              <path d="M120 -24 Q120 -32 128 -32 L166 -32 Q172 -32 172 -26 L172 0 L120 0 Z" fill="#8c4424"/>
-              <path d="M78 0 L78 -44 Q78 -50 86 -50 L102 -50 L110 0 Z" fill="#0b0b0d" stroke="#d8c08a"/>
-              <path d="M100 -50 L108 -62" stroke="#cfd6dd" stroke-width="1.2"/>
-              <path d="M2 -40 H64 M118 -38 H172" stroke="#e4e6ea" stroke-width="1.2" opacity=".8"/>
-              <path d="M-4 0 L190 0 Q210 4 220 14 Q206 24 180 24 L20 24 Q4 24 0 16 Z" fill="#0b0b0d" stroke="#d8c08a"/>
-              <path d="M0 9 H212" stroke="#cfd6dd" stroke-width=".8" opacity=".6"/>
-            </g>
-            <!-- dims -->
-            <g stroke="#d8c08a" fill="#d8c08a" font-family="Jost" font-size="11">
-              <line x1="455" y1="92" x2="455" y2="320"/><path d="M450 98 L455 92 L460 98 M450 314 L455 320 L460 314" fill="none"/>
-              <text x="463" y="200" stroke="none" data-svg="clear">桁下高</text>
-              <line x1="120" y1="232" x2="120" y2="320" stroke="#7fb6cf"/><path d="M115 238 L120 232 L125 238 M115 314 L120 320 L125 314" fill="none" stroke="#7fb6cf"/>
-              <text x="128" y="282" stroke="none" fill="#7fb6cf" data-svg="tide">潮位</text>
-              <line x1="410" y1="170" x2="410" y2="232" stroke="#f3e6c4"/><path d="M405 176 L410 170 L415 176 M405 226 L410 232 L415 226" fill="none" stroke="#f3e6c4"/>
-              <text x="384" y="160" stroke="none" fill="#f3e6c4" text-anchor="end" data-svg="air">船の高さ</text>
-              <line x1="292" y1="92" x2="292" y2="170" stroke="#7fcc9f"/><path d="M287 98 L292 92 L297 98 M287 164 L292 170 L297 164" fill="none" stroke="#7fcc9f"/>
-              <text x="300" y="136" stroke="none" fill="#7fcc9f" font-size="12" data-svg="margin">マージン（残りの余裕）</text>
-            </g>
-          </svg>
+          <img class="bs-svg" src="img/bridge-diagram.jpg" alt="橋・桁下高・潮位・船の高さ・マージンの関係図 / Bridge clearance, tide level, boat height and margin" loading="lazy" width="1672" height="941">
           <div class="example" data-ih="bs_ex">例：桁下高 <b>4.10m</b> − 潮位 <b>1.20m</b> − 船の高さ <b>2.30m</b> ＝ 実際のマージン <b>0.60m</b><br>必要マージン 0.30m を上回るため <b style="color:#7fcc9f">PASS</b>（数値は説明用の例です）</div>
         </div>
         <div class="reveal">
