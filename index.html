@@ -670,7 +670,9 @@ footer nav a{border-bottom:1px solid #5f8f86;padding-bottom:2px}
 
 /* hero slideshow (hotel-style carousel) */
 .hphoto .sl{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity 1.4s ease}
-.hphoto .sl.on{opacity:1}
+.hphoto .sl.on{opacity:1;animation:kb 7s ease-out both}
+@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.hphoto .sl.on{animation:none}}
 .hcap{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 28px;border-bottom:1px solid var(--line);background:#fff}
 .hcap .ct b{display:none;font-family:var(--mincho);font-weight:400;font-size:17px;letter-spacing:.06em}
 .hcap .ct span{display:none;font-size:14px;color:var(--body)}
@@ -1647,7 +1649,7 @@ App.init();
 <script>
 (()=>{const sl=[...document.querySelectorAll('#hslides .sl')],ts=[...document.querySelectorAll('.hcap .cap-t')],ps=[...document.querySelectorAll('.hcap .cap-p')],no=document.getElementById('hsNo');let i=0,t;
 const go=n=>{i=(n+sl.length)%sl.length;[sl,ts,ps].forEach(a=>a.forEach((e,k)=>e.classList.toggle('on',k===i)));no.textContent=(i+1)+' / '+sl.length};
-const auto=()=>{clearInterval(t);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)t=setInterval(()=>go(i+1),6500)};
+const auto=()=>{clearInterval(t);t=setInterval(()=>go(i+1),5000)};
 document.getElementById('hsPrev').onclick=()=>{go(i-1);auto()};document.getElementById('hsNext').onclick=()=>{go(i+1);auto()};auto();})();
 </script>
 </body>
