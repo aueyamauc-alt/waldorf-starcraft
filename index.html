@@ -1051,7 +1051,6 @@ html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
         <div class="fail"><b>FAIL</b><br><span data-i="bs_fail">実際のマージンが必要マージンを下回る → その出航時間は運航不可</span></div>
       </div>
       <div class="golden reveal"><span class="eyebrow">The Golden Rule</span><span data-ih="bs_rule">航路上の橋が<b>一つでも FAIL</b> なら、天気や景色がどんなに良くても、その出航時間は<b>「運航不可（Not Possible）」</b>となります。安全が常に最優先です。</span></div>
-      <div class="demo-warn reveal" id="bsDemoWarn" data-ih="bs_warn">⚠️ 現在、判定システムに入っている橋の桁下高・潮位・基準面は<b>仮の数値（デモ用）</b>です。実際の判断に使う前に、必ず実測値と検証済みの潮位基準面に差し替える必要があります。</div>
     </div>
   </div>
 </section>
@@ -1365,7 +1364,6 @@ const App = (() => {
     document.documentElement.lang = L ? "en" : "ja";
     document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===(L?"en":"ja")));
     $("previewRibbon").classList.toggle("hidden", !CONFIG.preview); document.body.classList.toggle("rib", !!CONFIG.preview);
-    $("bsDemoWarn").classList.toggle("hidden", !CONFIG.preview); // デモ値の注意書きはプレビュー時のみ表示
     document.querySelectorAll("[data-svg]").forEach(el=>{ const k="svg_"+el.dataset.svg; if(T[k]) el.textContent=t(k); });
     if (L) $("previewRibbon").textContent = "PREVIEW — Work in progress (some prices, photos and times are to be confirmed)";
     else $("previewRibbon").textContent = "PREVIEW — 制作中のプレビューです（料金・写真・時間帯の一部は後日確定）";
