@@ -907,81 +907,160 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
         </div>
         <p class="lead" style="font-size:13.5px" data-i="route_p2">その他の船着場からの乗船・下船もご相談いただけます（船着場の利用状況・運航条件により判断いたします）。</p>
       </div>
-      <svg class="rsvg reveal" viewBox="0 0 560 420" aria-hidden="true">
+      <svg class="rsvg reveal" viewBox="0 0 640 470" aria-hidden="true">
   <defs>
-    <pattern id="mLat" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M0 0 L18 18 M18 0 L0 18" stroke="#a8854f" stroke-opacity=".08" stroke-width=".7"/></pattern>
-    <pattern id="mHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#a8854f" stroke-opacity=".18" stroke-width=".8"/></pattern>
-    <clipPath id="mClip"><rect x="18" y="18" width="524" height="384"/></clipPath>
+    <pattern id="mLat" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M0 0 L18 18 M18 0 L0 18" stroke="#a8854f" stroke-opacity=".07" stroke-width=".7"/></pattern>
+    <pattern id="mGrid" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-6)"><path d="M0 0 H26 M0 0 V26" stroke="#8a7550" stroke-opacity=".10" stroke-width=".8"/></pattern>
+    <pattern id="mHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#a8854f" stroke-opacity=".16" stroke-width=".8"/></pattern>
+    <linearGradient id="mWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe3dc"/><stop offset="1" stop-color="#d3dad4"/></linearGradient>
+    <clipPath id="mClip"><rect x="18" y="18" width="604" height="434"/></clipPath>
+    <style>
+      .m-rt{stroke-dasharray:7 6;animation:mflow 1.4s linear infinite}
+      @keyframes mflow{to{stroke-dashoffset:-13}}
+      .m-jp{font-family:"Noto Serif JP",serif}
+      .m-en{font-family:Jost,sans-serif}
+    </style>
   </defs>
-  <rect width="560" height="420" fill="#f4eee4"/>
-  <rect width="560" height="420" fill="url(#mLat)"/>
-  <rect x="12" y="12" width="536" height="396" fill="none" stroke="#a8854f" stroke-width=".8"/>
-  <rect x="18" y="18" width="524" height="384" fill="none" stroke="#a8854f" stroke-opacity=".35" stroke-width=".6"/>
-  <!-- title -->
-  <text x="36" y="50" fill="#1c1a17" font-family="Jost" font-size="9" letter-spacing="3" data-svg="m_course">90-MINUTE COURSE</text>
-  <line x1="36" y1="58" x2="90" y2="58" stroke="#a8854f" stroke-width=".8"/>
+  <rect width="640" height="470" fill="#f4eee4"/>
+  <rect width="640" height="470" fill="url(#mLat)"/>
   <g clip-path="url(#mClip)">
-  <!-- rivers -->
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <g stroke="#b59a6c">
-      <path stroke-width="25" d="M134 250 C 168 218 216 198 280 194 C 340 190 392 206 426 238"/>
-      <path stroke-width="25" d="M134 252 C 172 282 226 292 290 290 C 350 288 396 268 426 242"/>
-      <path stroke-width="27" d="M142 251 C 110 259 60 279 -10 308"/>
-      <path stroke-width="29" d="M418 240 C 450 234 478 236 500 234 C 520 232 530 214 533 180 C 536 140 540 90 546 10"/>
-      <path stroke-width="17" d="M505 234 C 525 238 545 242 575 247"/>
+    <rect width="640" height="470" fill="url(#mGrid)"/>
+    <!-- rivers: bank, water, ripples -->
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#b59a6c">
+        <path stroke-width="27" d="M150 266 C 190 232 250 213 320 209 C 400 205 460 213 498 238"/>
+        <path stroke-width="27" d="M150 270 C 195 298 260 312 330 308 C 410 304 465 282 498 244"/>
+        <path stroke-width="31" d="M158 268 C 120 280 70 300 -10 334"/>
+        <path stroke-width="33" d="M490 241 C 520 236 548 238 572 238 C 594 238 602 222 604 190 C 606 140 610 80 616 0"/>
+        <path stroke-width="18" d="M582 240 C 604 244 626 248 660 253"/>
+      </g>
+      <g stroke="url(#mWater)">
+        <path stroke-width="24" d="M150 266 C 190 232 250 213 320 209 C 400 205 460 213 498 238"/>
+        <path stroke-width="24" d="M150 270 C 195 298 260 312 330 308 C 410 304 465 282 498 244"/>
+        <path stroke-width="28" d="M158 268 C 120 280 70 300 -10 334"/>
+        <path stroke-width="30" d="M490 241 C 520 236 548 238 572 238 C 594 238 602 222 604 190 C 606 140 610 80 616 0"/>
+        <path stroke-width="15" d="M582 240 C 604 244 626 248 660 253"/>
+      </g>
+      <g stroke="#fff" stroke-opacity=".75" stroke-width=".8" stroke-dasharray="3 17">
+        <path d="M160 262 C 200 232 255 216 320 213 C 400 209 455 217 490 238"/>
+        <path d="M160 276 C 200 300 262 312 330 304 C 405 300 458 281 490 248"/>
+        <path d="M150 272 C 110 286 60 306 -10 338"/>
+        <path d="M500 236 C 530 233 556 234 578 233"/>
+        <path d="M600 200 C 602 150 606 90 610 20"/>
+      </g>
     </g>
-    <g stroke="#e6ddcc">
-      <path stroke-width="22" d="M134 250 C 168 218 216 198 280 194 C 340 190 392 206 426 238"/>
-      <path stroke-width="22" d="M134 252 C 172 282 226 292 290 290 C 350 288 396 268 426 242"/>
-      <path stroke-width="24" d="M142 251 C 110 259 60 279 -10 308"/>
-      <path stroke-width="26" d="M418 240 C 450 234 478 236 500 234 C 520 232 530 214 533 180 C 536 140 540 90 546 10"/>
-      <path stroke-width="14" d="M505 234 C 525 238 545 242 575 247"/>
+    <!-- island -->
+    <path d="M168 268 C 200 245 252 227 320 224 C 392 221 446 229 480 241 C 446 263 404 290 330 293 C 262 296 202 287 168 268 Z" fill="#ece3d1"/>
+    <path d="M168 268 C 200 245 252 227 320 224 C 392 221 446 229 480 241 C 446 263 404 290 330 293 C 262 296 202 287 168 268 Z" fill="url(#mHatch)"/>
+    <!-- bridges -->
+    <g stroke="#6e5a3c" stroke-width="1.6" stroke-linecap="round">
+      <path d="M345 193 V222 M350 193 V222" stroke-width=".9"/>
+      <path d="M362 294 V323 M367 294 V323" stroke-width=".9"/>
+      <path d="M446 203 L440 305 M451 203 L445 305" stroke-width=".9"/>
+      <path d="M494 224 L496 258 M499 224 L501 258" stroke-width=".9"/>
+      <path d="M545 222 V255 M550 222 V255" stroke-width=".9"/>
     </g>
   </g>
+  <rect x="12" y="12" width="616" height="446" fill="none" stroke="#a8854f" stroke-width=".8"/>
+  <rect x="18" y="18" width="604" height="434" fill="none" stroke="#a8854f" stroke-opacity=".35" stroke-width=".6"/>
+
+  <!-- district labels -->
+  <g class="m-en" fill="#a8977a" font-size="8" letter-spacing="3">
+    <text x="96" y="196" data-svg="m_fukushima">FUKUSHIMA</text>
+    <text x="470" y="108" data-svg="m_tenma">TENMA</text>
+    <text x="398" y="376" data-svg="m_kitahama">KITAHAMA</text>
+    <text x="196" y="372" data-svg="m_higo">HIGOBASHI</text>
   </g>
-  <!-- island -->
-  <path d="M152 251 C 182 227 226 211 280 208 C 338 205 384 219 410 240 C 384 259 346 274 290 276 C 228 278 182 270 152 251 Z" fill="url(#mHatch)"/>
-  <text x="282" y="248" text-anchor="middle" fill="#7a5c34" font-family="Cormorant Garamond" font-style="italic" font-size="19" data-svg="m_naka">Nakanoshima</text>
-  <text x="350" y="176" fill="#8a8276" font-family="Jost" font-size="8.5" letter-spacing="2.5" data-svg="m_dojima">DOJIMA RIVER</text>
-  <text x="262" y="318" fill="#8a8276" font-family="Jost" font-size="8.5" letter-spacing="2.5" data-svg="m_tosa">TOSABORI RIVER</text>
-  <text x="34" y="318" fill="#8a8276" font-family="Jost" font-size="8.5" letter-spacing="2.5" transform="rotate(-21 34 318)" data-svg="m_aji">AJI RIVER</text>
-  <text x="516" y="120" fill="#8a8276" font-family="Jost" font-size="8.5" letter-spacing="2.5" text-anchor="middle" transform="rotate(-86 516 120)" data-svg="m_okawa">OKAWA RIVER</text>
-  <text x="538" y="266" fill="#8a8276" font-family="Jost" font-size="7.5" letter-spacing="2" text-anchor="end" data-svg="m_neya">NEYA RIVER</text>
+  <!-- river labels -->
+  <g class="m-en" fill="#8a8276" font-size="8.5" letter-spacing="2.5">
+    <text x="436" y="193" data-svg="m_dojima">DOJIMA RIVER</text>
+    <text x="236" y="336" data-svg="m_tosa">TOSABORI RIVER</text>
+    <text x="34" y="350" transform="rotate(-22 34 350)" data-svg="m_aji">AJI RIVER</text>
+    <text x="586" y="110" text-anchor="middle" transform="rotate(-86 586 110)" data-svg="m_okawa">OKAWA RIVER</text>
+    <text x="624" y="286" text-anchor="end" font-size="7.5" data-svg="m_neya">NEYA RIVER</text>
+  </g>
+  <!-- bridge labels -->
+  <g class="m-jp" fill="#6e5a3c" font-size="8" letter-spacing=".8" text-anchor="middle">
+    <text x="348" y="238" data-svg="m_b_oe">大江橋</text>
+    <text x="364" y="335" data-svg="m_b_yodoya">淀屋橋</text>
+    <text x="440" y="318" data-svg="m_b_naniwa">難波橋</text>
+    <text x="492" y="217" data-svg="m_b_tenjin">天神橋</text>
+    <text x="547" y="268" data-svg="m_b_tenma">天満橋</text>
+  </g>
+
+  <!-- landmarks on the island -->
+  <g transform="translate(222,256)">
+    <rect x="-8" y="-9" width="16" height="16" fill="#2a2724"/><rect x="-8" y="-9" width="16" height="3" fill="#a8854f" fill-opacity=".6"/>
+  </g>
+  <text class="m-jp" x="222" y="281" text-anchor="middle" fill="#5d5143" font-size="7.5" letter-spacing=".5" data-svg="m_museum">中之島美術館</text>
+  <g transform="translate(404,250)" fill="#a5563a">
+    <rect x="-12" y="-4" width="24" height="10"/><path d="M-6 -4 A6 6 0 0 1 6 -4 Z" fill="#7c8f86"/><rect x="-1" y="-14" width="2" height="5" fill="#7c8f86"/>
+    <path d="M-12 6 H12" stroke="#f4eee4" stroke-width=".6"/><path d="M-8 -2 V4 M-4 -2 V4 M4 -2 V4 M8 -2 V4" stroke="#f4eee4" stroke-width=".6"/>
+  </g>
+  <text class="m-jp" x="404" y="270" text-anchor="middle" fill="#5d5143" font-size="7.5" letter-spacing=".5" data-svg="m_hall">中央公会堂</text>
+  <g transform="translate(464,243)" fill="#8fa385"><circle r="3.6"/><circle cx="6" cy="1.5" r="3"/><circle cx="-5.5" cy="2" r="2.6"/></g>
+  <text x="312" y="266" text-anchor="middle" fill="#7a5c34" font-family="Cormorant Garamond" font-style="italic" font-size="19" data-svg="m_naka">Nakanoshima</text>
+
   <!-- osaka castle -->
-  <g transform="translate(470,312)" fill="#a8854f">
-    <path d="M-16 8 H16 L13 4 H-13 Z"/><path d="M-11 4 V-2 H11 V4 Z" fill-opacity=".55"/>
-    <path d="M-14 -2 H14 L9 -7 H-9 Z"/><path d="M-7 -7 V-11 H7 V-7 Z" fill-opacity=".55"/>
-    <path d="M-10 -11 H10 L5 -16 H-5 Z"/><path d="M-2 -16 V-19 H2 V-16 Z"/>
+  <g transform="translate(572,340)">
+    <rect x="-30" y="-8" width="60" height="34" fill="none" stroke="#9db0ad" stroke-width="3" stroke-opacity=".7"/>
+    <path d="M-20 22 L-16 8 H16 L20 22 Z" fill="#cdbf9f"/>
+    <g fill="#3d4a47">
+      <path d="M-16 8 H16 L13 4 H-13 Z"/><path d="M-11 4 V-2 H11 V4 Z" fill="#f1ece2" stroke="#3d4a47" stroke-width=".6"/>
+      <path d="M-14 -2 H14 L9 -7 H-9 Z"/><path d="M-7 -7 V-11 H7 V-7 Z" fill="#f1ece2" stroke="#3d4a47" stroke-width=".6"/>
+      <path d="M-10 -11 H10 L5 -16 H-5 Z"/><path d="M-2 -16 V-19 H2 V-16 Z" fill="#c9a24e"/>
+    </g>
   </g>
-  <text x="470" y="338" text-anchor="middle" fill="#1c1a17" font-family="Shippori Mincho" font-size="11" letter-spacing="1.5" data-svg="m_castle">大阪城</text>
-  <!-- loop route -->
-  <path id="mLoop" d="M98 266 C 116 259 128 253 136 247 C 168 218 216 199 280 195 C 340 191 392 206 424 235 C 452 230 478 231 497 229 C 509 228 511 239 497 239 C 478 241 452 243 426 245 C 396 270 350 290 290 290 C 226 292 172 282 136 256 C 126 259 114 264 98 270 Z" fill="none" stroke="#1c1a17" stroke-width="1.3" stroke-dasharray="5 5"/>
-  <circle r="4.5" fill="#a8854f" stroke="#f4eee4" stroke-width="1.5"><animateMotion dur="20s" repeatCount="indefinite" rotate="auto"><mpath href="#mLoop"/></animateMotion></circle>
+  <text class="m-jp" x="572" y="384" text-anchor="middle" fill="#1c1a17" font-size="11" letter-spacing="1.5" data-svg="m_castle">大阪城</text>
+
+  <!-- route -->
+  <path id="mLoop" d="M112 284 C 130 278 142 273 152 265 C 190 232 250 213 320 209 C 400 205 460 213 494 236 C 520 233 548 234 580 233 C 594 233 594 245 580 245 C 548 246 520 247 498 247 C 465 281 410 304 330 308 C 260 312 195 298 152 273 C 140 277 128 282 112 289 Z" fill="none" stroke="#1c1a17" stroke-width="1.5" class="m-rt"/>
+  <g fill="#1c1a17"><path d="M398 201 l8 4 -8 4 z"/><path d="M262 305 l-8 4 8 4 z" transform="rotate(8 258 309)"/></g>
+  <circle r="4.5" fill="#a8854f" stroke="#f4eee4" stroke-width="1.5"><animateMotion dur="22s" repeatCount="indefinite" rotate="auto"><mpath href="#mLoop"/></animateMotion></circle>
+
   <!-- turnaround -->
-  <g transform="translate(503,234)"><circle r="7.5" fill="none" stroke="#a8854f" stroke-width=".9"/><circle r="2.4" fill="#1c1a17"/></g>
-  <path d="M497 226 L488 216" stroke="#a8854f" stroke-width=".7"/>
-  <text x="484" y="212" text-anchor="end" fill="#1c1a17" font-family="Shippori Mincho" font-size="11.5" letter-spacing="1.2" data-svg="m_turn">折り返し地点</text>
-  <text x="484" y="198" text-anchor="end" fill="#8a8276" font-family="Jost" font-size="7.5" letter-spacing="2" data-svg="m_turn2">NEAR OSAKA CASTLE</text>
+  <g transform="translate(587,239)"><circle r="8" fill="#f4eee4" stroke="#a8854f" stroke-width="1"/><circle r="2.6" fill="#1c1a17"/></g>
+  <path d="M582 231 L570 168" stroke="#a8854f" stroke-width=".7"/>
+  <text class="m-jp" x="572" y="162" text-anchor="end" fill="#1c1a17" font-size="11.5" letter-spacing="1.2" data-svg="m_turn">折り返し地点</text>
+  <text class="m-en" x="572" y="148" text-anchor="end" fill="#8a8276" font-size="7.5" letter-spacing="2" data-svg="m_turn2">NEAR OSAKA CASTLE</text>
+
   <!-- hotel -->
-  <g transform="translate(176,96)">
-    <rect x="-6" y="-6" width="12" height="12" transform="rotate(45)" fill="#1c1a17"/>
-    <rect x="-2.5" y="-2.5" width="5" height="5" transform="rotate(45)" fill="#cfb27f"/>
-    <text x="14" y="-2" fill="#1c1a17" font-family="Cormorant Garamond" font-size="13" letter-spacing="2.5">WALDORF ASTORIA OSAKA</text>
-    <text x="14" y="12" fill="#8a8276" font-family="Jost" font-size="8" letter-spacing="2" data-svg="m_umekita">UMEKITA</text>
+  <g transform="translate(214,96)">
+    <path d="M-5 10 V-14 L0 -20 L5 -14 V10 Z" fill="#1c1a17"/><path d="M-2 -10 V6 M2 -10 V6" stroke="#cfb27f" stroke-width=".6"/>
+    <text x="14" y="-3" fill="#1c1a17" font-family="Cormorant Garamond" font-size="13.5" letter-spacing="2.5">WALDORF ASTORIA OSAKA</text>
+    <text class="m-en" x="14" y="11" fill="#8a8276" font-size="8" letter-spacing="2" data-svg="m_umekita">UMEKITA</text>
   </g>
-  <path d="M178 108 C 188 140 212 168 228 188" fill="none" stroke="#a8854f" stroke-width=".8" stroke-dasharray="1.5 4"/>
+  <path d="M216 110 C 228 140 256 172 280 196" fill="none" stroke="#a8854f" stroke-width=".9" stroke-dasharray="1.5 4"/>
+  <text class="m-jp" x="236" y="152" fill="#8a8276" font-size="7.5" letter-spacing=".5" transform="rotate(48 236 152)" data-svg="m_walk">徒歩・お車</text>
+
   <!-- piers -->
-  <g transform="translate(232,201)"><circle r="12" fill="#1c1a17"/><circle r="15.5" fill="none" stroke="#a8854f" stroke-width=".7"/><text y="4.5" text-anchor="middle" fill="#cfb27f" font-family="Cormorant Garamond" font-style="italic" font-size="13">I</text></g>
-  <text x="252" y="170" fill="#1c1a17" font-family="Shippori Mincho" font-size="12" letter-spacing="1.5" data-svg="m_p1">堂島浜船着場</text>
-  <g transform="translate(98,268)"><circle r="12" fill="#1c1a17"/><circle r="15.5" fill="none" stroke="#a8854f" stroke-width=".7"/><text y="4.5" text-anchor="middle" fill="#cfb27f" font-family="Cormorant Garamond" font-style="italic" font-size="13">II</text></g>
-  <text x="40" y="236" fill="#1c1a17" font-family="Shippori Mincho" font-size="12" letter-spacing="1.5" data-svg="m_p2">中央卸売市場前港</text>
+  <g transform="translate(286,211)"><circle r="12" fill="#1c1a17"/><circle r="15.5" fill="none" stroke="#a8854f" stroke-width=".7"/><text y="4.5" text-anchor="middle" fill="#cfb27f" font-family="Cormorant Garamond" font-style="italic" font-size="13">I</text></g>
+  <text class="m-jp" x="300" y="180" fill="#1c1a17" font-size="12" letter-spacing="1.5" data-svg="m_p1">堂島浜船着場</text>
+  <g transform="translate(112,286)"><circle r="12" fill="#1c1a17"/><circle r="15.5" fill="none" stroke="#a8854f" stroke-width=".7"/><text y="4.5" text-anchor="middle" fill="#cfb27f" font-family="Cormorant Garamond" font-style="italic" font-size="13">II</text></g>
+  <text class="m-jp" x="30" y="234" fill="#1c1a17" font-size="12" letter-spacing="1.5" data-svg="m_p2">中央卸売市場前港</text>
+
+  <!-- title -->
+  <text class="m-en" x="36" y="48" fill="#a8854f" font-size="8" letter-spacing="3.5">THE ROUTE</text>
+  <text class="m-jp" x="36" y="70" fill="#1c1a17" font-size="17" letter-spacing="2" data-svg="m_course">90分コース</text>
+  <line x1="36" y1="80" x2="96" y2="80" stroke="#a8854f" stroke-width=".8"/>
+
+  <!-- legend -->
+  <line x1="18" y1="410" x2="622" y2="410" stroke="#a8854f" stroke-opacity=".35" stroke-width=".6"/>
+  <g transform="translate(36,432)" class="m-jp" font-size="9" fill="#3a352e" letter-spacing=".6">
+    <path d="M0 -3 H26" stroke="#1c1a17" stroke-width="1.5" stroke-dasharray="7 6"/>
+    <text x="34" y="0" data-svg="m_lg_route">クルーズルート（往路 堂島川・復路 土佐堀川）</text>
+    <g transform="translate(330,-3)"><circle r="6" fill="#1c1a17"/></g>
+    <text x="342" y="0" data-svg="m_lg_pier">船着場</text>
+    <path d="M402 -10 V4 M406 -10 V4" stroke="#6e5a3c" stroke-width=".9"/>
+    <text x="414" y="0" data-svg="m_lg_bridge">主な橋</text>
+  </g>
+  <text class="m-en" x="36" y="448" fill="#8a8276" font-size="7.5" letter-spacing="2" data-svg="m_note">ILLUSTRATIVE ROUTE — NOT TO SCALE</text>
   <!-- compass -->
-  <g transform="translate(150,360) scale(.7)" fill="none" stroke="#a8854f" stroke-width=".9">
+  <g transform="translate(596,428) scale(.5)" fill="none" stroke="#a8854f" stroke-width="1.2">
     <circle r="20" stroke-opacity=".5"/><circle r="26" stroke-opacity=".25"/>
     <path d="M0 -24 L5 0 L0 24 L-5 0 Z" fill="#a8854f" fill-opacity=".25"/><path d="M-24 0 L0 -4 L24 0 L0 4 Z" stroke-opacity=".6"/>
-    <text y="-31" text-anchor="middle" fill="#7a5c34" stroke="none" font-family="Cormorant Garamond" font-size="11">N</text>
+    <text y="-31" text-anchor="middle" fill="#7a5c34" stroke="none" font-family="Cormorant Garamond" font-size="14">N</text>
   </g>
-  <text x="32" y="392" fill="#8a8276" font-family="Jost" font-size="8" letter-spacing="2.2" data-svg="m_note">ILLUSTRATIVE ROUTE — NOT TO SCALE</text>
 </svg>
     </div>
   </div>
@@ -1244,7 +1323,9 @@ const CONFIG = {
   ops: {
     override: null,              // 手動で上書きする時だけ "green" / "yellow" / "red"（null＝自動判定）
     lat: 34.692, lng: 135.497,   // 天気の取得地点（中之島）
-    vessel: { airDraft: 1.60, minMargin: 0.30 },   // ★要確認：スタークラフトの水面からの高さ(m)・必要マージン(m)
+    // 汽船315号：STARCRAFT MARINE AURORA 2015（改造）／長さ5.58m・幅2.58m・深さ1.23m・1.9t／ヤマハ船外機150PS（船舶検査手帳より）
+    // 検査書類にエアドラフト（水面から最も高い所まで）の記載なし → 幌を上げた状態などを実測して airDraft に入れる
+    vessel: { airDraft: 1.60, minMargin: 0.30 },   // ★要実測：airDraft(m)。minMargin＝必要マージン(m)
     tideToBridgeDatum: 0.00,     // ★要確認：潮位表基準面 → 橋の桁下高の基準面(O.P.)への換算値(m)
     // ★要確認：桁下高はアドバイザー（HANDOVER_JA）の仮データ。offset＝出航から橋を通過するまでの分
     bridges: [
@@ -1343,7 +1424,10 @@ const T = {
   bs_ex:["例：桁下高 <b>4.10m</b> − 潮位 <b>1.20m</b> − 船の高さ <b>2.30m</b> ＝ 実際のマージン <b>0.60m</b><br>必要マージン 0.30m を上回るため <b style=\"color:#7fcc9f\">PASS</b>（数値は説明用の例です）","Example: clearance <b>4.10 m</b> − tide <b>1.20 m</b> − air draft <b>2.30 m</b> = actual margin <b>0.60 m</b><br>Above the 0.30 m requirement, so <b style=\"color:#7fcc9f\">PASS</b> (illustrative figures)."],
   bs_warn:["⚠️ 現在、判定システムに入っている橋の桁下高・潮位・基準面は<b>仮の数値（デモ用）</b>です。実際の判断に使う前に、必ず実測値と検証済みの潮位基準面に差し替える必要があります。","⚠️ Bridge clearances, tide heights and datum currently in the system are <b>placeholder demo values</b>. They must be replaced with surveyed figures and a verified tidal datum before use in real decisions."],
   svg_m_naka:["Nakanoshima","Nakanoshima"], svg_m_dojima:["堂島川","DOJIMA RIVER"], svg_m_tosa:["土佐堀川","TOSABORI RIVER"], svg_m_aji:["安治川","AJI RIVER"], svg_m_umekita:["うめきた","UMEKITA"],
-  svg_m_p1:["堂島浜船着場","Dojimahama Pier"], svg_m_p2:["中央卸売市場前港","Central Market Pier"], svg_m_note:["ルートはイメージです（縮尺不同）","ILLUSTRATIVE ROUTE — NOT TO SCALE"], svg_m_course:["90分コース","90-MINUTE COURSE"], svg_m_okawa:["大川","OKAWA RIVER"], svg_m_neya:["寝屋川","NEYA RIVER"], svg_m_castle:["大阪城","Osaka Castle"], svg_m_turn:["折り返し地点","Turning point"], svg_m_turn2:["大阪城付近","NEAR OSAKA CASTLE"],
+  svg_m_p1:["堂島浜船着場","Dojimahama Pier"], svg_m_p2:["中央卸売市場前港","Central Market Pier"], svg_m_note:["ルートはイメージです（縮尺不同）","ILLUSTRATIVE ROUTE — NOT TO SCALE"], svg_m_course:["90分コース","90-MINUTE COURSE"], svg_m_fukushima:["福島","FUKUSHIMA"], svg_m_tenma:["天満","TENMA"], svg_m_kitahama:["北浜","KITAHAMA"], svg_m_higo:["肥後橋","HIGOBASHI"],
+  svg_m_b_oe:["大江橋","Oe Br."], svg_m_b_yodoya:["淀屋橋","Yodoya Br."], svg_m_b_naniwa:["難波橋","Naniwa Br."], svg_m_b_tenjin:["天神橋","Tenjin Br."], svg_m_b_tenma:["天満橋","Tenma Br."],
+  svg_m_museum:["中之島美術館","Museum of Art"], svg_m_hall:["中央公会堂","Public Hall"], svg_m_park:["中之島公園","Nakanoshima Park"], svg_m_walk:["徒歩・お車","On foot / by car"],
+  svg_m_lg_route:["クルーズルート（往路 堂島川・復路 土佐堀川）","Route (out: Dojima · back: Tosabori)"], svg_m_lg_pier:["船着場","Pier"], svg_m_lg_bridge:["主な橋","Bridge"], svg_m_okawa:["大川","OKAWA RIVER"], svg_m_neya:["寝屋川","NEYA RIVER"], svg_m_castle:["大阪城","Osaka Castle"], svg_m_turn:["折り返し地点","Turning point"], svg_m_turn2:["大阪城付近・出航から約45分","NEAR OSAKA CASTLE · ABOUT 45 MIN"],
   svg_v_plan:["デッキプラン","DECK PLAN"], svg_v_bow:["船首ソファ","BOW"], svg_v_helm:["操縦席","HELM"], svg_v_side:["サイド","SIDE"], svg_v_stern:["船尾ソファ","STERN"], svg_v_illu:["イメージ図","ILLUSTRATIVE"],
   svg_datum:["基準面","Datum"], svg_bridge:["橋（いちばん低い部分）","Bridge (lowest point)"], svg_clear:["桁下高","Clearance"], svg_tide:["潮位","Tide"], svg_air:["船の高さ","Air draft"], svg_margin:["マージン（残りの余裕）","Margin (space left)"],
   rule:["ご乗船希望日の<b>4日前まで</b>オンライン予約を承っております。<b>3日前から当日</b>のご予約をご希望の場合は、ホテルスタッフまでお問い合わせください。","Online reservations are available up to <b>4 days before</b> your cruise. For cruises <b>within 3 days</b> (including today), please contact the hotel staff."],
