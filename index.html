@@ -683,6 +683,31 @@ html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
 .hcap .cn button{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-size:24px;line-height:1;display:grid;place-items:center;padding-bottom:3px}
 .hcap .cn button:hover{background:var(--navy2)}
 @media(max-width:960px){.hcap{padding:14px 18px}.hcap .ct b{font-size:15px}.hcap .ct span{font-size:12.5px}.hcap .cn button{width:38px;height:38px}}
+
+/* departure check */
+.dcheck{margin-top:40px}
+.dc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.dc-t{font-family:var(--mincho);font-weight:500;font-size:22px;letter-spacing:.1em}
+html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;letter-spacing:0}
+.dc-days{display:flex;gap:6px;flex-wrap:wrap}
+.dc-days button{border:1px solid rgba(255,255,255,.22);background:transparent;color:#d6d6d6;font-family:var(--sans);font-size:12px;padding:8px 12px;cursor:pointer;line-height:1.25;text-align:center}
+.dc-days button b{display:block;font-weight:500;font-size:13px;color:#fff}
+.dc-days button.on{background:#fff;color:#121212;border-color:#fff}.dc-days button.on b{color:#121212}
+.dc-chart{width:100%;height:170px;margin-top:26px;display:block}
+.dc-legend{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--sans);font-size:11px;color:#bdbdbd;margin-top:8px}
+.dc-legend .ln{display:inline-block;width:22px;height:0;vertical-align:middle;margin-right:8px;border-top:2px solid #8fc1d6}
+.dc-legend .ln.lim{border-top:1.5px dashed #e08a7d}
+.dc-rows{margin-top:22px;border-top:1px solid rgba(255,255,255,.18)}
+.dc-row{display:grid;grid-template-columns:70px 1fr 1.3fr 1.2fr 110px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--sans);font-size:13px;color:#d6d6d6}
+.dc-row.hd{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#9d9d9d;padding:10px 0}
+.dc-row .tm{font-family:var(--serif);font-size:22px;color:#fff}
+.dc-row small{display:block;color:#9d9d9d;font-size:11px;margin-top:2px}
+.dc-row.past{opacity:.38}
+.vd{display:inline-block;text-align:center;font-size:11.5px;letter-spacing:.08em;padding:6px 8px;border:1px solid}
+.vd.ok{color:#8fd3a8;border-color:rgba(143,211,168,.5)}.vd.ck{color:#e6c46e;border-color:rgba(230,196,110,.5)}.vd.ng{color:#ec8f82;border-color:rgba(236,143,130,.55)}.vd.past{color:#9d9d9d;border-color:rgba(255,255,255,.2)}
+.dc-src{font-family:var(--sans);font-size:11px;color:#9d9d9d;margin-top:18px;line-height:1.8}
+@media(max-width:760px){.dc-row{grid-template-columns:58px 1fr 96px;gap:10px}.dc-row .c-tide,.dc-row .c-wx{display:none}.dc-row .c-br small{display:block}.dc-row .tm{font-size:19px}}
+.slot.ng{opacity:.35;text-decoration:line-through;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -1022,6 +1047,18 @@ html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
       </div>
     </div>
 
+    <!-- DEPARTURE CHECK -->
+    <div class="card reveal dcheck">
+      <div class="dc-head">
+        <div><div class="eyebrow" style="margin-bottom:8px">Departure Check</div><h3 class="dc-t" data-i="dc_t">出航時間ごとの判定</h3></div>
+        <div class="dc-days" id="dcDays"></div>
+      </div>
+      <svg class="dc-chart" id="dcChart" viewBox="0 0 640 170" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="dc-legend"><span><i class="ln tide"></i><span data-i="dc_lg_tide">潮位（気象庁 予測・大阪）</span></span><span><i class="ln lim"></i><span data-i="dc_lg_lim">運航できる潮位の上限</span></span></div>
+      <div class="dc-rows" id="dcRows"></div>
+      <p class="dc-src" data-i="dc_src">潮位：気象庁 潮位表（大阪）の予測値／天気：Open-Meteo の予報。判定は自動計算です。最終的な運航可否は当日スタッフが確認のうえご案内します。</p>
+    </div>
+
     <!-- BRIDGE SAFETY -->
     <div class="bsafe">
       <div class="reveal">
@@ -1200,6 +1237,29 @@ const CONFIG = {
     water: { current: 1.12, limit: 1.80, max: 2.5, unit: "m", point: { ja: "（観測地点 確定後に表示）", en: "(Observation point TBA)" } }
   },
 
+  // ── 運航判定（Osaka River Cruise Advisor の判定ロジックを移植）──────────
+  // 潮位：気象庁 潮位表「大阪」の毎時予測値（data/tide-osaka.json、2026〜2027年）
+  // 天気：Open-Meteo から自動取得（約7日先まで）
+  // 判定：利用可能クリアランス ＝ 桁下高 − 潮位 − 船の高さ。必要マージン未満=FAIL、＋0.15m未満=CAUTION
+  ops: {
+    override: null,              // 手動で上書きする時だけ "green" / "yellow" / "red"（null＝自動判定）
+    lat: 34.692, lng: 135.497,   // 天気の取得地点（中之島）
+    vessel: { airDraft: 1.60, minMargin: 0.30 },   // ★要確認：スタークラフトの水面からの高さ(m)・必要マージン(m)
+    tideToBridgeDatum: 0.00,     // ★要確認：潮位表基準面 → 橋の桁下高の基準面(O.P.)への換算値(m)
+    // ★要確認：桁下高はアドバイザー（HANDOVER_JA）の仮データ。offset＝出航から橋を通過するまでの分
+    bridges: [
+      { ja:"水晶橋",       en:"Suisho Bridge",          clear:3.95, offset:25 },
+      { ja:"難波橋",       en:"Naniwa Bridge",          clear:4.10, offset:33 },
+      { ja:"天満橋",       en:"Tenma Bridge",           clear:4.30, offset:40 },
+      { ja:"天満橋（復路）", en:"Tenma Bridge (return)",  clear:4.30, offset:52 },
+      { ja:"難波橋（復路）", en:"Naniwa Bridge (return)", clear:4.10, offset:60 },
+      { ja:"淀屋橋",       en:"Yodoya Bridge",          clear:4.25, offset:66 }
+    ],
+    wind: { caution: 7, stop: 10, gustStop: 15 },   // 風速 m/s
+    rain: { caution: 3, stop: 10 },                 // 1時間降水量 mm
+    cruiseMin: 90                                   // 天気を見る時間幅（分）
+  },
+
   plans: [
     { id:"p60", min:60, price:45000, name:{ja:"プライベートクルーズ 60分", en:"Private Cruise — 60 min"},
       sub:{ja:"貸切・最大8名", en:"Private charter · up to 8"},
@@ -1320,7 +1380,17 @@ const T = {
   st_green_m:["現在、運航可能です。","Cruises are operating as scheduled."],
   st_yellow_m:["河川の水位や天候により、運航状況を確認しています。","We are checking river levels and weather conditions."],
   st_red_m:["河川の水位や天候などの影響により、運航を中止しています。","Cruises are suspended due to river levels or weather."],
-  updated:["最終更新","Last updated"],
+  updated:["最終更新","Last updated"], auto_upd:["自動判定","Auto-checked"],
+  dc_t:["出航時間ごとの判定","Departure-time check"],
+  dc_lg_tide:["潮位（気象庁 予測・大阪）","Tide (JMA forecast, Osaka)"], dc_lg_lim:["運航できる潮位の上限","Maximum tide for safe passage"],
+  dc_src:["潮位：気象庁 潮位表（大阪）の予測値／天気：Open-Meteo の予報。判定は自動計算です。最終的な運航可否は当日スタッフが確認のうえご案内します。","Tide: Japan Meteorological Agency tide predictions (Osaka). Weather: Open-Meteo forecast. Results are calculated automatically; our staff confirm final operation on the day."],
+  dc_h_time:["出航","Depart"], dc_h_tide:["潮位","Tide"], dc_h_br:["橋の余裕（最小）","Tightest bridge margin"], dc_h_wx:["天気","Weather"], dc_h_vd:["判定","Result"],
+  vd_ok:["運航可","Available"], vd_ck:["要確認","Check"], vd_ng:["運航不可","Not possible"], vd_past:["終了","Passed"],
+  wx_na:["予報なし","No forecast yet"], wx_wind:["風","Wind"], wx_rain:["雨","Rain"],
+  today:["今日","Today"], wpoint:["大阪（気象庁 潮位表の予測値）","Osaka (JMA tide prediction)"],
+  slot_ng:["潮位が高く、橋の下を通れない時間帯です","Tide too high to pass under bridges at this time"],
+  why_tide:["潮位が高く橋の余裕が不足","Tide too high for bridge clearance"], why_tideck:["橋の余裕が少なめ","Bridge margin is tight"],
+  why_wind:["強風","Strong wind"], why_windck:["風がやや強い","Breezy"], why_rain:["大雨","Heavy rain"], why_rainck:["雨","Rain"],
   red_extra:["ご予約済みのお客様には、スタッフより個別にご連絡いたします。","Guests with reservations will be contacted individually by our staff."],
   e_plan:["プランを選択してください","Please choose a plan"], e_pier:["乗船場所を選択してください","Please choose a pier"], e_date:["乗船日を選択してください","Please choose a date"], e_time:["出航時間を選択してください","Please choose a time"],
   e_req:["希望の乗船・下船場所をご入力ください","Please enter your preferred piers"], e_info:["お名前・メール・電話番号をご入力ください","Please enter your name, email and phone"], e_mail:["メールアドレスの形式をご確認ください","Please check your email address"], e_agree:["欠航に関するご案内に同意してください","Please acknowledge the cancellation notice"],
@@ -1450,22 +1520,114 @@ const App = (() => {
       </div>`).join("");
   }
 
+  // ── 運航判定エンジン（Osaka River Cruise Advisor の tE() と同じ式）──
+  const OPS = { tide:null, wx:null, day:null };
+  const dkey = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const hm = s => { const [h,m]=s.split(":").map(Number); return h*60+m; };
+  function tideAt(key, min){            // m（潮位表基準面）。日をまたぐ場合は翌日の値で補間
+    if(!OPS.tide) return null;
+    const [y,mo,d]=key.split("-").map(Number); const base=new Date(y,mo-1,d);
+    const h=Math.floor(min/60), f=(min-h*60)/60;
+    const val=hh=>{ const dt=new Date(base); dt.setHours(hh); const a=OPS.tide[dkey(dt)]; return a? a[dt.getHours()] : null; };
+    const a=val(h), b=val(h+1); if(a==null||b==null) return null;
+    return (a+(b-a)*f)/100;
+  }
+  const maxTide = () => { const o=CONFIG.ops; return Math.min(...o.bridges.map(b=>b.clear-o.vessel.airDraft-o.vessel.minMargin)) - o.tideToBridgeDatum; };
+  function bridgeCheck(key, dep){
+    const o=CONFIG.ops, v=o.vessel; let worst=null;
+    for(const b of o.bridges){
+      const td=tideAt(key, dep+b.offset); if(td==null) return null;
+      const avail=b.clear-(td+o.tideToBridgeDatum)-v.airDraft;
+      const st= avail<v.minMargin?"FAIL": avail<v.minMargin+.15?"CAUTION":"PASS";
+      if(!worst||avail<worst.avail) worst={...b,avail,st,tide:td};
+    }
+    return worst;
+  }
+  function wxCheck(key, dep){
+    if(!OPS.wx) return null; const o=CONFIG.ops; let w=0,g=0,r=0,pp=0,tp=null,n=0;
+    for(let m=dep;m<=dep+o.cruiseMin;m+=60){
+      const [y,mo,d]=key.split("-").map(Number); const dt=new Date(y,mo-1,d); dt.setMinutes(m);
+      const k=`${dkey(dt)}T${String(dt.getHours()).padStart(2,"0")}:00`, i=OPS.wx.idx[k]; if(i==null) continue; const H=OPS.wx.h;
+      w=Math.max(w,H.wind_speed_10m[i]); g=Math.max(g,H.wind_gusts_10m[i]); r=Math.max(r,H.precipitation[i]); pp=Math.max(pp,H.precipitation_probability[i]??0); if(tp==null) tp=H.temperature_2m[i]; n++;
+    }
+    return n? {wind:w,gust:g,rain:r,pp,temp:tp}:null;
+  }
+  function judge(key, slot){
+    const o=CONFIG.ops, dep=hm(slot), now=new Date();
+    const br=bridgeCheck(key,dep), wx=wxCheck(key,dep), why=[];
+    let v="ok";
+    const up=x=>{ const r={ok:0,ck:1,ng:2}; if(r[x]>r[v]) v=x; };
+    if(!br) up("ck"); else if(br.st==="FAIL"){up("ng");why.push(t("why_tide"));} else if(br.st==="CAUTION"){up("ck");why.push(t("why_tideck"));}
+    if(wx){
+      if(wx.wind>=o.wind.stop||wx.gust>=o.wind.gustStop){up("ng");why.push(t("why_wind"));} else if(wx.wind>=o.wind.caution){up("ck");why.push(t("why_windck"));}
+      if(wx.rain>=o.rain.stop){up("ng");why.push(t("why_rain"));} else if(wx.rain>=o.rain.caution){up("ck");why.push(t("why_rainck"));}
+    }
+    const [y,mo,d]=key.split("-").map(Number); const st=new Date(y,mo-1,d); st.setMinutes(dep);
+    return {slot,br,wx,v,why,past: st<now};
+  }
+  function autoLevel(){
+    const o=CONFIG.ops; if(o.override) return o.override;
+    if(!OPS.tide) return CONFIG.status.level;
+    const key=dkey(new Date()); let js=CONFIG.timeSlots.map(s=>judge(key,s)); const rest=js.filter(j=>!j.past); if(rest.length) js=rest;
+    if(js.every(j=>j.v==="ng")) return "red";
+    if(js.some(j=>j.v!=="ok")) return "yellow";
+    return "green";
+  }
+
   function renderStatus(){
-    const s = CONFIG.status, lv = s.level;
-    const up = new Date(s.updated);
-    const upTxt = `${t("updated")}: ${up.getFullYear()}/${up.getMonth()+1}/${up.getDate()} ${String(up.getHours()).padStart(2,"0")}:${String(up.getMinutes()).padStart(2,"0")}`;
+    const s = CONFIG.status, lv = autoLevel(), auto = !CONFIG.ops.override && OPS.tide;
+    const up = auto ? new Date() : new Date(s.updated);
+    const upTxt = `${t(auto?"auto_upd":"updated")}: ${up.getFullYear()}/${up.getMonth()+1}/${up.getDate()} ${String(up.getHours()).padStart(2,"0")}:${String(up.getMinutes()).padStart(2,"0")}`;
     ["sDot","oDot"].forEach(id=>$(id).className="dot "+lv);
     $("sText").textContent = `${t("st_"+lv)} — ${t("st_"+lv+"_m")}`;
     $("sUpd").textContent = upTxt; $("oUpd").textContent = upTxt;
     $("oTitle").textContent = t("st_"+lv);
     $("oMsg").textContent = t("st_"+lv+"_m") + (lv==="red" ? " " + t("red_extra") : "") + (loc(s.note) ? " " + loc(s.note) : "");
     $("oLegend").innerHTML = ["green","yellow","red"].map(k=>`<div><span class="dot ${k}"></span><b>${t("st_"+k)}</b><span>${t("st_"+k+"_m")}</span></div>`).join("");
-    const w = s.water;
-    $("wFill").style.height = Math.min(100, w.current / w.max * 100) + "%";
-    $("wLim").style.bottom = (w.limit / w.max * 100) + "%";
-    $("wNow").textContent = w.current.toFixed(2) + w.unit;
-    $("wLimV").textContent = w.limit.toFixed(2) + w.unit;
-    $("wPt").textContent = loc(w.point);
+    const w = s.water, mx = 3.0, now=new Date();
+    const cur = OPS.tide ? tideAt(dkey(now), now.getHours()*60+now.getMinutes()) : w.current;
+    const lim = OPS.tide ? maxTide() : w.limit;
+    $("wFill").style.height = Math.max(0,Math.min(100, cur / mx * 100)) + "%";
+    $("wLim").style.bottom = Math.max(0,Math.min(100, lim / mx * 100)) + "%";
+    $("wNow").textContent = cur.toFixed(2) + "m";
+    $("wLimV").textContent = lim.toFixed(2) + "m";
+    $("wPt").textContent = OPS.tide ? t("wpoint") : loc(w.point);
+    renderDCheck();
+  }
+
+  function renderDCheck(){
+    if(!OPS.tide){ $("dcRows").innerHTML=""; return; }
+    const today=new Date(); if(!OPS.day) OPS.day=dkey(today);
+    const days=[...Array(7)].map((_,i)=>{const d=new Date(today);d.setDate(d.getDate()+i);return d;});
+    $("dcDays").innerHTML=days.map((d,i)=>{const k=dkey(d);return `<button type="button" class="${k===OPS.day?'on':''}" onclick="App.pickDay('${k}')"><b>${i===0?t("today"):(d.getMonth()+1)+"/"+d.getDate()}</b>${T.wd[L][d.getDay()]}</button>`}).join("");
+    const key=OPS.day, js=CONFIG.timeSlots.map(s=>judge(key,s)), lim=maxTide();
+    // chart
+    const W=640,H=170,pl=30,pr=8,pt=10,pb=22, x=m=>pl+(m/1440)*(W-pl-pr), Y0=-0.5,Y1=3.0, y=v=>pt+(1-(v-Y0)/(Y1-Y0))*(H-pt-pb);
+    let pts=[]; for(let m=0;m<=1440;m+=15){const v=tideAt(key,Math.min(m,1439));if(v!=null)pts.push(`${x(m).toFixed(1)},${y(v).toFixed(1)}`);}
+    let g=`<rect x="${pl}" y="${pt}" width="${W-pl-pr}" height="${H-pt-pb}" fill="rgba(255,255,255,.03)"/>`;
+    for(const v of [0,1,2,3]) g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,255,255,.08)"/><text x="${pl-6}" y="${y(v)+3}" text-anchor="end" fill="#8d8d8d" font-size="9" font-family="Jost">${v}m</text>`;
+    for(let h=0;h<24;h+=3) g+=`<text x="${x(h*60)}" y="${H-6}" text-anchor="middle" fill="#8d8d8d" font-size="9" font-family="Jost">${h}:00</text>`;
+    const col={ok:"#8fd3a8",ck:"#e6c46e",ng:"#ec8f82"};
+    js.forEach(j=>{const a=hm(j.slot),b=a+CONFIG.ops.cruiseMin; g+=`<rect x="${x(a)}" y="${pt}" width="${x(b)-x(a)}" height="${H-pt-pb}" fill="${col[j.v]}" fill-opacity="${j.past?.04:.09}"/>`;});
+    g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(lim)}" y2="${y(lim)}" stroke="#e08a7d" stroke-width="1.2" stroke-dasharray="5 4"/>`;
+    g+=`<polyline points="${pts.join(" ")}" fill="none" stroke="#8fc1d6" stroke-width="2" stroke-linejoin="round"/>`;
+    if(key===dkey(today)){const m=today.getHours()*60+today.getMinutes(),v=tideAt(key,m); if(v!=null) g+=`<line x1="${x(m)}" x2="${x(m)}" y1="${pt}" y2="${H-pb}" stroke="rgba(255,255,255,.35)" stroke-dasharray="2 3"/><circle cx="${x(m)}" cy="${y(v)}" r="4" fill="#fff"/>`;}
+    $("dcChart").innerHTML=g;
+    const hd=`<div class="dc-row hd"><span>${t("dc_h_time")}</span><span class="c-tide">${t("dc_h_tide")}</span><span class="c-br">${t("dc_h_br")}</span><span class="c-wx">${t("dc_h_wx")}</span><span>${t("dc_h_vd")}</span></div>`;
+    $("dcRows").innerHTML=hd+js.map(j=>{
+      const vd=j.past?"past":j.v;
+      const br=j.br?`${j.br.avail.toFixed(2)}m<small>${loc(j.br)}</small>`:"—";
+      const wx=j.wx?`${t("wx_wind")} ${j.wx.wind.toFixed(0)}m/s・${t("wx_rain")} ${j.wx.pp}%<small>${j.wx.temp!=null?j.wx.temp.toFixed(0)+"°C":""}</small>`:`<span style="color:#8d8d8d">${t("wx_na")}</span>`;
+      return `<div class="dc-row ${j.past?'past':''}"><span class="tm">${j.slot}</span><span class="c-tide">${j.br?j.br.tide.toFixed(2)+"m":"—"}</span><span class="c-br">${br}</span><span class="c-wx">${wx}</span><span><span class="vd ${vd}">${t("vd_"+vd)}</span>${j.why.length&&!j.past?`<small>${j.why.join("・")}</small>`:""}</span></div>`;
+    }).join("");
+  }
+
+  async function loadOps(){
+    try{ const r=await fetch("data/tide-osaka.json",{cache:"no-cache"}); if(r.ok){ OPS.tide=(await r.json()).hourly; renderStatus(); renderSlots(); } }catch(_){}
+    try{
+      const o=CONFIG.ops, u=`https://api.open-meteo.com/v1/forecast?latitude=${o.lat}&longitude=${o.lng}&hourly=temperature_2m,precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m&wind_speed_unit=ms&timezone=Asia%2FTokyo&forecast_days=8`;
+      const r=await fetch(u); if(r.ok){ const j=await r.json(); const idx={}; j.hourly.time.forEach((k,i)=>idx[k]=i); OPS.wx={h:j.hourly,idx}; renderStatus(); }
+    }catch(_){}
   }
 
   function renderChoices(){
@@ -1512,7 +1674,12 @@ const App = (() => {
   }
 
   function renderSlots(){
-    $("slots").innerHTML = CONFIG.timeSlots.map(s=>`<button type="button" class="slot ${S.time===s?'on':''}" onclick="App.pickTime('${s}')">${s}</button>`).join("");
+    if (S.date && S.time && OPS.tide){ const b=bridgeCheck(S.date,hm(S.time)); if(b&&b.st==="FAIL") S.time=null; }
+    $("slots").innerHTML = CONFIG.timeSlots.map(s=>{
+      const b = (S.date && OPS.tide) ? bridgeCheck(S.date, hm(s)) : null, ng = b && b.st==="FAIL";
+      return ng ? `<button type="button" class="slot ng" disabled title="${t("slot_ng")}">${s}</button>`
+                : `<button type="button" class="slot ${S.time===s?'on':''}" onclick="App.pickTime('${s}')">${s}</button>`;
+    }).join("");
   }
 
   function fmtDate(key){
@@ -1614,7 +1781,8 @@ const App = (() => {
     $("done").addEventListener("click", e=>{ if(e.target.id==="done") closeDone(); });
     const hdr=$("hdr"), mbar=$("mbar"), bk=$("book");
     addEventListener("scroll",()=>{ hdr.classList.toggle("solid", scrollY>40); const r=bk.getBoundingClientRect(); mbar.classList.toggle("show", r.top<innerHeight*.6 && r.bottom>innerHeight); },{passive:true});
-    upG(); renderAll();
+    upG(); renderAll(); loadOps();
+    setInterval(()=>{ if(OPS.tide) renderStatus(); }, 10*60*1000);
   }
   function upG(){ $("gOut").textContent=S.guests; $("gMinus").disabled=S.guests<=1; $("gPlus").disabled=S.guests>=8; renderSummary(); }
   function closeDone(){ $("done").classList.remove("open"); }
@@ -1629,6 +1797,7 @@ const App = (() => {
       renderCal(); renderSummary();
     },
     pickTime(s){ S.time=s; renderSlots(); renderSummary(); },
+    pickDay(k){ OPS.day=k; renderDCheck(); },
     toggleOpt(id){ S.opts.has(id)?S.opts.delete(id):S.opts.add(id); renderChoices(); renderSummary(); }
   };
 })();
