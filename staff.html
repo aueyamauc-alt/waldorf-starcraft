@@ -254,6 +254,8 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
     <div class="sec">スタッフメモ（ホテル・弊社で共有）</div>
     <textarea class="memo" id="dMemo" placeholder="例：柴藤に発注済み／お誕生日のケーキ持込みあり"></textarea>
     <div class="memo-f"><span id="dMemoInfo"></span><button class="btn pri" id="dMemoSave">メモを保存</button></div>
+    <div class="sec">お客様へのメール</div>
+    <ul class="log" id="dMail"></ul>
     <div class="sec">変更履歴</div>
     <ul class="log" id="dLog"></ul>
   </div>
@@ -425,6 +427,15 @@ function loadLog(ref){
   if(DEMO){ var r = find(ref); return Promise.resolve([{ at:r.created_at, who:"guest", action:"created", detail:"" }].concat(r._log || [])); }
   return api("wa_log?ref=eq." + encodeURIComponent(ref) + "&order=at.asc");
 }
+var MK = { received:"受付メール", confirmed:"確定メール", cancelled:"キャンセルメール", notify:"スタッフ通知" };
+function loadMail(ref){
+  if(DEMO){
+    var r = find(ref), out = [{ at:r.created_at, kind:"received", to_addr:r.email, result:"送信済み" }];
+    (r._log || []).forEach(function(l){ if(l.action === "status"){ var to = l.detail.split(" → ")[1]; if(to === "confirmed" || to === "cancelled") out.push({ at:l.at, kind:to, to_addr:r.email, result:"送信済み（デモ）" }); } });
+    return Promise.resolve(out);
+  }
+  return api("rpc/wa_mail_status", { method:"POST", body:{ p_ref:ref } });
+}
 function find(ref){ return S.rows.find(function(x){ return x.ref === ref; }); }
 
 /* ── 絞り込み ── */
@@ -550,17 +561,26 @@ function fillDrawer(){
   $("dMemoInfo").textContent = "";
   loadLog(r.ref).then(function(log){
     if(S.open !== r.ref) return;
-    var A = { created:"予約を受付", status:"状態を変更", memo:"メモを更新" };
+    var A = { created:"予約を受付", status:"状態を変更", memo:"メモを更新", mail:"メールを送信" };
     $("dLog").innerHTML = (log || []).slice().reverse().map(function(l){
-      var det = l.action === "status" ? l.detail.replace(/\w+/g, function(w){ return ST[w] || w; }) : l.detail;
-      return "<li><span>" + dt(l.at) + "</span><div>" + (A[l.action] || esc(l.action)) + (det ? "：" + esc(det) : "") + '<br><span>' + (l.who === "guest" ? "お客様" : esc(l.who)) + "</span></div></li>";
+      var det = l.action === "status" ? l.detail.replace(/\w+/g, function(w){ return ST[w] || w; })
+              : l.action === "mail" ? l.detail.replace(/^\w+/, function(w){ return MK[w] || w; }) : l.detail;
+      return "<li><span>" + dt(l.at) + "</span><div>" + (A[l.action] || esc(l.action)) + (det ? "：" + esc(det) : "") + '<br><span>' + (l.who === "guest" ? "お客様" : l.who === "system" ? "自動" : esc(l.who)) + "</span></div></li>";
     }).join("") || "<li>履歴はありません</li>";
   }).catch(function(){});
+  loadMail(r.ref).then(function(ms){
+    if(S.open !== r.ref) return;
+    $("dMail").innerHTML = (ms || []).filter(function(m){ return m.kind !== "notify"; }).slice().reverse().map(function(m){
+      var bad = !/^送信済み/.test(m.result || "");
+      return "<li><span>" + dt(m.at) + "</span><div>" + (MK[m.kind] || esc(m.kind)) + "　" + esc(m.to_addr) + '<br><span' + (bad ? ' style="color:var(--cx)"' : "") + ">" + esc(m.result || "") + "</span></div></li>";
+    }).join("") || "<li>まだ送っていません</li>";
+  }).catch(function(){ $("dMail").innerHTML = "<li>送信記録を読み込めませんでした</li>"; });
 }
 $("dActs").addEventListener("click", function(e){
   var b = e.target.closest("[data-st]"); if(!b) return;
   var r = find(S.open), st = b.dataset.st;
-  if(st === "cancelled" && !confirm(r.name + " 様の予約をキャンセルにします。よろしいですか？\n（お客様への連絡はこの画面からは送られません）")) return;
+  if(st === "cancelled" && !confirm(r.name + " 様の予約をキャンセルにします。よろしいですか？\n\nお客様（" + r.email + "）にキャンセルのメールが自動で送られます。")) return;
+  if(st === "confirmed" && r.status !== "done" && !confirm(r.name + " 様の予約を確定にします。\n\nお客様（" + r.email + "）に確定メールが自動で送られます（同じ予約に2回は送りません）。")) return;
   b.disabled = true;
   patch(r.ref, { status:st }).then(function(){ toast("「" + ST[st] + "」にしました"); render(); fillDrawer(); })
     .catch(function(err){ if(err.message !== "auth") toast("変更できませんでした：" + err.message, true); b.disabled = false; });
