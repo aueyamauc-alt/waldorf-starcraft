@@ -131,6 +131,63 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
 .login .msg{font-size:12.5px;color:var(--warn);margin-bottom:12px}
 .login .lk{display:block;text-align:center;margin-top:14px;font-size:12px}
 
+/* new booking */
+.nb{width:min(620px,100%)}
+.nb form{display:flex;flex-direction:column;min-height:100%}
+.nb .dr-h small{color:var(--gold)}
+.nbf .sec{display:flex;align-items:center;gap:10px}
+.nbf .sec:after{content:"";flex:1;height:1px;background:var(--line)}
+.nbf .sec:first-child{margin-top:4px}
+.nbf .f{display:block;font-size:12px;color:var(--mute);min-width:0}
+.nbf .f em{font-style:normal;color:var(--warn);margin-left:3px}
+.nbf input:not([type=checkbox]),.nbf select,.nbf textarea{display:block;width:100%;border:1px solid var(--line);padding:9px 10px;margin-top:4px;background:#fff;color:var(--ink);border-radius:0}
+.nbf input:focus,.nbf select:focus,.nbf textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(3,33,101,.08)}
+.nbf textarea{min-height:70px;resize:vertical}
+.nbf .bad{border-color:var(--warn)!important}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:1.35fr 1fr .8fr;gap:10px 12px;margin-bottom:6px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:1px solid var(--line);margin-bottom:12px;background:#fff}
+.seg button{padding:10px 6px;font-size:12.5px;border-left:1px solid var(--line);line-height:1.35;transition:background .15s,color .15s}
+.seg button:first-child{border-left:0}
+.seg button small{display:block;font-family:Jost,sans-serif;color:var(--mute);font-size:11px;letter-spacing:.02em}
+.seg button:hover{background:var(--paper)}
+.seg button.on{background:var(--navy);color:#fff}
+.seg button.on small{color:rgba(255,255,255,.72)}
+.seg.st2 button.on[data-v=confirmed]{background:var(--ok)}
+.tl{position:relative;height:38px;background:#fff;border:1px solid var(--line);margin:10px 0 3px;overflow:hidden}
+.tl i{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.tl .tz{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#ebe7e0 0 4px,#f6f4f0 4px 8px)}
+.tl .bk{position:absolute;top:6px;bottom:6px;background:#9d978c;color:#fff;font-size:10.5px;line-height:26px;padding:0 6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.tl .bk.confirmed{background:var(--ok)}.tl .bk.new{background:var(--new)}.tl .bk.done{background:var(--done)}
+.tl .me{position:absolute;top:2px;bottom:2px;border:2px solid var(--navy);background:rgba(3,33,101,.12);transition:left .2s,width .2s}
+.tl .me.ng{border-color:var(--warn);background:rgba(179,38,30,.14);animation:nbpulse 1.2s ease-in-out infinite}
+@keyframes nbpulse{50%{background:rgba(179,38,30,.28)}}
+.tl-ax{display:flex;justify-content:space-between;font-family:Jost,sans-serif;font-size:10.5px;color:var(--mute)}
+.av{font-size:12.5px;margin:8px 0 14px;padding:8px 10px;border-left:3px solid var(--line);background:var(--paper)}
+.av.ok{border-color:var(--ok);color:var(--ok)}.av.ng{border-color:var(--warn);color:var(--warn);background:#fdf3f2}.av.wn{border-color:var(--new);color:var(--new)}
+.av b{font-weight:500}
+.ck{display:flex;align-items:center;gap:10px;font-size:13.5px;padding:10px 12px;border:1px solid var(--line);margin-bottom:8px;cursor:pointer;background:#fff}
+.ck:hover{border-color:#cfcac1}
+.ck input{width:16px;height:16px;accent-color:var(--navy);margin:0}
+.ck small{margin-left:auto;color:var(--mute);font-size:11.5px}
+.ck.dis{opacity:.5;cursor:default}
+.uqs{border:1px solid var(--line);border-top:0;margin:-8px 0 8px;padding:4px 12px 8px;background:#fcfbf9}
+.uq{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dotted var(--line);font-size:13px}
+.uq:last-child{border:0}
+.uq>span:first-child{flex:1}.uq small{color:var(--mute);font-family:Jost,sans-serif;margin-left:6px}
+.stp{display:inline-flex;align-items:center;border:1px solid var(--line);background:#fff}
+.stp button{width:30px;height:28px;font-size:15px}.stp button:disabled{opacity:.3}
+.stp output{min-width:24px;text-align:center;font-family:Jost,sans-serif}
+.nb-foot{position:sticky;bottom:0;margin-top:auto;background:#fff;border-top:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:14px;box-shadow:0 -10px 24px rgba(0,0,0,.04)}
+.nb-foot .sm{flex:1;min-width:0;font-size:12px;color:var(--mute);line-height:1.45}
+.nb-foot .sm b{display:block;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:var(--ink)}
+.nb-foot .btn{padding:11px 22px}
+.nb-err{background:#fdf3f2;border:1px solid #efc5c0;color:var(--warn);font-size:12.5px;padding:10px 12px;margin:12px 0 0}
+.nb-err .btn{margin-top:8px;border-color:var(--warn);color:var(--warn)}
+.hint{font-size:11.5px;color:var(--mute);margin:-6px 0 12px}
+.tag.stf{border-color:#c9d3ea;color:var(--navy)}
+.cal .d.pick{cursor:copy}.cal .d.pick:hover{background:#fafaf6}
+
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;font-size:13px;z-index:60}
 .toast.err{background:var(--warn)}
 
@@ -150,6 +207,8 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
   .cal .ev{font-size:10px;padding:2px 3px}
   .bar input[type=search]{min-width:0;flex:1}
   dl.kv{grid-template-columns:96px 1fr}
+  .g3{grid-template-columns:1fr 1fr}.g3 .f:first-child{grid-column:1/-1}
+  .nb-foot{padding:12px 16px}
 }
 @media print{.top,.bar,.tabs,.drawer,.scrim,.demo{display:none!important}}
 </style>
@@ -216,6 +275,7 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
         <span id="upd" style="font-size:12px;color:var(--mute)"></span>
         <button class="btn" id="bReload">更新</button>
         <button class="btn" id="bCsv">CSV出力</button>
+        <button class="btn pri" data-new>＋ 予約を入れる</button>
       </div>
       <table class="tbl">
         <thead><tr><th>乗船日時</th><th>状態</th><th>お客様</th><th>プラン・人数</th><th>船着場</th><th>オプション</th><th class="num">合計</th><th>受付</th></tr></thead>
@@ -231,6 +291,9 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
         <h2 id="cTitle"></h2>
         <button class="btn" id="cNext" aria-label="次の月">›</button>
         <button class="btn" id="cToday">今月</button>
+        <span class="sp" style="flex:1"></span>
+        <span style="font-size:12px;color:var(--mute)">日付の空いている所を押すと、その日で予約を入れられます</span>
+        <button class="btn pri" data-new>＋ 予約を入れる</button>
       </div>
       <div class="cal" id="cal"></div>
     </section>
@@ -259,6 +322,74 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
     <div class="sec">変更履歴</div>
     <ul class="log" id="dLog"></ul>
   </div>
+</aside>
+
+<!-- 予約を入れる -->
+<aside class="drawer nb" id="nb" hidden aria-label="予約を入れる">
+  <form id="nbForm" novalidate autocomplete="off">
+    <div class="dr-h"><div><small>NEW RESERVATION</small><h2>予約を入れる</h2></div><button type="button" class="x" id="nbClose" aria-label="閉じる">×</button></div>
+    <div class="dr-b nbf">
+      <div class="sec">クルーズ</div>
+      <div class="seg" id="nbPlan"></div>
+      <div class="g2" id="nbCustom" hidden>
+        <label class="f">プラン名<input name="cname" value="プライベートクルーズ" maxlength="120"></label>
+        <label class="f">時間（分）<input name="cmin" type="number" min="30" max="240" step="10" value="120"></label>
+      </div>
+      <div class="g3">
+        <label class="f">乗船日<em>*</em><input name="date" type="date" required></label>
+        <label class="f">出航時刻<em>*</em><input name="time" type="time" step="300" required></label>
+        <label class="f">人数<select name="guests"></select></label>
+      </div>
+      <div id="nbTl"></div>
+      <div class="av" id="nbAv">乗船日と出航時刻を入れると、その日の空き状況が表示されます。</div>
+
+      <div id="nbPierW">
+        <span class="f" style="margin-bottom:4px">船着場</span>
+        <div class="seg" id="nbPier"></div>
+        <div class="g2" id="nbReq" hidden>
+          <label class="f">乗船場所<input name="req_from" maxlength="200" placeholder="例：八軒家浜船着場"></label>
+          <label class="f">下船場所<input name="req_to" maxlength="200" placeholder="例：堂島浜船着場"></label>
+        </div>
+      </div>
+      <p class="hint" id="nbDtb" hidden>道頓堀クルーズの乗船場所は「別途ご案内」として登録します。</p>
+
+      <div class="sec">オプション</div>
+      <label class="ck"><input type="checkbox" name="wine"> ワイン<small>料金未定</small></label>
+      <label class="ck"><input type="checkbox" name="unagi"> 柴藤の鰻<small id="nbUSum"></small></label>
+      <div class="uqs" id="nbUnagi" hidden></div>
+
+      <div class="sec">お客様</div>
+      <div class="g2">
+        <label class="f">お名前<em>*</em><input name="name" maxlength="120" placeholder="例：山本 真理"></label>
+        <label class="f">部屋番号<input name="room" maxlength="20"></label>
+        <label class="f">メール<input name="email" type="email" maxlength="200" placeholder="メールを送るときは必須"></label>
+        <label class="f">電話<input name="tel" type="tel" maxlength="40"></label>
+        <label class="f">チェックイン<input name="checkin" type="date"></label>
+        <label class="f">チェックアウト<input name="checkout" type="date"></label>
+      </div>
+      <span class="f" style="margin-bottom:4px">言語（メールの言語）</span>
+      <div class="seg" id="nbLang"><button type="button" data-v="ja" class="on">日本語</button><button type="button" data-v="en">英語</button></div>
+      <label class="f">ご要望<textarea name="note" maxlength="2000" placeholder="例：結婚記念日のため花束の持込みあり"></textarea></label>
+
+      <div class="sec">料金・状態</div>
+      <div class="g2">
+        <label class="f">合計（税込・円）<input name="total" type="number" min="0" step="10" inputmode="numeric"></label>
+        <div class="f">　<button type="button" class="btn" id="nbAuto" style="width:100%;justify-content:center;margin-top:4px">自動計算に戻す</button></div>
+      </div>
+      <p class="hint" id="nbTotHint"></p>
+      <span class="f" style="margin-bottom:4px">登録時の状態</span>
+      <div class="seg st2" id="nbSt"><button type="button" data-v="new" class="on">新規<small>あとで確定する</small></button><button type="button" data-v="confirmed">確定<small>この内容で確定</small></button></div>
+      <label class="ck" id="nbMailL"><input type="checkbox" name="send_mail"> <span id="nbMailT"></span></label>
+      <p class="hint" id="nbMailH"></p>
+      <label class="f">スタッフメモ<textarea name="memo" maxlength="2000" placeholder="例：フロントで電話受付／柴藤に発注済み"></textarea></label>
+      <div class="nb-err" id="nbErr" hidden></div>
+    </div>
+    <div class="nb-foot">
+      <div class="sm" id="nbSum"></div>
+      <button type="button" class="btn" id="nbCancel">閉じる</button>
+      <button class="btn pri" id="nbSubmit">登録する</button>
+    </div>
+  </form>
 </aside>
 
 <div class="toast" id="toast" hidden></div>
@@ -424,13 +555,13 @@ function patch(ref, body){
   });
 }
 function loadLog(ref){
-  if(DEMO){ var r = find(ref); return Promise.resolve([{ at:r.created_at, who:"guest", action:"created", detail:"" }].concat(r._log || [])); }
+  if(DEMO){ var r = find(ref); return Promise.resolve((r.source === "staff" ? [] : [{ at:r.created_at, who:"guest", action:"created", detail:"" }]).concat(r._log || [])); }
   return api("wa_log?ref=eq." + encodeURIComponent(ref) + "&order=at.asc");
 }
 var MK = { received:"受付メール", confirmed:"確定メール", cancelled:"キャンセルメール", notify:"スタッフ通知" };
 function loadMail(ref){
   if(DEMO){
-    var r = find(ref), out = [{ at:r.created_at, kind:"received", to_addr:r.email, result:"送信済み" }];
+    var r = find(ref), out = r.source === "staff" ? [] : [{ at:r.created_at, kind:"received", to_addr:r.email, result:"送信済み" }];
     (r._log || []).forEach(function(l){ if(l.action === "status"){ var to = l.detail.split(" → ")[1]; if(to === "confirmed" || to === "cancelled") out.push({ at:l.at, kind:to, to_addr:r.email, result:"送信済み（デモ）" }); } });
     return Promise.resolve(out);
   }
@@ -488,7 +619,7 @@ function render(){
       "<td>" + esc(r.pier_name) + (r.type === "pier_request" ? "<small>" + esc(r.req_from || "—") + " → " + esc(r.req_to || "—") + "</small>" : "") + "</td>" +
       "<td>" + optHtml(r) + (items ? "<small>" + items + "</small>" : "") + "</td>" +
       '<td class="num">' + yen(r.price_total) + (r.price_note ? "<small>" + esc(r.price_note) + "</small>" : "") + "</td>" +
-      '<td class="hide-sm"><small>' + dt(r.created_at) + "</small><small>" + esc(r.ref) + "</small></td></tr>";
+      '<td class="hide-sm"><small>' + dt(r.created_at) + "</small><small>" + esc(r.ref) + "</small>" + (r.source === "staff" ? '<span class="tag stf">管理画面から</span>' : "") + "</td></tr>";
   });
   $("rows").innerHTML = h;
   $("empty").hidden = list.length > 0;
@@ -503,7 +634,7 @@ function renderCal(){
     var d = new Date(start); d.setDate(start.getDate() + i); var k = ymd(d);
     if(i >= 35 && d.getMonth() !== m) break;
     var evs = S.rows.filter(function(r){ return r.date === k; }).sort(function(a, b){ return a.time.localeCompare(b.time); });
-    h += '<div class="d' + (d.getMonth() !== m ? " out" : "") + (k === t ? " today" : "") + '"><div class="n">' + d.getDate() + "</div>" +
+    h += '<div class="d' + (d.getMonth() !== m ? " out" : "") + (k === t ? " today" : "") + (k >= t ? ' pick" data-day="' + k : "") + '"><div class="n">' + d.getDate() + "</div>" +
       evs.map(function(r){ return '<button class="ev ' + r.status + '" data-ref="' + esc(r.ref) + '" title="' + esc(ST[r.status] + " " + r.name) + '">' + hm(r.time) + " " + esc(r.name) + "（" + r.guests + "）</button>"; }).join("") + "</div>";
   }
   $("cal").innerHTML = h;
@@ -528,7 +659,7 @@ function renderUnagi(){
 
 /* ── 詳細 ── */
 function openDrawer(ref){ S.open = ref; $("scrim").hidden = false; $("drawer").hidden = false; fillDrawer(); }
-function closeDrawer(){ S.open = null; $("scrim").hidden = true; $("drawer").hidden = true; }
+function closeDrawer(){ S.open = null; if(!NB) $("scrim").hidden = true; $("drawer").hidden = true; }
 function fillDrawer(){
   var r = find(S.open); if(!r){ closeDrawer(); return; }
   $("dRef").textContent = r.ref;
@@ -539,7 +670,7 @@ function fillDrawer(){
   var items = (r.unagi_items || []).map(function(x){ return esc(x.name) + " ×" + x.qty + "　" + yen(x.qty * x.price); }).join("<br>");
   var kv = [
     ["状態", '<span class="st ' + r.status + '">' + ST[r.status] + "</span>"],
-    ["種別", r.type === "pier_request" ? "その他の船着場リクエスト（要確認）" : "予約リクエスト"],
+    ["種別", (r.type === "pier_request" ? "その他の船着場リクエスト（要確認）" : "予約リクエスト") + (r.source === "staff" ? "<br><small>管理画面から登録</small>" : "<br><small>予約ページから</small>")],
     ["プラン", esc(r.plan_name) + "（" + r.minutes + "分）"],
     ["乗船日時", fdate(r.date) + " " + hm(r.time) + " 出航 → " + hm(r.end_time) + " 下船予定"],
     ["船着場", esc(r.pier_name) + (r.type === "pier_request" ? "<br>乗船：" + esc(r.req_from || "—") + "<br>下船：" + esc(r.req_to || "—") : "")],
@@ -547,10 +678,10 @@ function fillDrawer(){
     ["オプション", (r.options || []).map(function(o){ return esc(OPT[o] || o); }).join("、") || "なし"],
     ["鰻の注文", items || "—"],
     ["合計（表示額）", yen(r.price_total) + (r.price_note ? " " + esc(r.price_note) : "")],
-    ["お名前", esc(r.name) + (r.lang === "en" ? "（英語ページから）" : "")],
+    ["お名前", esc(r.name) + (r.lang === "en" ? (r.source === "staff" ? "（英語）" : "（英語ページから）") : "")],
     ["部屋番号", esc(r.room) || "—"],
-    ["メール", '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + "</a>"],
-    ["電話", '<a href="tel:' + esc(r.tel) + '">' + esc(r.tel) + "</a>"],
+    ["メール", r.email ? '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + "</a>" : "—"],
+    ["電話", r.tel ? '<a href="tel:' + esc(r.tel) + '">' + esc(r.tel) + "</a>" : "—"],
     ["宿泊", (r.checkin ? fdate(r.checkin) : "—") + " 〜 " + (r.checkout ? fdate(r.checkout) : "—")],
     ["ご要望", esc(r.note).replace(/\n/g, "<br>") || "—"],
     ["受付", dt(r.created_at)],
@@ -565,7 +696,7 @@ function fillDrawer(){
     $("dLog").innerHTML = (log || []).slice().reverse().map(function(l){
       var det = l.action === "status" ? l.detail.replace(/\w+/g, function(w){ return ST[w] || w; })
               : l.action === "mail" ? l.detail.replace(/^\w+/, function(w){ return MK[w] || w; }) : l.detail;
-      return "<li><span>" + dt(l.at) + "</span><div>" + (A[l.action] || esc(l.action)) + (det ? "：" + esc(det) : "") + '<br><span>' + (l.who === "guest" ? "お客様" : l.who === "system" ? "自動" : esc(l.who)) + "</span></div></li>";
+      return "<li><span>" + dt(l.at) + "</span><div>" + (l.action === "created" && l.who !== "guest" ? "予約を登録" : A[l.action] || esc(l.action)) + (det ? "：" + esc(det) : "") + '<br><span>' + (l.who === "guest" ? "お客様" : l.who === "system" ? "自動" : esc(l.who)) + "</span></div></li>";
     }).join("") || "<li>履歴はありません</li>";
   }).catch(function(){});
   loadMail(r.ref).then(function(ms){
@@ -573,14 +704,15 @@ function fillDrawer(){
     $("dMail").innerHTML = (ms || []).filter(function(m){ return m.kind !== "notify"; }).slice().reverse().map(function(m){
       var bad = !/^送信済み/.test(m.result || "");
       return "<li><span>" + dt(m.at) + "</span><div>" + (MK[m.kind] || esc(m.kind)) + "　" + esc(m.to_addr) + '<br><span' + (bad ? ' style="color:var(--cx)"' : "") + ">" + esc(m.result || "") + "</span></div></li>";
-    }).join("") || "<li>まだ送っていません</li>";
+    }).join("") || "<li>" + (r.email ? "まだ送っていません" : "メールアドレスがないため送っていません") + "</li>";
   }).catch(function(){ $("dMail").innerHTML = "<li>送信記録を読み込めませんでした</li>"; });
 }
 $("dActs").addEventListener("click", function(e){
   var b = e.target.closest("[data-st]"); if(!b) return;
   var r = find(S.open), st = b.dataset.st;
-  if(st === "cancelled" && !confirm(r.name + " 様の予約をキャンセルにします。よろしいですか？\n\nお客様（" + r.email + "）にキャンセルのメールが自動で送られます。")) return;
-  if(st === "confirmed" && r.status !== "done" && !confirm(r.name + " 様の予約を確定にします。\n\nお客様（" + r.email + "）に確定メールが自動で送られます（同じ予約に2回は送りません）。")) return;
+  var noMail = !r.email;
+  if(st === "cancelled" && !confirm(r.name + " 様の予約をキャンセルにします。よろしいですか？\n\n" + (noMail ? "（メールアドレスがないため、お客様へのメールは送られません）" : "お客様（" + r.email + "）にキャンセルのメールが自動で送られます。"))) return;
+  if(st === "confirmed" && r.status !== "done" && !noMail && !confirm(r.name + " 様の予約を確定にします。\n\nお客様（" + r.email + "）に確定メールが自動で送られます（同じ予約に2回は送りません）。")) return;
   b.disabled = true;
   patch(r.ref, { status:st }).then(function(){ toast("「" + ST[st] + "」にしました"); render(); fillDrawer(); })
     .catch(function(err){ if(err.message !== "auth") toast("変更できませんでした：" + err.message, true); b.disabled = false; });
@@ -592,8 +724,233 @@ $("dMemoSave").addEventListener("click", function(){
     .catch(function(err){ if(err.message !== "auth") toast("保存できませんでした：" + err.message, true); })
     .then(function(){ $("dMemoSave").disabled = false; });
 });
-$("dClose").onclick = closeDrawer; $("scrim").onclick = closeDrawer;
-document.addEventListener("keydown", function(e){ if(e.key === "Escape" && S.open) closeDrawer(); });
+$("dClose").onclick = closeDrawer; $("scrim").onclick = function(){ if(NB) nbClose(); else closeDrawer(); };
+document.addEventListener("keydown", function(e){ if(e.key !== "Escape") return; if(NB) nbClose(); else if(S.open) closeDrawer(); });
+
+/* ── 予約を入れる（電話・フロントで受けた予約など） ──
+   プラン・料金・船着場・鰻の品目は予約ページ（index.html の CONFIG）と合わせること */
+var NB_PLANS = [
+  { id:"p60", min:60, price:45000, name:"プライベートクルーズ 60分", short:"プライベート 60分" },
+  { id:"p90", min:90, price:50000, name:"プライベートクルーズ 90分", short:"プライベート 90分" },
+  { id:"dtb90", min:90, price:50000, lastDepart:"20:00", name:"道頓堀クルーズ 90分", short:"道頓堀 90分" },
+  { id:"custom", min:null, price:null, name:"", short:"その他" }
+];
+var NB_PIERS = [["dojimahama","堂島浜船着場"],["ichiba","中央卸売市場前港"],["other","その他の船着場"]];
+var NB_UNAGI = [["ran","大阪まむし 蘭",8870],["sakura","大阪まむし 桜",7450],["kiku","大阪まむし 菊",4920],["mini","ミニまむし",2890],
+  ["yawata5","八幡巻 5巻",5050],["yawata3","八幡巻 3巻",3030],["uzakuL","うざく 大",3680],["uzakuS","うざく 小",1840]];
+var HOURS = { first:"10:00", lastReturn:"22:00" };
+var NB = null, TURN = 30;
+function mins(t){ var p = String(t || "").split(":"); return p.length < 2 ? NaN : +p[0] * 60 + +p[1]; }
+function mm2(n){ return pad(Math.floor(n / 60)) + ":" + pad(n % 60); }
+var F = function(n){ return $("nbForm").elements[n]; };
+
+function nbOpen(date){
+  closeDrawer();
+  NB = { plan:"p90", pier:"dojimahama", lang:"ja", status:"new", qty:{}, manual:false, force:false };
+  var f = $("nbForm"); f.reset();
+  $("nbErr").hidden = true;
+  f.querySelectorAll(".bad").forEach(function(x){ x.classList.remove("bad"); });
+  F("guests").innerHTML = [1,2,3,4,5,6,7,8].map(function(n){ return "<option" + (n === 2 ? " selected" : "") + ">" + n + "</option>"; }).join("");
+  F("date").min = today(); F("date").max = addDays(today(), 366);
+  F("date").value = date && date >= today() ? date : "";
+  F("checkin").value = F("date").value;
+  F("send_mail").checked = true;
+  $("scrim").hidden = false; $("nb").hidden = false; $("nb").scrollTop = 0;
+  nbPaint();
+  setTimeout(function(){ (F("date").value ? F("time") : F("date")).focus(); }, 30);
+}
+function nbClose(){ NB = null; $("nb").hidden = true; if(!S.open) $("scrim").hidden = true; }
+function nbPlan(){ return NB_PLANS.find(function(p){ return p.id === NB.plan; }); }
+function nbMin(){ var p = nbPlan(); return p.id === "custom" ? parseInt(F("cmin").value, 10) : p.min; }
+function nbUnagiLines(){
+  if(!F("unagi").checked) return [];
+  return NB_UNAGI.filter(function(u){ return NB.qty[u[0]] > 0; }).map(function(u){ return { id:u[0], name:u[1], qty:NB.qty[u[0]], price:u[2] }; });
+}
+function nbAutoTotal(){
+  var p = nbPlan(); if(p.price == null) return null;
+  return p.price + nbUnagiLines().reduce(function(a, x){ return a + x.qty * x.price; }, 0);
+}
+// その日の他の予約との重なり（前後の準備時間を含む）
+function nbClashes(date, s, e){
+  return S.rows.filter(function(r){
+    return r.date === date && r.status !== "cancelled" && mins(r.time) - TURN < e && mins(r.end_time) + TURN > s;
+  });
+}
+function seg(el, list, cur){
+  el.innerHTML = list.map(function(x){ return '<button type="button" data-v="' + x[0] + '"' + (x[0] === cur ? ' class="on"' : "") + ">" + x[1] + "</button>"; }).join("");
+}
+function nbPaint(){
+  if(!NB) return;
+  var p = nbPlan(), isDtb = p.id === "dtb90";
+  seg($("nbPlan"), NB_PLANS.map(function(x){ return [x.id, x.short + "<small>" + (x.price != null ? yen(x.price) : "時間・料金を入力") + "</small>"]; }), NB.plan);
+  seg($("nbPier"), NB_PIERS, NB.pier);
+  $("nbCustom").hidden = p.id !== "custom";
+  $("nbPierW").hidden = isDtb; $("nbDtb").hidden = !isDtb;
+  $("nbReq").hidden = isDtb || NB.pier !== "other";
+  $("nbLang").querySelectorAll("button").forEach(function(b){ b.classList.toggle("on", b.dataset.v === NB.lang); });
+  $("nbSt").querySelectorAll("button").forEach(function(b){ b.classList.toggle("on", b.dataset.v === NB.status); });
+
+  // 鰻
+  $("nbUnagi").hidden = !F("unagi").checked;
+  $("nbUnagi").innerHTML = NB_UNAGI.map(function(u){
+    var q = NB.qty[u[0]] || 0;
+    return '<div class="uq"><span>' + u[1] + "<small>" + yen(u[2]) + '</small></span><span class="stp"><button type="button" data-q="' + u[0] + '" data-d="-1"' + (q ? "" : " disabled") + ' aria-label="減らす">−</button><output>' + q + '</output><button type="button" data-q="' + u[0] + '" data-d="1"' + (q >= 20 ? " disabled" : "") + ' aria-label="増やす">＋</button></span></div>';
+  }).join("");
+  var ul = nbUnagiLines(), usum = ul.reduce(function(a, x){ return a + x.qty * x.price; }, 0);
+  $("nbUSum").textContent = F("unagi").checked ? (ul.length ? ul.reduce(function(a, x){ return a + x.qty; }, 0) + "点 " + yen(usum) : "品目を選んでください") : "";
+
+  // 料金
+  var auto = nbAutoTotal();
+  if(!NB.manual) F("total").value = auto == null ? "" : auto;
+  $("nbAuto").disabled = !NB.manual || auto == null;
+  $("nbTotHint").textContent = (NB.manual ? "手入力の金額で登録します。" : auto == null ? "その他のプランは金額を入力してください。" : "プラン料金" + (usum ? "＋鰻" : "") + "の自動計算です。変更する場合は直接入力してください。")
+    + (F("wine").checked ? "ワインは料金未定のため含まれていません。" : "");
+
+  // メール
+  var hasMail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(F("email").value.trim());
+  var kind = NB.status === "confirmed" ? "確定メール" : "受付メール";
+  $("nbMailL").classList.toggle("dis", !hasMail);
+  F("send_mail").disabled = !hasMail;
+  $("nbMailT").textContent = "お客様に" + kind + "を送る";
+  $("nbMailH").textContent = !hasMail ? "メールアドレスを入れると、お客様にメールを送れます。"
+    : !F("send_mail").checked ? "メールは送りません。" + (NB.status === "new" ? "あとで「確定」にしたときは、確定メールが送られます。" : "")
+    : NB.lang === "en" ? "英語で送ります。" : "日本語で送ります。";
+
+  // 空き状況
+  var date = F("date").value, s = mins(F("time").value), m = nbMin(), tl = $("nbTl"), av = $("nbAv");
+  var lo = mins(HOURS.first) - 60, hi = mins(HOURS.lastReturn) + 30, W = hi - lo;
+  var X = function(v){ return (Math.max(lo, Math.min(hi, v)) - lo) / W * 100; };
+  NB.clash = [];
+  if(!date){ tl.innerHTML = ""; av.className = "av"; av.textContent = "乗船日と出航時刻を入れると、その日の空き状況が表示されます。"; nbSum(); return; }
+  var day = S.rows.filter(function(r){ return r.date === date && r.status !== "cancelled"; }).sort(function(a, b){ return a.time.localeCompare(b.time); });
+  var g = "";
+  for(var h = Math.ceil(lo / 60) * 60; h <= hi; h += 60) g += '<i style="left:' + X(h) + '%"></i>';
+  day.forEach(function(r){
+    var a = mins(r.time), b = mins(r.end_time);
+    g += '<div class="tz" style="left:' + X(a - TURN) + "%;width:" + (X(b + TURN) - X(a - TURN)) + '%"></div>';
+    g += '<div class="bk ' + r.status + '" style="left:' + X(a) + "%;width:" + (X(b) - X(a)) + '%" title="' + esc(hm(r.time) + "〜" + hm(r.end_time) + " " + r.name) + '">' + hm(r.time) + " " + esc(r.name) + "</div>";
+  });
+  var ok = !isNaN(s) && m >= 30 && m <= 240;
+  if(ok){
+    NB.clash = nbClashes(date, s, s + m);
+    g += '<div class="me' + (NB.clash.length ? " ng" : "") + '" style="left:' + X(s) + "%;width:" + (X(s + m) - X(s)) + '%"></div>';
+  }
+  tl.innerHTML = '<div class="tl">' + g + '</div><div class="tl-ax">' + [9,12,15,18,21].map(function(x){ return "<span>" + x + ":00</span>"; }).join("") + "</div>";
+  var warn = [];
+  if(ok){
+    if(s + m > mins(HOURS.lastReturn)) warn.push("下船が " + HOURS.lastReturn + " を過ぎます");
+    if(s < mins(HOURS.first)) warn.push("通常の最初の出航（" + HOURS.first + "）より前です");
+    if(p.lastDepart && s > mins(p.lastDepart)) warn.push("道頓堀クルーズの最終出航（" + p.lastDepart + "）より後です");
+    if(s + m >= 24 * 60) warn.push("日付をまたぐ予約は登録できません");
+  }
+  if(!ok){ av.className = "av"; av.textContent = day.length ? fdate(date) + "はほかに " + day.length + " 件の予約があります。出航時刻を入れてください。" : fdate(date) + "はまだ予約がありません。出航時刻を入れてください。"; }
+  else if(NB.clash.length){
+    av.className = "av ng";
+    av.innerHTML = "<b>" + mm2(s) + "〜" + mm2(s + m) + " は、ほかの予約と重なります。</b><br>" + NB.clash.map(function(r){ return hm(r.time) + "〜" + hm(r.end_time) + "　" + esc(r.name) + " 様（" + ST[r.status] + "）"; }).join("<br>") + "<br>便と便の間は " + TURN + " 分空ける設定です。";
+  } else if(warn.length){ av.className = "av wn"; av.innerHTML = "<b>" + mm2(s) + "〜" + mm2(s + m) + " は空いています。</b>ただし、" + warn.join("。") + "。"; }
+  else { av.className = "av ok"; av.innerHTML = "<b>" + mm2(s) + "〜" + mm2(s + m) + " は空いています。</b>" + (day.length ? "（この日はほかに " + day.length + " 件）" : ""); }
+  nbSum();
+}
+function nbSum(){
+  var p = nbPlan(), t = F("total").value, d = F("date").value, s = F("time").value;
+  $("nbSum").innerHTML = "<b>" + (t !== "" ? yen(+t) : "—") + "</b>" + (d ? fdate(d) : "日付未定") + (s ? " " + s + "出航" : "") + "・" + (p.id === "custom" ? (F("cname").value || "その他") : p.name) + "・" + F("guests").value + "名";
+}
+function nbPayload(){
+  var p = nbPlan(), v = function(n){ return F(n).value.trim(); }, m = nbMin(), isDtb = p.id === "dtb90", isReq = !isDtb && NB.pier === "other";
+  var ul = nbUnagiLines(), opts = [];
+  if(F("wine").checked) opts.push("wine");
+  if(F("unagi").checked) opts.push("unagi");
+  return {
+    type: isReq ? "pier_request" : "reservation",
+    plan: p.id, plan_name: p.id === "custom" ? (v("cname") || "プライベートクルーズ") + " " + m + "分" : p.name, minutes: m,
+    pier: isDtb ? "dtb" : NB.pier,
+    pier_name: isDtb ? "別途ご案内" : isReq ? "その他の船着場（リクエスト）" : NB_PIERS.find(function(x){ return x[0] === NB.pier; })[1],
+    req_from: isReq ? v("req_from") : "", req_to: isReq ? v("req_to") : "",
+    date: v("date"), time: v("time"), guests: +F("guests").value, options: opts, unagi_items: ul,
+    price_plan: p.price, price_total: v("total") === "" ? null : Math.round(+v("total")),
+    price_note: F("wine").checked && !NB.manual ? "＋料金未定のオプション" : "",
+    name: v("name"), room: v("room"), email: v("email"), tel: v("tel"), checkin: v("checkin"), checkout: v("checkout"),
+    note: F("note").value.trim(), memo: F("memo").value.trim(), lang: NB.lang, status: NB.status,
+    send_mail: F("send_mail").checked && !F("send_mail").disabled, force: NB.force
+  };
+}
+function nbErr(html){ var e = $("nbErr"); e.innerHTML = html; e.hidden = !html; if(html) e.scrollIntoView({ behavior:"smooth", block:"center" }); }
+function nbSubmit(){
+  var f = $("nbForm"), p = nbPayload(), bad = [];
+  f.querySelectorAll(".bad").forEach(function(x){ x.classList.remove("bad"); });
+  var need = function(n, cond, msg){ if(!cond){ F(n).classList.add("bad"); bad.push(msg); } };
+  need("date", p.date && p.date >= today() && p.date <= addDays(today(), 366), "乗船日（今日〜1年先）");
+  need("time", !isNaN(mins(p.time)), "出航時刻");
+  if(NB.plan === "custom") need("cmin", p.minutes >= 30 && p.minutes <= 240, "時間（30〜240分）");
+  if(!isNaN(mins(p.time)) && mins(p.time) + p.minutes >= 1440) bad.push("日付をまたがない出航時刻");
+  need("name", p.name, "お名前");
+  need("email", !p.email || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email), "メールアドレスの形式");
+  if(F("unagi").checked && !p.unagi_items.length) bad.push("鰻の品目（または鰻のチェックを外す）");
+  if(bad.length){ nbErr("次を確認してください：" + bad.map(esc).join("、")); var b0 = f.querySelector(".bad"); if(b0) b0.focus(); return; }
+  if(NB.clash.length && !NB.force){
+    nbErr("<b>この時間は、ほかの予約と重なっています。</b><br>" + NB.clash.map(function(r){ return hm(r.time) + "〜" + hm(r.end_time) + "　" + esc(r.name) + " 様"; }).join("<br>") +
+      '<br>時間を変えるか、重なりを承知のうえで登録してください。<br><button type="button" class="btn" id="nbForce">重なりを承知で登録する</button>');
+    return;
+  }
+  if(p.send_mail && !confirm(p.name + " 様に" + (p.status === "confirmed" ? "確定メール" : "受付メール") + "が送られます（" + p.email + "）。\nこの内容で登録しますか？")) return;
+  $("nbSubmit").disabled = true; nbErr("");
+  var done = function(ref){ toast("予約を登録しました（" + ref + "）"); nbClose(); return load().then(function(){ openDrawer(ref); }); };
+  var req;
+  if(DEMO){
+    var ref = "WA-DEMO-" + Math.random().toString(16).slice(2, 6).toUpperCase(), e = mins(p.time) + p.minutes, now = new Date().toISOString();
+    var row = Object.assign({}, p, { ref:ref, created_at:now, updated_at:now, updated_by:S.me.email, source:"staff", time:p.time + ":00", end_time:mm2(e) + ":00", email:p.email.toLowerCase(),
+      _log:[{ at:now, who:S.me.email, action:"created", detail:"管理画面から登録" + (p.status === "confirmed" ? "（確定）" : "") }] });
+    delete row.send_mail; delete row.force;
+    S.rows.push(row); req = Promise.resolve({ ok:true, ref:ref });
+  } else req = api("rpc/wa_staff_create_booking", { method:"POST", body:{ p:p } });
+  req.then(function(r){
+    if(r && r.ok) return done(r.ref);
+    var er = r && r.error;
+    if(er === "taken"){ NB.clash = [r.clash]; NB.force = false; return load(true).then(function(){ nbPaint(); nbSubmit(); }); }
+    var FM = { date:"乗船日・出航時刻", time:"出航時刻（日付をまたいでいます）", minutes:"時間（分）", name:"お名前", email:"メールアドレス", guests:"人数", unagi:"鰻の品目" };
+    nbErr(er === "date" ? "乗船日は、今日から1年先までの日付にしてください。"
+      : er === "forbidden" ? "このアカウントには予約を登録する権限がありません。"
+      : er === "invalid" ? "入力を確認してください：" + (FM[r.field] || "入力内容")
+      : "登録できませんでした。");
+  }).catch(function(err){
+    if(err.message === "auth") return;
+    nbErr(/wa_staff_create_booking/.test(err.message) ? "データベースの準備がまだです（staff_booking.sql が未実行）。管理者に連絡してください。" : "登録できませんでした：" + esc(err.message));
+  }).then(function(){ $("nbSubmit").disabled = false; if(NB) NB.force = false; });
+}
+$("nbForm").addEventListener("submit", function(e){ e.preventDefault(); nbSubmit(); });
+$("nbForm").addEventListener("input", function(e){
+  if(!NB) return;
+  if(e.target.name === "total") NB.manual = true;
+  if(e.target.name === "date" && (!F("checkin").value || F("checkin").dataset.auto === "1")){ F("checkin").value = F("date").value; F("checkin").dataset.auto = "1"; }
+  if(e.target.name === "checkin") F("checkin").dataset.auto = "";
+  if(e.target.classList.contains("bad")) e.target.classList.remove("bad");
+  if(e.target.name === "email" && !NB.mailTouched) F("send_mail").checked = true;
+  if(e.target.name === "send_mail") NB.mailTouched = true;
+  nbPaint();
+});
+$("nbForm").addEventListener("change", function(){ if(NB) nbPaint(); });
+$("nbForm").addEventListener("click", function(e){
+  if(!NB) return;
+  var b = e.target.closest("button[data-v]");
+  if(b){
+    var box = b.parentNode.id;
+    if(box === "nbPlan"){ NB.plan = b.dataset.v; NB.manual = false; }
+    else if(box === "nbPier") NB.pier = b.dataset.v;
+    else if(box === "nbLang") NB.lang = b.dataset.v;
+    else if(box === "nbSt") NB.status = b.dataset.v;
+    nbPaint(); return;
+  }
+  var q = e.target.closest("button[data-q]");
+  if(q){ var k = q.dataset.q; NB.qty[k] = Math.max(0, Math.min(20, (NB.qty[k] || 0) + +q.dataset.d)); nbPaint(); return; }
+  if(e.target.id === "nbForce"){ NB.force = true; nbSubmit(); return; }
+  if(e.target.id === "nbAuto"){ NB.manual = false; nbPaint(); }
+});
+$("nbClose").onclick = nbClose; $("nbCancel").onclick = nbClose;
+document.addEventListener("click", function(e){ if(e.target.closest("[data-new]")) nbOpen(); });
+$("cal").addEventListener("click", function(e){
+  if(e.target.closest(".ev")) return;
+  var d = e.target.closest(".d[data-day]"); if(d) nbOpen(d.dataset.day);
+});
 
 /* ── CSV ── */
 $("bCsv").addEventListener("click", function(){
@@ -602,7 +959,7 @@ $("bCsv").addEventListener("click", function(){
     ["オプション",function(r){ return (r.options || []).map(function(o){ return OPT[o] || o; }).join("・"); }],
     ["鰻の注文",function(r){ return (r.unagi_items || []).map(function(x){ return x.name + "×" + x.qty; }).join("・"); }],
     ["合計（表示額）","price_total"],["お名前","name"],["部屋番号","room"],["メール","email"],["電話","tel"],["チェックイン","checkin"],["チェックアウト","checkout"],
-    ["ご要望","note"],["スタッフメモ","memo"],["受付日時",function(r){ return dt(r.created_at); }],["最終更新者","updated_by"]];
+    ["ご要望","note"],["スタッフメモ","memo"],["受付経路",function(r){ return r.source === "staff" ? "管理画面" : "予約ページ"; }],["受付日時",function(r){ return dt(r.created_at); }],["最終更新者","updated_by"]];
   var rows = filtered().map(function(r){ return cols.map(function(c){ var v = typeof c[1] === "function" ? c[1](r) : r[c[1]]; v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); });
   var csv = "﻿" + cols.map(function(c){ return c[0]; }).join(",") + "\n" + rows.join("\n");
   var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type:"text/csv" })); a.download = "予約一覧_" + today() + ".csv"; a.click();
@@ -641,6 +998,7 @@ function start(){
   $("org").textContent = ORG[S.me.org] || "";
   var d = new Date(); S.calY = d.getFullYear(); S.calM = d.getMonth();
   load();
+  if(!DEMO) api("wa_settings?select=turnover_min").then(function(d){ if(d && d[0]) TURN = d[0].turnover_min; }).catch(function(){});
   clearInterval(timer); if(!DEMO) timer = setInterval(function(){ if(!document.hidden) load(true); }, 60000);
 }
 
