@@ -1392,7 +1392,7 @@ const CONFIG = {
     // 汽船315号：STARCRAFT MARINE AURORA 2015（改造）／長さ5.58m・幅2.58m・深さ1.23m・1.9t／ヤマハ船外機150PS（船舶検査手帳より）
     // 検査書類にエアドラフト（水面から最も高い所まで）の記載なし → 幌を上げた状態などを実測して airDraft に入れる
     vessel: { airDraft: 1.60, minMargin: 0.30 },
-    maxLevel: 1.52,              // 運航できる水位の上限（O.P.・堂島検潮所）＝運航会社の実績値。設定時は船の高さをこの値から逆算（最も低い橋で必要マージンちょうど）   // ★要実測：airDraft(m)。minMargin＝必要マージン(m)
+    maxLevel: 1.52, cautionBand: 0,   // 上限以下は運航可（cautionBand＞0 にすると上限手前を「要確認」にできる）              // 運航できる水位の上限（O.P.・堂島検潮所）＝運航会社の実績値。設定時は船の高さをこの値から逆算（最も低い橋で必要マージンちょうど）   // ★要実測：airDraft(m)。minMargin＝必要マージン(m)
     tideToBridgeDatum: 0.49,
     // 実測水位：国交省「川の防災情報」堂島検潮所（大阪府 西大阪治水事務所、O.P.表示・10分毎）。実測と予測の差を当日の予測に上乗せして補正
     obs: { code:"0691300400057", base:"https://www.river.go.jp/kawabou/file/files/", staleMin:90, fadeHr:12 },     // 潮位表基準面(大阪 T.P.−0.807m) → O.P.(T.P.−1.300m) への換算：O.P.潮位＝表の潮位＋0.49m
@@ -1744,7 +1744,7 @@ const App = (() => {
     for(const b of o.bridges){
       const td=tideAt(key, dep+b.offset); if(td==null) return null;
       const avail=b.clear-td-airDraft();
-      const st= avail<v.minMargin?"FAIL": avail<v.minMargin+.15?"CAUTION":"PASS";
+      const cb=o.cautionBand??.15, st= avail<v.minMargin-1e-9?"FAIL": avail<v.minMargin+cb?"CAUTION":"PASS";
       if(!worst||avail<worst.avail) worst={...b,avail,st,tide:td};
     }
     return worst;
@@ -1774,10 +1774,12 @@ const App = (() => {
   function autoLevel(){
     const o=CONFIG.ops; if(o.override) return o.override;
     if(!OPS.tide) return CONFIG.status.level;
-    let key=dkey(new Date()), js=CONFIG.timeSlots.map(s=>judge(key,s)); const rest=js.filter(j=>!j.past);
-    if(rest.length) js=rest; else { const d=new Date(); d.setDate(d.getDate()+1); key=dkey(d); js=CONFIG.timeSlots.map(s=>judge(key,s)); } // 本日の出航が終わったら翌日で判定
-    if(js.every(j=>j.v==="ng")) return "red";
-    if(js.some(j=>j.v!=="ok")) return "yellow";
+    // 「今」の状態で判定（先の時間帯の予測では欠航表示にしない。時間帯ごとの可否は出航判定の表で案内）
+    const now=new Date(), cur = OPS.obs ? OPS.obs.cur : tideAt(dkey(now), now.getHours()*60+now.getMinutes());
+    if(cur!=null && cur > maxTide()+1e-9) return "red";
+    if(OPS.wx){ const k=`${dkey(now)}T${String(now.getHours()).padStart(2,"0")}:00`, i=OPS.wx.idx[k], H=OPS.wx.h;
+      if(i!=null){ if(H.wind_speed_10m[i]>=o.wind.stop||H.wind_gusts_10m[i]>=o.wind.gustStop||H.precipitation[i]>=o.rain.stop) return "red";
+        if(H.wind_speed_10m[i]>=o.wind.caution||H.precipitation[i]>=o.rain.caution) return "yellow"; } }
     return "green";
   }
 
