@@ -26,7 +26,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:var(--mincho);font-size:15px;line-height:1.95;letter-spacing:.05em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-html[lang=en] body{font-family:var(--serif);font-size:17.5px;letter-spacing:.01em}
+html.xl body{font-family:var(--serif);font-size:17.5px;letter-spacing:.01em}
 img{max-width:100%;display:block}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -36,7 +36,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .h2{font-family:var(--serif);font-weight:300;font-size:clamp(36px,5.2vw,62px);line-height:1.08;letter-spacing:.005em;margin-top:18px}
 .h2 em{font-style:italic;color:var(--gold3)}
 .h2 small{display:block;font-family:var(--mincho);font-size:13px;letter-spacing:.42em;margin-top:18px;color:var(--mute)}
-html[lang=en] .h2 small{display:none}
+html.xl .h2 small{display:none}
 .lead{max-width:620px;color:var(--body);margin-top:26px}
 .center{text-align:center}.center .lead{margin-left:auto;margin-right:auto}
 /* deco ornament (fan + rules) */
@@ -79,9 +79,9 @@ header.solid .hd{height:70px}
 .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(50px,7vw,98px);line-height:.98;margin-top:26px;letter-spacing:-.005em}
 .hero h1 em{font-style:italic;color:var(--gold3);display:block;padding-left:.6em}
 .hero .jp{font-family:var(--mincho);font-size:clamp(15px,1.6vw,18px);letter-spacing:.38em;margin-top:30px;color:var(--ink)}
-html[lang=en] .hero .jp{font-family:var(--serif);letter-spacing:.06em;font-style:italic;font-size:21px}
+html.xl .hero .jp{font-family:var(--serif);letter-spacing:.06em;font-style:italic;font-size:21px}
 .hero .lead{font-size:14.5px;max-width:480px}
-html[lang=en] .hero .lead{font-size:17px}
+html.xl .hero .lead{font-size:17px}
 .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
 .hero-facts{display:flex;gap:0;margin-top:48px;border-top:1px solid var(--line);max-width:520px}
 .hero-facts div{flex:1;padding:18px 0 0}
@@ -128,7 +128,7 @@ section{padding:130px 0}
 /* intro */
 .intro{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
 .intro .quote{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(24px,2.6vw,32px);line-height:1.45;color:var(--ink);border-left:1px solid var(--gold);padding-left:34px}
-html:not([lang=en]) .intro .quote{font-family:var(--mincho);font-style:normal;font-size:clamp(18px,2vw,22px);line-height:2.1;letter-spacing:.14em}
+html:not(.xl) .intro .quote{font-family:var(--mincho);font-style:normal;font-size:clamp(18px,2vw,22px);line-height:2.1;letter-spacing:.14em}
 .intro .facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:40px}
 .intro .facts div{padding:26px 10px;text-align:center}
 .intro .facts div+div{border-left:1px solid var(--line)}
@@ -171,13 +171,13 @@ html:not([lang=en]) .intro .quote{font-family:var(--mincho);font-style:normal;fo
 .plan h3{font-family:var(--serif);font-weight:300;font-size:64px;line-height:1;margin:16px 0 4px;color:var(--ink)}
 .plan h3 span{font-family:var(--sans);font-size:11px!important;letter-spacing:.4em!important;color:var(--mute);vertical-align:middle;margin-left:6px}
 .plan .nm{font-size:16px;margin-top:10px}
-html[lang=en] .plan .nm{font-size:20px}
+html.xl .plan .nm{font-size:20px}
 .plan .sub{font-family:var(--sans);font-size:11px;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-top:4px}
 .plan .price{margin:30px auto 0;padding-top:26px;border-top:1px solid var(--line);width:100%;font-family:var(--serif);font-size:44px;font-weight:300;color:var(--gold3);line-height:1}
 .plan .price small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.3em;color:var(--mute);margin-top:10px;text-transform:uppercase}
 .plan .price.tba{font-size:26px;font-style:italic}
 .plan ul{list-style:none;margin:26px 0 34px;font-size:13.5px;color:var(--body);text-align:left}
-html[lang=en] .plan ul{font-size:16px}
+html.xl .plan ul{font-size:16px}
 .plan li{padding:10px 0;border-bottom:1px solid rgba(168,133,79,.16);display:flex;gap:12px}
 .plan li::before{content:"";flex:none;width:5px;height:5px;transform:rotate(45deg);border:1px solid var(--gold);margin-top:12px}
 .plan .btn{margin-top:auto}
@@ -212,10 +212,10 @@ html[lang=en] .plan ul{font-size:16px}
 .pier .ph .badge{position:absolute;left:22px;top:22px;background:rgba(250,247,241,.92);color:var(--gold3);font-family:var(--serif);font-style:italic;font-size:26px;width:56px;height:56px;display:grid;place-items:center}
 .pier .bd{padding:50px 48px 44px}
 .pier h3{font-family:var(--mincho);font-weight:500;font-size:26px;letter-spacing:.14em}
-html[lang=en] .pier h3{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.01em}
+html.xl .pier h3{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:.01em}
 .pier .en{font-family:var(--serif);font-style:italic;color:var(--gold3);font-size:18px}
 .pier dl{margin-top:24px;font-size:14px}
-html[lang=en] .pier dl{font-size:16px}
+html.xl .pier dl{font-size:16px}
 .pier dt{font-family:var(--sans);font-size:9.5px;letter-spacing:.34em;color:var(--gold3);text-transform:uppercase;margin-top:18px}
 .pier dd{color:var(--body)}
 .pier .map{grid-column:1/-1;height:300px;background:var(--ivory2);position:relative}
@@ -224,7 +224,7 @@ html[lang=en] .pier dl{font-size:16px}
 @media(max-width:900px){.pier{grid-template-columns:1fr}.pier .ph{min-height:250px}.pier .bd{padding:34px 24px}}
 .reqbox{margin-top:44px;border:1px solid var(--gold);outline:1px solid var(--line);outline-offset:6px;padding:34px 38px;display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--paper)}
 .reqbox h4{font-family:var(--mincho);font-weight:500;font-size:18px;letter-spacing:.12em}
-html[lang=en] .reqbox h4{font-family:var(--serif);font-size:24px;letter-spacing:0}
+html.xl .reqbox h4{font-family:var(--serif);font-size:24px;letter-spacing:0}
 .reqbox p{font-size:13.5px;color:var(--body)}
 
 /* options */
@@ -236,9 +236,9 @@ html[lang=en] .reqbox h4{font-family:var(--serif);font-size:24px;letter-spacing:
 .opt .vis .vimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
 .opt .bd{padding:36px 34px}
 .opt h3{font-family:var(--mincho);font-weight:500;font-size:22px;letter-spacing:.14em}
-html[lang=en] .opt h3{font-family:var(--serif);font-weight:400;font-size:30px;letter-spacing:0}
+html.xl .opt h3{font-family:var(--serif);font-weight:400;font-size:30px;letter-spacing:0}
 .opt p{font-size:13.5px;color:var(--body);margin-top:14px}
-html[lang=en] .opt p{font-size:16px}
+html.xl .opt p{font-size:16px}
 .umenu{margin-top:16px;border-top:1px solid var(--ivory2)}
 .umenu summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0 4px;font-size:13px;font-family:var(--sans)}
 .umenu summary::-webkit-details-marker{display:none}
@@ -272,7 +272,7 @@ html[lang=en] .opt p{font-size:16px}
 .now{display:flex;gap:20px;align-items:flex-start}
 .now .dot{width:14px;height:14px;margin-top:12px}
 .now h3{font-family:var(--mincho);font-weight:500;font-size:26px;letter-spacing:.12em}
-html[lang=en] .now h3{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:0}
+html.xl .now h3{font-family:var(--serif);font-weight:400;font-size:34px;letter-spacing:0}
 .now p{color:#cfc6b6;font-size:14px;margin-top:6px}
 .legend{margin-top:30px;border-top:1px solid rgba(207,178,127,.2)}
 .legend div{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(207,178,127,.12);font-size:13.5px;color:#cfc6b6}
@@ -298,7 +298,7 @@ html[lang=en] .now h3{font-family:var(--serif);font-weight:400;font-size:34px;le
 .stp{background:#fff;border:1px solid var(--ivory2);padding:38px 40px;margin-bottom:22px}
 @media(max-width:600px){.stp{padding:28px 20px}}
 .stp h4{display:flex;align-items:baseline;gap:16px;font-family:var(--mincho);font-weight:500;font-size:19px;letter-spacing:.14em;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--line)}
-html[lang=en] .stp h4{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:0}
+html.xl .stp h4{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:0}
 .stp h4 i{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:30px;font-weight:300}
 .choices{display:grid;gap:12px}
 .choices.c3{grid-template-columns:repeat(3,1fr)}
@@ -308,7 +308,7 @@ html[lang=en] .stp h4{font-family:var(--serif);font-weight:400;font-size:26px;le
 .ch.on{border-color:var(--ink);background:#fff;box-shadow:inset 0 0 0 1px var(--ink)}
 .ch.on::after{content:"";position:absolute;top:14px;right:14px;width:16px;height:16px;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.2l2.6 2.6L12 5.4' stroke='%23cfb27f' stroke-width='1.6' fill='none'/%3E%3C/svg%3E")}
 .ch .t{font-size:15px;font-weight:500;display:block;padding-right:20px}
-html[lang=en] .ch .t{font-size:18px}
+html.xl .ch .t{font-size:18px}
 .ch .d{font-family:var(--sans);font-size:11.5px;color:var(--mute);display:block;margin-top:4px;letter-spacing:.06em}
 .ch .p{font-family:var(--serif);font-size:24px;color:var(--gold3);display:block;margin-top:8px}
 .hint{font-size:13px;color:var(--body);margin-top:14px;background:var(--ivory);padding:12px 16px}
@@ -407,7 +407,7 @@ textarea{min-height:110px;resize:vertical;border:1px solid var(--ivory2);padding
 .faqsec{background:var(--ivory)}
 .faq details{border-bottom:1px solid var(--line);padding:24px 0}
 .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font-size:16px;font-weight:500}
-html[lang=en] .faq summary{font-size:20px;font-weight:400}
+html.xl .faq summary{font-size:20px;font-weight:400}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-family:var(--serif);font-size:28px;color:var(--gold);line-height:1}
 .faq details[open] summary::after{content:"–"}
@@ -426,14 +426,14 @@ footer .deco{justify-content:center;margin:34px 0}
 .bsafe{margin-top:90px;border-top:1px solid rgba(184,154,94,.3);padding-top:70px}
 .bsafe h3.t{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,42px);line-height:1.15}
 .bsafe h3.t small{display:block;font-family:var(--mincho);font-size:13px;letter-spacing:.3em;color:#a59e90;margin-top:10px}
-html[lang=en] .bsafe h3.t small{display:none}
+html.xl .bsafe h3.t small{display:none}
 .bs-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:44px;margin-top:44px;align-items:start}
 @media(max-width:900px){.bs-grid{grid-template-columns:1fr}}
 .bs-svg{width:100%;height:auto;border:1px solid rgba(184,154,94,.35);background:#141310}
 .formula{border:1px solid var(--gold3);background:rgba(184,154,94,.08);padding:22px 24px;font-size:15px;line-height:1.8;text-align:center}
 .formula b{color:var(--gold2);font-weight:500}
 .formula .eq{font-family:var(--serif);font-size:21px;color:var(--ivory)}
-html[lang=en] .formula .eq{font-size:22px}
+html.xl .formula .eq{font-size:22px}
 .defs{margin-top:22px}
 .defs div{padding:14px 0;border-bottom:1px solid rgba(184,154,94,.15);font-size:13.5px;color:#cfc6b6}
 .defs dt{color:var(--gold2);font-family:var(--sans);font-size:11px;letter-spacing:.18em;margin-bottom:4px}
@@ -466,27 +466,27 @@ html[lang=en] .formula .eq{font-size:22px}
   --lattice:none;
 }
 body{font-family:var(--mincho);font-weight:400;font-size:15px;line-height:1.9;letter-spacing:.04em;color:var(--ink);background:#fff}
-html[lang=en] body{font-family:var(--en);font-size:18px;letter-spacing:0}
+html.xl body{font-family:var(--en);font-size:18px;letter-spacing:0}
 .deco,.arch,.hero::before,.plans::before,.ops::before{display:none!important}
 .eyebrow{font-family:"Jost",sans-serif;font-weight:500;font-size:11px;letter-spacing:.22em;color:var(--ink)}
 .h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.6vw,48px);line-height:1.25;letter-spacing:.01em;margin-top:14px}
-html:not([lang=en]) .h2{font-size:clamp(28px,3.2vw,42px);letter-spacing:.04em}
+html:not(.xl) .h2{font-size:clamp(28px,3.2vw,42px);letter-spacing:.04em}
 .h2 em{font-style:normal;color:inherit}
 .h2 small{font-family:var(--mincho);font-weight:300;letter-spacing:.2em;font-size:13px;color:var(--mute)}
 .lead{color:var(--ink);font-size:15px}
-html[lang=en] .lead{font-size:18.5px}
+html.xl .lead{font-size:18.5px}
 .tbd{border-color:var(--ivory2);color:var(--mute)}
 section{padding:110px 0}
 @media(max-width:700px){section{padding:76px 0}}
 
 /* underline link like the hotel ("客室＆スイート") */
 .ulink{display:inline-block;font-family:var(--mincho);font-size:14px;color:var(--ink);text-decoration:none;padding-bottom:3px;border-bottom:1px solid #5f8f86;letter-spacing:.06em}
-html[lang=en] .ulink{font-family:var(--en);font-size:17px}
+html.xl .ulink{font-family:var(--en);font-size:17px}
 .ulink:hover{border-color:var(--ink)}
 
 /* buttons: navy squared */
 .btn{font-family:var(--mincho);font-size:14px;letter-spacing:.08em;text-transform:none;padding:16px 30px;border:1px solid var(--navy);border-radius:0}
-html[lang=en] .btn{font-family:var(--en);font-size:17px;letter-spacing:.02em}
+html.xl .btn{font-family:var(--en);font-size:17px;letter-spacing:.02em}
 .btn.gold,.btn.dark{background:var(--navy);color:#fff}
 .btn.gold:hover,.btn.dark:hover{background:var(--navy2);border-color:var(--navy2)}
 .btn.line{background:#fff;color:var(--ink);border-color:var(--ink)}
@@ -502,14 +502,14 @@ header.solid{background:rgba(247,246,244,.96);box-shadow:none}
 .brand .loc i{font-family:"Jost",sans-serif;font-size:9px;color:var(--ink)}
 .nr{display:flex;align-items:center;gap:26px}
 .nl{display:flex;gap:22px;font-family:"Noto Serif JP",serif;font-size:13.5px;letter-spacing:.04em;text-transform:none}
-html[lang=en] .nl{font-family:var(--en);font-size:16px}
+html.xl .nl{font-family:var(--en);font-size:16px}
 .nl a,.nr a{opacity:1;color:var(--ink)}
 .nl a:hover{color:var(--navy)}
 .lang{border-left:1px solid #b5b5b5;padding-left:16px}
 .lang button{font-family:"Jost",sans-serif;font-size:11px;color:#8a8a8a}
 .lang button.on{color:var(--ink);border-color:var(--ink)}
 .subbar{display:flex;justify-content:center;align-items:center;gap:0;background:rgba(247,246,244,.96);border-top:1px solid rgba(0,0,0,.08);height:56px;font-family:"Noto Serif JP",serif;font-size:13.5px}
-html[lang=en] .subbar{font-family:var(--en);font-size:16px}
+html.xl .subbar{font-family:var(--en);font-size:16px}
 .subbar span{padding:0 18px;border-right:1px solid #c8c8c8;line-height:34px;white-space:nowrap}
 .subbar span:nth-child(3){border-right:0}
 .subbar .navbook{background:var(--navy);color:#fff!important;border:0;padding:0 22px;line-height:42px;font-size:13.5px;letter-spacing:.04em;text-transform:none;text-decoration:none;margin-left:6px}
@@ -528,9 +528,9 @@ body.rib header{top:26px}
 .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(36px,4.6vw,60px);line-height:1.12;margin-top:16px;letter-spacing:.01em;color:var(--ink)}
 .hero h1 em{font-style:normal;color:inherit;display:block;padding:0}
 .hero .jp{font-family:"Noto Serif JP",serif;font-size:clamp(17px,1.7vw,21px);letter-spacing:.14em;margin:0;color:var(--ink)}
-html[lang=en] .hero .jp{font-family:var(--en);font-style:italic;font-size:23px;letter-spacing:.01em}
+html.xl .hero .jp{font-family:var(--en);font-style:italic;font-size:23px;letter-spacing:.01em}
 .hero .lead{margin-top:18px;max-width:none;font-size:15.5px}
-html[lang=en] .hero .lead{font-size:18.5px}
+html.xl .hero .lead{font-size:18.5px}
 .hero .cta{display:flex;align-items:center;gap:30px;margin-top:32px}
 .hero-facts{max-width:none;border-top:1px solid var(--line);margin-top:42px}
 .hero-facts b{font-family:"Jost",sans-serif;font-weight:300;font-size:28px}
@@ -544,7 +544,7 @@ html[lang=en] .hero .lead{font-size:18.5px}
 
 /* intro */
 .intro .quote{font-family:"Noto Serif JP",serif;font-style:normal;border-left:1px solid var(--ink);color:var(--ink)}
-html[lang=en] .intro .quote{font-family:var(--en);font-style:italic}
+html.xl .intro .quote{font-family:var(--en);font-style:italic}
 
 /* vessel — light, image tiles */
 .vessel{background:var(--paper);color:var(--ink);padding:110px 0}
@@ -559,7 +559,7 @@ html[lang=en] .intro .quote{font-family:var(--en);font-style:italic}
 .vspecs{border-top:1px solid var(--line)}
 .vspecs div+div{border-left:1px solid var(--line)}
 .vspecs b{font-family:var(--serif);color:var(--ink);font-size:24px}
-html:not([lang=en]) .vspecs b{font-size:21px}
+html:not(.xl) .vspecs b{font-size:21px}
 .vspecs span{color:var(--mute)}
 @media(max-width:960px){.vessel{padding:76px 0}.vgrid{grid-template-columns:1fr;gap:40px;padding:0 18px}}
 
@@ -590,14 +590,14 @@ html:not([lang=en]) .vspecs b{font-size:21px}
 .pier{background:#fff}
 .pier .ph .badge{color:var(--ink);font-family:"Jost",sans-serif;font-style:normal;font-size:20px;font-weight:300}
 .pier h3{font-family:var(--mincho);font-weight:400;letter-spacing:.08em}
-html[lang=en] .pier h3{font-family:var(--serif);font-weight:300}
+html.xl .pier h3{font-family:var(--serif);font-weight:300}
 .pier .en{font-family:"Jost",sans-serif;font-style:normal;color:var(--mute);font-size:13px;letter-spacing:.16em;text-transform:uppercase}
 .pier dt{color:var(--ink);font-weight:500}
 .pier .map iframe{filter:grayscale(.85) contrast(1.02)}
 .pier .map a.open{background:var(--navy)}
 .reqbox{border:1px solid var(--line);outline:0;background:#fff}
 .reqbox h4,.opt h3{font-family:var(--mincho);font-weight:400}
-html[lang=en] .reqbox h4,html[lang=en] .opt h3{font-family:var(--serif);font-weight:300}
+html.xl .reqbox h4,html.xl .opt h3{font-family:var(--serif);font-weight:300}
 .opt{background:var(--paper)}
 .opt .vis::after{border-color:rgba(255,255,255,.18)}
 
@@ -626,7 +626,7 @@ html[lang=en] .reqbox h4,html[lang=en] .opt h3{font-family:var(--serif);font-wei
 .notice b{color:var(--navy)}
 .stp{border-color:var(--line)}
 .stp h4{font-family:var(--mincho);font-weight:400;letter-spacing:.08em;border-color:var(--line)}
-html[lang=en] .stp h4{font-family:var(--serif);font-weight:300}
+html.xl .stp h4{font-family:var(--serif);font-weight:300}
 .stp h4 i{font-family:"Jost",sans-serif;font-style:normal;color:var(--navy);font-size:24px}
 .ch{background:#fff;border-color:var(--ivory2)}
 .ch:hover{border-color:var(--ink)}
@@ -698,7 +698,7 @@ footer nav a{border-bottom:1px solid #5f8f86;padding-bottom:2px}
 .hcap .ct b{display:none;font-family:var(--mincho);font-weight:400;font-size:17px;letter-spacing:.06em}
 .hcap .ct span{display:none;font-size:14px;color:var(--body)}
 .hcap .ct .on{display:block}
-html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
+html.xl .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
 .hcap .cn{display:flex;align-items:center;gap:10px;flex:none}
 .hcap .cn span{font-family:"Jost",sans-serif;font-size:14px;margin-right:6px}
 .hcap .cn button{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;font-size:24px;line-height:1;display:grid;place-items:center;padding-bottom:3px}
@@ -709,7 +709,7 @@ html[lang=en] .hcap .ct b{font-family:var(--en);font-size:21px;font-weight:500}
 .dcheck{margin-top:40px}
 .dc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
 .dc-t{font-family:var(--mincho);font-weight:500;font-size:22px;letter-spacing:.1em}
-html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;letter-spacing:0}
+html.xl .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;letter-spacing:0}
 .dc-days{display:flex;gap:6px;flex-wrap:wrap}
 .dc-days button{border:1px solid rgba(255,255,255,.22);background:transparent;color:#d6d6d6;font-family:var(--sans);font-size:12px;padding:8px 12px;cursor:pointer;line-height:1.25;text-align:center}
 .dc-days button b{display:block;font-weight:500;font-size:13px;color:#fff}
@@ -729,6 +729,50 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
 .dc-src{font-family:var(--sans);font-size:11px;color:#9d9d9d;margin-top:18px;line-height:1.8}
 @media(max-width:760px){.dc-row{grid-template-columns:58px 1fr 96px;gap:10px}.dc-row .c-tide,.dc-row .c-wx{display:none}.dc-row .c-br small{display:block}.dc-row .tm{font-size:19px}}
 .slot.ng{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+
+/* ── 言語の選択 ── */
+.lgbtn{display:inline-flex;align-items:center;gap:7px;border-left:1px solid #b5b5b5;padding:4px 0 4px 16px;font-family:"Jost",var(--sans);font-size:12.5px;letter-spacing:.04em;color:inherit;background:none;border-top:0;border-right:0;border-bottom:0;cursor:pointer;white-space:nowrap}
+.lgbtn svg{width:16px;height:16px;opacity:.75}
+.lgbtn:hover span{text-decoration:underline;text-underline-offset:3px}
+.lgm{position:fixed;inset:0;z-index:200;background:rgba(18,18,20,.42);display:flex;align-items:flex-start;justify-content:center;padding:72px 16px 16px;overflow:auto;opacity:0;transition:opacity .25s}
+.lgm.in{opacity:1}
+.lgm[hidden]{display:none}
+.lgp{background:#fff;color:var(--ink);width:min(980px,100%);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.25);transform:translateY(-10px);transition:transform .3s}
+.lgm.in .lgp{transform:none}
+.lgh{display:flex;align-items:center;justify-content:center;position:relative;padding:22px 64px 18px;margin:0 28px;border-bottom:1px solid #c9c9c9}
+.lgh h2{font-family:var(--sans);font-weight:400;font-size:clamp(17px,2vw,21px);letter-spacing:.06em;margin:0;text-align:center}
+.lgx{position:absolute;right:-8px;top:12px;width:44px;height:44px;border:1.5px solid var(--ink);background:#fff;display:grid;place-items:center;cursor:pointer}
+.lgx svg{width:22px;height:22px}
+.lgb{display:grid;grid-template-columns:270px 1fr;gap:28px;padding:22px 28px 26px}
+.lgc h3{font-family:var(--sans);font-weight:400;font-size:16px;letter-spacing:.04em;margin:0 0 10px}
+.lgc.pop{background:#f6f5f2;padding:16px 18px 10px}
+.lgc button{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;cursor:pointer;color:inherit;text-align:start;font-family:"Jost","Noto Sans JP","Noto Sans SC","Noto Sans TC","Noto Sans KR","Noto Sans Thai","Noto Naskh Arabic",sans-serif;font-size:17px;line-height:1.35;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.lgc button:hover{color:var(--gold3,#8c6f33)}
+.lgc button svg{width:18px;height:18px;flex:none}
+.lgc button.on{font-weight:500}
+#lgPop button{width:100%;padding:13px 4px;border-bottom:1px solid #cfcfcf}
+#lgPop button:last-child{border-bottom:0}
+#lgAll{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 22px;padding-top:6px}
+html:not(.xl) .lgn{display:none}
+.lgn{font-size:11.5px;color:#7b766e;margin:0 28px;padding:0 0 18px;line-height:1.6}
+@media (max-width:760px){
+  .lgm{padding:0;align-items:stretch}
+  .lgp{border-radius:0;min-height:100%}
+  .lgh{margin:0 16px;padding:18px 52px 14px}
+  .lgx{right:-4px;top:10px;width:40px;height:40px}
+  .lgb{grid-template-columns:1fr;gap:18px;padding:16px}
+  #lgAll{grid-template-columns:1fr 1fr;gap:20px 14px}
+  .lgn{margin:0 16px}
+  .lgbtn{padding-left:12px}
+  .lgbtn span{max-width:7.5em;overflow:hidden;text-overflow:ellipsis}
+}
+/* 漢字・ハングル・タイ文字・アラビア文字の言語は、その文字のフォントで表示（斜体は使わない） */
+html[data-script=sc]{--serif:"Noto Sans SC",sans-serif;--sans:"Jost","Noto Sans SC",sans-serif;--en:"Noto Sans SC",sans-serif;--mincho:"Noto Sans SC",sans-serif}
+html[data-script=tc]{--serif:"Noto Sans TC",sans-serif;--sans:"Jost","Noto Sans TC",sans-serif;--en:"Noto Sans TC",sans-serif;--mincho:"Noto Sans TC",sans-serif}
+html[data-script=kr]{--serif:"Noto Sans KR",sans-serif;--sans:"Jost","Noto Sans KR",sans-serif;--en:"Noto Sans KR",sans-serif;--mincho:"Noto Sans KR",sans-serif}
+html[data-script=th]{--serif:"Noto Sans Thai",sans-serif;--sans:"Jost","Noto Sans Thai",sans-serif;--en:"Noto Sans Thai",sans-serif;--mincho:"Noto Sans Thai",sans-serif}
+html[data-script=ar]{--serif:"Noto Naskh Arabic",serif;--sans:"Noto Naskh Arabic",sans-serif;--en:"Noto Naskh Arabic",serif;--mincho:"Noto Naskh Arabic",serif}
+html[data-script=sc] *,html[data-script=tc] *,html[data-script=kr] *,html[data-script=th] *,html[data-script=ar] *{font-style:normal!important;letter-spacing:normal!important}
 </style>
 </head>
 <body>
@@ -749,7 +793,7 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
         <a href="#options" data-i="nav_opts">Options</a>
         <a href="#status" data-i="nav_status">Status</a>
       </nav>
-      <div class="lang"><button data-lang="ja" class="on">JP</button><button data-lang="en">EN</button></div>
+      <button type="button" class="lgbtn" id="lgBtn" aria-haspopup="dialog" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg><span id="lgCur">日本語</span></button>
     </div>
   </div>
   <div class="subbar">
@@ -1303,6 +1347,18 @@ html[lang=en] .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;lett
   </div>
 </div>
 
+<!-- 言語の選択 -->
+<div class="lgm" id="lgm" hidden role="dialog" aria-modal="true" aria-labelledby="lgTitle">
+  <div class="lgp">
+    <div class="lgh"><h2 id="lgTitle" data-i="lg_h">言語を選択してください</h2><button type="button" class="lgx" id="lgX" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+    <div class="lgb">
+      <div class="lgc pop"><h3 data-i="lg_pop">よく使われる言語</h3><div id="lgPop"></div></div>
+      <div class="lgc"><h3 data-i="lg_all">すべての言語</h3><div id="lgAll"></div></div>
+    </div>
+    <p class="lgn" data-i="lg_note">翻訳は参考です。内容に違いがある場合は日本語版が優先されます。</p>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    CONFIG — ここを書き換えれば内容が変わります
@@ -1498,7 +1554,7 @@ const T = {
   open_map:["Googleマップで開く ↗","Open in Google Maps ↗"],
   photo_soon:["船着場の写真 近日掲載","Pier photo coming soon"],
   landmark:["目印","Landmark"], access:["アクセス","Access"], route:["ルート","Route"],
-  opt_req:["ご希望として承ります","Request"], u_pick:["メニューと数量をお選びください","Choose items and quantities"], u_none:["メニュー未選択","No items chosen"], u_from:["〜","from "], u_src:["価格は本家柴藤のお持ち帰り価格です（2026年11月時点・店舗の改定により変わる場合があります）","Prices are Honke Shibato takeaway prices (as of Nov 2026; subject to change by the restaurant)"], u_menu:["メニューと料金を見る","View menu & prices"], price_tba:["料金 近日公開","Price TBA"],
+  opt_req:["ご希望として承ります","Request"], u_pick:["メニューと数量をお選びください","Choose items and quantities"], u_none:["メニュー未選択","No items chosen"], u_from:["{p}〜","from {p}"], u_src:["価格は本家柴藤のお持ち帰り価格です（2026年11月時点・店舗の改定により変わる場合があります）","Prices are Honke Shibato takeaway prices (as of Nov 2026; subject to change by the restaurant)"], u_menu:["メニューと料金を見る","View menu & prices"], price_tba:["料金 近日公開","Price TBA"],
   guests_u:["名","guests"], none:["なし","None"],
   st_green:["通常運航","Operating normally"], st_yellow:["運航確認中","Checking conditions"], st_red:["欠航","Suspended"],
   st_green_m:["現在、運航可能です。","Cruises are operating as scheduled."],
@@ -1522,6 +1578,11 @@ const T = {
   e_plan:["プランを選択してください","Please choose a plan"], e_pier:["乗船場所を選択してください","Please choose a pier"], e_date:["乗船日を選択してください","Please choose a date"], e_time:["出航時間を選択してください","Please choose a time"],
   e_req:["希望の乗船・下船場所をご入力ください","Please enter your preferred piers"], e_info:["お名前・メール・電話番号をご入力ください","Please enter your name, email and phone"], e_mail:["メールアドレスの形式をご確認ください","Please check your email address"], e_agree:["欠航に関するご案内に同意してください","Please acknowledge the cancellation notice"],
   ref:["受付番号","Reference"],
+  lg_h:["言語を選択してください","Select a language"], lg_pop:["よく使われる言語","Popular languages"], lg_all:["すべての言語","All languages"], lg_close:["閉じる","Close"],
+  lg_note:["翻訳は参考です。内容に違いがある場合は日本語版が優先されます。","Translations are provided for convenience. In case of any difference, the Japanese version prevails."],
+  round_trip:["周遊（同じ場所へ戻る）","Round trip"], plus_opt:[" ＋オプション"," + options"],
+  send_fail:["送信できませんでした。時間をおいて再度お試しいただくか、ホテルスタッフまでお問い合わせください。","Could not send. Please try again or contact the hotel staff."],
+  ribbon:["PREVIEW — 制作中のプレビューです（料金・写真・時間帯の一部は後日確定）","PREVIEW — Work in progress (some prices, photos and times are to be confirmed)"],
   wd:[["日","月","火","水","木","金","土"],["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]],
   faq:[
     [["料金は1人あたりですか？","Is the price per person?"],["いいえ。1艇貸切の料金です。最大8名様までご乗船いただけます。","No. The price is for the entire boat, for up to 8 guests."]],
@@ -1530,9 +1591,25 @@ const T = {
     [["お支払い方法・キャンセル規定は？","Payment and cancellation policy?"],["確定次第こちらに掲載いたします。","These will be published here shortly."]]
   ]
 };
-let L = 0; // 0=ja 1=en
-const t = k => (T[k]||[k,k])[L];
-const loc = o => o ? (o[L?"en":"ja"]) : "";
+/* ── 言語 ──
+   日本語・英語は上の T と CONFIG の {ja,en} から。その他の言語は i18n/<code>.json（英語の原文のハッシュ → 訳）。
+   訳がない文は英語で表示する。原文の一覧と抜けの確認は node tools/i18n.js（i18n/_source.json を作り直す） */
+const LANGS = [
+  // [コード, 言語名（その言語で）, よく使われる言語なら1, 文字の種類]
+  ["en","English",1],["es","Español",1],["de","Deutsch",1],["fr","Français",1],["ja","日本語",1],["zh-Hans","简体中文",1,"sc"],
+  ["ar","العربية",0,"ar"],["id","Bahasa Indonesia",0],["cs","Čeština",0],["en-GB","English (UK)",0],
+  ["it","Italiano",0],["nl","Nederlands",0],["pl","Polski",0],["pt","Português",0],
+  ["ru","Русский",0],["ro","Română",0],["fi","Suomi",0],["sv","Svenska",0],
+  ["vi","Tiếng Việt",0],["tr","Türkçe",0],["zh-Hant","繁體中文",0,"tc"],["bg","Български",0],
+  ["th","ไทย",0,"th"],["ko","한국어",0,"kr"]
+];
+let LANG = "ja", L = 0, TX = {};   // L: 0=日本語 1=日本語以外（英語ベースの表示）
+// 訳の表のキー＝英語の原文のハッシュ（FNV-1a）。原文を変えると、その文は訳し直すまで英語で出る
+const hkey = s => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193); } return (h >>> 0).toString(36); };
+const tr = s => Array.isArray(s) ? s.map(tr) : (L && s && TX[hkey(s)]) || s;
+const t = k => { const v = T[k] || [k, k]; return L ? tr(v[1]) : v[0]; };
+const loc = o => o ? (L ? tr(o.en) : o.ja) : "";
+const LOCALE = () => LANG === "zh-Hans" ? "zh-CN" : LANG === "zh-Hant" ? "zh-TW" : LANG;
 
 /* ============================================================
    APP
@@ -1558,12 +1635,13 @@ const App = (() => {
   function renderStatic(){
     document.querySelectorAll("[data-i]").forEach(el=>{ const k=el.dataset.i; if(T[k]) el.textContent=t(k); });
     document.querySelectorAll("[data-ih]").forEach(el=>{ const k=el.dataset.ih; if(T[k]) el.innerHTML=t(k); });
-    document.documentElement.lang = L ? "en" : "ja";
-    document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===(L?"en":"ja")));
+    const H = document.documentElement, lg = LANGS.find(x=>x[0]===LANG);
+    H.lang = LANG; H.dir = LANG==="ar" ? "rtl" : "ltr"; H.classList.toggle("xl", !!L);
+    H.dataset.script = (lg && lg[3]) || "";
+    $("lgCur").textContent = lg ? lg[1] : "日本語";
     $("previewRibbon").classList.toggle("hidden", !CONFIG.preview); document.body.classList.toggle("rib", !!CONFIG.preview);
     document.querySelectorAll("[data-svg]").forEach(el=>{ const k="svg_"+el.dataset.svg; if(T[k]) el.textContent=t(k); });
-    if (L) $("previewRibbon").textContent = "PREVIEW — Work in progress (some prices, photos and times are to be confirmed)";
-    else $("previewRibbon").textContent = "PREVIEW — 制作中のプレビューです（料金・写真・時間帯の一部は後日確定）";
+    $("previewRibbon").textContent = t("ribbon");
   }
 
   function renderPlans(){
@@ -1595,7 +1673,7 @@ const App = (() => {
           </dl>
         </div>
         <div class="map">
-          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${loc(p.name)}" src="https://maps.google.com/maps?q=${encodeURIComponent(p.map)}&z=16&hl=${L?'en':'ja'}&output=embed"></iframe>
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${loc(p.name)}" src="https://maps.google.com/maps?q=${encodeURIComponent(p.map)}&z=16&hl=${LOCALE()}&output=embed"></iframe>
           <a class="open" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.map)}">${t("open_map")}</a>
         </div>
       </div>`).join("");
@@ -1711,7 +1789,7 @@ const App = (() => {
     const today=new Date();
     if(!OPS.day){ const lastDep=hm(CONFIG.timeSlots[CONFIG.timeSlots.length-1]), nowM=today.getHours()*60+today.getMinutes(); const d0=new Date(today); if(nowM>lastDep) d0.setDate(d0.getDate()+1); OPS.day=dkey(d0); }
     const days=[...Array(7)].map((_,i)=>{const d=new Date(today);d.setDate(d.getDate()+i);return d;});
-    $("dcDays").innerHTML=days.map((d,i)=>{const k=dkey(d);return `<button type="button" class="${k===OPS.day?'on':''}" onclick="App.pickDay('${k}')"><b>${i===0?t("today"):(d.getMonth()+1)+"/"+d.getDate()}</b>${T.wd[L][d.getDay()]}</button>`}).join("");
+    $("dcDays").innerHTML=days.map((d,i)=>{const k=dkey(d);return `<button type="button" class="${k===OPS.day?'on':''}" onclick="App.pickDay('${k}')"><b>${i===0?t("today"):(d.getMonth()+1)+"/"+d.getDate()}</b>${wdNames()[d.getDay()]}</button>`}).join("");
     const key=OPS.day, js=CONFIG.timeSlots.map(s=>judge(key,s)), lim=maxTide();
     // chart
     const W=640,H=170,pl=30,pr=8,pt=10,pb=22, x=m=>pl+(m/1440)*(W-pl-pr), Y0=-0.5,Y1=3.0, y=v=>pt+(1-(v-Y0)/(Y1-Y0))*(H-pt-pb);
@@ -1753,7 +1831,7 @@ const App = (() => {
     $("dtbPierHint").classList.toggle("hidden", !dtb);
     $("cPier").innerHTML = CONFIG.piers.map(p=>`
       <button type="button" class="ch ${S.pier===p.id?'on':''}" onclick="App.pickPier('${p.id}',true)">
-        <span class="t">${loc(p.name)}</span><span class="d">${L?"Round trip":"周遊（同じ場所へ戻る）"}</span>
+        <span class="t">${loc(p.name)}</span><span class="d">${t("round_trip")}</span>
       </button>`).join("") + `
       <button type="button" class="ch ${S.pier==='other'?'on':''}" onclick="App.pickPier('other',true)">
         <span class="t">${t("other_pier")}</span><span class="d">${t("other_pier_d")}</span>
@@ -1762,14 +1840,14 @@ const App = (() => {
     $("cOpt").innerHTML = CONFIG.options.map(o=>`
       <div class="optrow ${S.opts.has(o.id)?'on':''}" onclick="App.toggleOpt('${o.id}')" role="checkbox" aria-checked="${S.opts.has(o.id)}" tabindex="0">
         <div class="l"><span class="bx"></span><div><b style="font-weight:500">${loc(o.name)}</b><small>${t("opt_req")}</small></div></div>
-        ${o.menu?`<b>${t("u_from")==="〜"?yen(Math.min(...o.menu.map(m=>m.price)))+"〜":"from "+yen(Math.min(...o.menu.map(m=>m.price)))}</b>`:o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}
+        ${o.menu?`<b>${t("u_from").replace("{p}", yen(Math.min(...o.menu.map(m=>m.price))))}</b>`:o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}
       </div>${o.menu&&S.opts.has(o.id)?`<div class="uqty"><p>${t("u_pick")}</p>${o.menu.map(m=>{const q=S.menu[m.id]||0;return `<div class="uq"><span>${loc(m.name)}<small>${yen(m.price)}</small></span><span class="st"><button type="button" ${q?"":"disabled"} onclick="App.menuQty('${m.id}',-1)" aria-label="-">−</button><output>${q}</output><button type="button" ${q>=20?"disabled":""} onclick="App.menuQty('${m.id}',1)" aria-label="+">＋</button></span></div>`}).join("")}<p class="us">${t("u_src")}</p></div>`:""}`).join("");
   }
 
   function renderCal(){
     const first = new Date(viewY, viewM, 1);
-    $("calTitle").textContent = L ? first.toLocaleString("en-US",{month:"long",year:"numeric"}) : `${viewY}年 ${viewM+1}月`;
-    const wd = T.wd[L];
+    $("calTitle").textContent = L ? first.toLocaleString(LOCALE(),{month:"long",year:"numeric"}) : `${viewY}年 ${viewM+1}月`;
+    const wd = wdNames();
     let h = wd.map(w=>`<div class="wd">${w}</div>`).join("");
     for (let i=0;i<first.getDay();i++) h += `<div></div>`;
     const last = new Date(viewY, viewM+1, 0).getDate();
@@ -1822,7 +1900,7 @@ const App = (() => {
 
   function fmtDate(key){
     const [y,m,d] = key.split("-").map(Number); const dt = new Date(y,m-1,d);
-    return L ? dt.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"}) : `${y}/${m}/${d}（${T.wd[0][dt.getDay()]}）`;
+    return L ? dt.toLocaleDateString(LOCALE(),{weekday:"short",month:"short",day:"numeric",year:"numeric"}) : `${y}/${m}/${d}（${T.wd[0][dt.getDay()]}）`;
   }
   function pierLabel(){
     if (S.plan==="dtb90") return t("dtb_pier_lbl");
@@ -1838,7 +1916,7 @@ const App = (() => {
       if(o.menu){ const s=menuSum(o); if(!s) unknown=true; else sum+=s; }
       else if(o.price==null) unknown=true; else sum+=o.price; });
     if (p.price==null) return {txt:t("ask"), unknown:true};
-    return {txt: yen(sum) + (unknown? (L?" + options":" ＋オプション") : ""), unknown};
+    return {txt: yen(sum) + (unknown? t("plus_opt") : ""), unknown};
   }
   function renderSummary(){
     const p = planOf();
@@ -1882,7 +1960,7 @@ const App = (() => {
     let sum = p.price||0; S.opts.forEach(id=>{ const o=CONFIG.options.find(x=>x.id===id); if(o.menu) sum+=menuSum(o); else if(o.price!=null) sum+=o.price; });
     const isReq = S.pier==="other" && S.plan!=="dtb90";
     const payload = {
-      hp: v("hp"), lang: L?"en":"ja",
+      hp: v("hp"), lang: LANG==="ja"?"ja":"en",
       type: isReq ? "pier_request" : "reservation",
       plan:S.plan, plan_name:p.name.ja, minutes:p.min,
       pier:S.plan==="dtb90"?"dtb":S.pier, pier_name:S.plan==="dtb90"?T.dtb_pier_lbl[0]:(isReq?"その他の船着場（リクエスト）":(CONFIG.piers.find(x=>x.id===S.pier)||{name:{ja:""}}).name.ja),
@@ -1912,7 +1990,7 @@ const App = (() => {
         const d = new Date(); ref = `WA-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}-DEMO`;
         try { const a = JSON.parse(localStorage.getItem("wa_requests")||"[]"); a.push({...payload, ref}); localStorage.setItem("wa_requests", JSON.stringify(a)); } catch(_){}
       }
-    } catch(err){ return fail(L?"Could not send. Please try again or contact the hotel staff.":"送信できませんでした。時間をおいて再度お試しいただくか、ホテルスタッフまでお問い合わせください。"); }
+    } catch(err){ return fail(t("send_fail")); }
     $("dRef").textContent = `${t("ref")}  ${ref}`;
     $("dList").innerHTML = [["k_plan",loc(planOf().name)],["k_date",fmtDate(S.date)+" "+S.time],["k_pier",pierLabel()],["k_guests",`${S.guests} ${t("guests_u")}`],["k_total",totals().txt]]
       .map(([k,val])=>`<div><dt>${t(k)}</dt><dd>${val}</dd></div>`).join("");
@@ -1926,13 +2004,57 @@ const App = (() => {
     document.querySelectorAll(".reveal:not(.shown)").forEach(el=>io.observe(el));
   }
 
+  // 曜日（日曜はじまり）
+  function wdNames(){
+    if (!L) return T.wd[0];
+    try { const f = new Intl.DateTimeFormat(LOCALE(), {weekday:"short"}); return [0,1,2,3,4,5,6].map(i=>f.format(new Date(2024,0,7+i))); }
+    catch(_){ return T.wd[1]; }
+  }
+  // 言語の切り替え（訳の表は使うときに読み込む）
+  const TXC = {}, FONTS = { sc:"Noto+Sans+SC:wght@300;400;500", tc:"Noto+Sans+TC:wght@300;400;500", kr:"Noto+Sans+KR:wght@300;400;500", th:"Noto+Sans+Thai:wght@300;400;500", ar:"Noto+Naskh+Arabic:wght@400;500" };
+  async function loadTX(code){
+    if (code==="ja" || code==="en" || code==="en-GB") return {};
+    if (TXC[code]) return TXC[code];
+    const r = await fetch("i18n/" + code + ".json"); if (!r.ok) throw new Error(r.status);
+    return TXC[code] = await r.json();
+  }
+  function loadFont(code){
+    const lg = LANGS.find(x=>x[0]===code), f = lg && FONTS[lg[3]];
+    if (!f || document.getElementById("font-"+lg[3])) return;
+    const l = document.createElement("link"); l.id = "font-"+lg[3]; l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=" + f + "&display=swap"; document.head.appendChild(l);
+  }
+  async function setLang(code, remember){
+    let tx = {};
+    try { tx = await loadTX(code); } catch(_){ if (code!=="ja") code = "en"; }
+    LANG = code; L = code==="ja" ? 0 : 1; TX = tx;
+    loadFont(code);
+    if (remember){ try{ localStorage.setItem("wa_lang", code); }catch(_){} }
+    renderAll(); paintLangUI();
+  }
+  function paintLangUI(){
+    const it = x => `<button type="button" lang="${x[0]}" class="${x[0]===LANG?"on":""}" onclick="App.setLang('${x[0]}')"><bdi>${x[1]}</bdi>${x[0]===LANG?'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>':""}</button>`;
+    $("lgPop").innerHTML = LANGS.filter(x=>x[2]).map(it).join("");
+    $("lgAll").innerHTML = LANGS.filter(x=>!x[2]).map(it).join("");
+  }
+  function initLangUI(){
+    const m = $("lgm"), open = () => { paintLangUI(); m.hidden = false; requestAnimationFrame(()=>m.classList.add("in")); const on = m.querySelector("button.on"); (on||$("lgX")).focus(); },
+      close = () => { m.classList.remove("in"); setTimeout(()=>{ m.hidden = true; }, 250); $("lgBtn").focus(); };
+    $("lgBtn").onclick = open; $("lgX").onclick = close;
+    m.addEventListener("click", e => { if (e.target === m) close(); else if (e.target.closest("[lang]")) close(); });
+    addEventListener("keydown", e => { if (e.key==="Escape" && !m.hidden) close(); });
+  }
+
   function init(){
     let saved = null; try { saved = localStorage.getItem("wa_lang"); } catch(_){}
-    if (location.hash==="#en") L=1;
-    else if (location.hash==="#ja") L=0;
-    else if (saved) L = saved==="en"?1:0;
-    else if (!/^ja/i.test(navigator.language||"ja")) L=1;
-    document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{ L = b.dataset.lang==="en"?1:0; try{localStorage.setItem("wa_lang",b.dataset.lang)}catch(_){}; renderAll(); });
+    const has = c => LANGS.some(x=>x[0]===c);
+    const fromHash = decodeURIComponent(location.hash.slice(1));
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "ja";
+    const guess = c => { c = c.toLowerCase();
+      if (/^zh-(tw|hk|mo)|^zh-hant/.test(c)) return "zh-Hant"; if (/^zh/.test(c)) return "zh-Hans"; if (c==="en-gb") return "en-GB";
+      const b = c.split("-")[0]; return has(b) ? b : "en"; };
+    initLangUI();
+    setLang(has(fromHash) ? fromHash : (saved && has(saved)) ? saved : guess(nav), false);
     $("calPrev").onclick=()=>{ viewM--; if(viewM<0){viewM=11;viewY--;} renderCal(); };
     $("calNext").onclick=()=>{ viewM++; if(viewM>11){viewM=0;viewY++;} renderCal(); };
     $("gMinus").onclick=()=>{ S.guests=Math.max(1,S.guests-1); upG(); };
@@ -1949,7 +2071,7 @@ const App = (() => {
   function closeDone(){ $("done").classList.remove("open"); }
 
   return {
-    init, closeDone,
+    init, closeDone, setLang:c=>setLang(c,true),
     pickPlan(id, inForm){ S.plan=id; renderChoices(); renderSlots(); renderSummary(); },
     pickPier(id){ S.pier=id; renderChoices(); renderSummary(); },
     pickDate(key, st){
