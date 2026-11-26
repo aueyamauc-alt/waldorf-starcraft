@@ -717,6 +717,7 @@ html.xl .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;letter-spa
 .dc-chart{width:100%;height:170px;margin-top:26px;display:block}
 .dc-legend{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--sans);font-size:11px;color:#bdbdbd;margin-top:8px}
 .dc-legend .ln{display:inline-block;width:22px;height:0;vertical-align:middle;margin-right:8px;border-top:2px solid #8fc1d6}
+.dc-legend .ln.obs{border-top:2px solid #fff}
 .dc-legend .ln.lim{border-top:1.5px dashed #e08a7d}
 .dc-rows{margin-top:22px;border-top:1px solid rgba(255,255,255,.18)}
 .dc-row{display:grid;grid-template-columns:70px 1fr 1.3fr 1.2fr 110px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--sans);font-size:13px;color:#d6d6d6}
@@ -1182,7 +1183,7 @@ html[data-script=sc] *,html[data-script=tc] *,html[data-script=kr] *,html[data-s
         <div class="dc-days" id="dcDays"></div>
       </div>
       <svg class="dc-chart" id="dcChart" viewBox="0 0 640 170" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <div class="dc-legend"><span><i class="ln tide"></i><span data-i="dc_lg_tide">潮位（気象庁 予測・大阪）</span></span><span><i class="ln lim"></i><span data-i="dc_lg_lim">運航できる潮位の上限</span></span></div>
+      <div class="dc-legend"><span><i class="ln tide"></i><span data-i="dc_lg_tide">潮位（気象庁 予測・大阪）</span></span><span id="dcLgObs" hidden><i class="ln obs"></i><span data-i="dc_lg_obs">実測（堂島検潮所）</span></span><span><i class="ln lim"></i><span data-i="dc_lg_lim">運航できる潮位の上限</span></span></div>
       <div class="dc-rows" id="dcRows"></div>
       <p class="dc-src" data-i="dc_src">潮位：気象庁 潮位表（大阪）の予測値／天気：Open-Meteo の予報。判定は自動計算です。最終的な運航可否は当日スタッフが確認のうえご案内します。</p>
     </div>
@@ -1391,7 +1392,9 @@ const CONFIG = {
     // 汽船315号：STARCRAFT MARINE AURORA 2015（改造）／長さ5.58m・幅2.58m・深さ1.23m・1.9t／ヤマハ船外機150PS（船舶検査手帳より）
     // 検査書類にエアドラフト（水面から最も高い所まで）の記載なし → 幌を上げた状態などを実測して airDraft に入れる
     vessel: { airDraft: 1.60, minMargin: 0.30 },   // ★要実測：airDraft(m)。minMargin＝必要マージン(m)
-    tideToBridgeDatum: 0.49,     // 潮位表基準面(大阪 T.P.−0.807m) → O.P.(T.P.−1.300m) への換算：O.P.潮位＝表の潮位＋0.49m
+    tideToBridgeDatum: 0.49,
+    // 実測水位：国交省「川の防災情報」堂島検潮所（大阪府 西大阪治水事務所、O.P.表示・10分毎）。実測と予測の差を当日の予測に上乗せして補正
+    obs: { code:"0691300400057", base:"https://www.river.go.jp/kawabou/file/files/", staleMin:90, fadeHr:12 },     // 潮位表基準面(大阪 T.P.−0.807m) → O.P.(T.P.−1.300m) への換算：O.P.潮位＝表の潮位＋0.49m
     // 桁下高＝提供資料「大阪市内河川 橋梁桁下高・水位一覧」の航路幅10m考慮値（O.P.）。offset＝90分コースで出航から通過するまでの分（地図ルートの距離から按分）
     bridges: [
       { ja:"大江橋", en:"Oe Bridge", clear:3.30, offset:1 },
@@ -1567,7 +1570,7 @@ const T = {
   dc_h_time:["出航","Depart"], dc_h_tide:["潮位","Tide"], dc_h_br:["橋の余裕（最小）","Tightest bridge margin"], dc_h_wx:["天気","Weather"], dc_h_vd:["判定","Result"],
   vd_ok:["運航可","Available"], vd_ck:["要確認","Check"], vd_ng:["運航不可","Not possible"], vd_past:["終了","Passed"],
   wx_na:["予報なし","No forecast yet"], wx_wind:["風","Wind"], wx_rain:["雨","Rain"],
-  today:["今日","Today"], wpoint:["大阪（気象庁 潮位表の予測値）","Osaka (JMA tide prediction)"],
+  today:["今日","Today"], wpoint_obs:["堂島検潮所（実測）","Dojima tide station (observed)"], dc_lg_obs:["実測（堂島検潮所）","Observed (Dojima station)"], wpoint:["大阪（気象庁 潮位表の予測値）","Osaka (JMA tide prediction)"],
   slot_note:["このコース（{m}分）の最終出航は{last}、下船予定は{end}です（大きい数字が出航、小さい数字が下船予定）","Last departure for this {m}-min cruise is {last}, returning at {end} (departure, with return time below)"],
   slot_note0:["出航は10:00から。22:00までに船着場へ戻る時間でご案内します（プランにより最終出航が変わります）","Departures from 10:00. All cruises return to the pier by 22:00 (last departure depends on the plan)"],
   slot_taken:["ご予約済みの時間帯です","Already booked"], err_taken:["申し訳ございません。この時間帯は先にご予約が入りました。別の時間をお選びください。","Sorry, this time has just been booked. Please choose another time."], err_date:["オンラインでのご予約期間外です。ホテルスタッフまでお問い合わせください。","This date is outside the online booking period. Please contact the hotel staff."],
@@ -1709,23 +1712,36 @@ const App = (() => {
   }
 
   // ── 運航判定エンジン（Osaka River Cruise Advisor の tE() と同じ式）──
-  const OPS = { tide:null, wx:null, day:null };
+  const OPS = { tide:null, wx:null, day:null, obs:null };
   const dkey = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   const hm = s => { const [h,m]=s.split(":").map(Number); return h*60+m; };
-  function tideAt(key, min){            // m（潮位表基準面）。日をまたぐ場合は翌日の値で補間
+  // 予測潮位（O.P.）＋堂島実測による補正。過去の時刻は実測値そのもの
+  function tideAt(key, min){
+    const p=predAt(key,min); if(p==null) return null;
+    const o=OPS.obs; if(!o) return p;
+    const [y,mo,d]=key.split("-").map(Number); const at=new Date(y,mo-1,d); at.setMinutes(min);
+    if(at<=o.time){ const v=obsAt(at); if(v!=null) return v; }
+    const hrs=(at-o.time)/36e5, k=Math.max(0,1-hrs/CONFIG.ops.obs.fadeHr);
+    return p + o.bias*k;
+  }
+  function obsAt(at){ const a=OPS.obs.series; let lo=null,hi=null;
+    for(const r of a){ if(r.t<=at&&(!lo||r.t>lo.t)) lo=r; if(r.t>=at&&(!hi||r.t<hi.t)) hi=r; }
+    if(!lo||!hi) return null; if(+hi.t===+lo.t) return lo.v;
+    if(hi.t-lo.t>2*36e5) return null; return lo.v+(hi.v-lo.v)*(at-lo.t)/(hi.t-lo.t); }
+  function predAt(key, min){            // m（O.P.）。気象庁 潮位表基準面の値＋換算。日をまたぐ場合は翌日の値で補間
     if(!OPS.tide) return null;
     const [y,mo,d]=key.split("-").map(Number); const base=new Date(y,mo-1,d);
     const h=Math.floor(min/60), f=(min-h*60)/60;
     const val=hh=>{ const dt=new Date(base); dt.setHours(hh); const a=OPS.tide[dkey(dt)]; return a? a[dt.getHours()] : null; };
     const a=val(h), b=val(h+1); if(a==null||b==null) return null;
-    return (a+(b-a)*f)/100;
+    return (a+(b-a)*f)/100 + CONFIG.ops.tideToBridgeDatum;
   }
-  const maxTide = () => { const o=CONFIG.ops; return Math.min(...o.bridges.map(b=>b.clear-o.vessel.airDraft-o.vessel.minMargin)) - o.tideToBridgeDatum; };
+  const maxTide = () => { const o=CONFIG.ops; return Math.min(...o.bridges.map(b=>b.clear-o.vessel.airDraft-o.vessel.minMargin)); };
   function bridgeCheck(key, dep){
     const o=CONFIG.ops, v=o.vessel; let worst=null;
     for(const b of o.bridges){
       const td=tideAt(key, dep+b.offset); if(td==null) return null;
-      const avail=b.clear-(td+o.tideToBridgeDatum)-v.airDraft;
+      const avail=b.clear-td-v.airDraft;
       const st= avail<v.minMargin?"FAIL": avail<v.minMargin+.15?"CAUTION":"PASS";
       if(!worst||avail<worst.avail) worst={...b,avail,st,tide:td};
     }
@@ -1774,13 +1790,14 @@ const App = (() => {
     $("oMsg").textContent = t("st_"+lv+"_m") + (lv==="red" ? " " + t("red_extra") : "") + (loc(s.note) ? " " + loc(s.note) : "");
     $("oLegend").innerHTML = ["green","yellow","red"].map(k=>`<div><span class="dot ${k}"></span><b>${t("st_"+k)}</b><span>${t("st_"+k+"_m")}</span></div>`).join("");
     const w = s.water, mx = 3.0, now=new Date();
-    const cur = OPS.tide ? tideAt(dkey(now), now.getHours()*60+now.getMinutes()) : w.current;
+    const cur = OPS.obs ? OPS.obs.cur : OPS.tide ? tideAt(dkey(now), now.getHours()*60+now.getMinutes()) : w.current;
     const lim = OPS.tide ? maxTide() : w.limit;
     $("wFill").style.height = Math.max(0,Math.min(100, cur / mx * 100)) + "%";
     $("wLim").style.bottom = Math.max(0,Math.min(100, lim / mx * 100)) + "%";
-    $("wNow").textContent = cur.toFixed(2) + "m";
-    $("wLimV").textContent = lim.toFixed(2) + "m";
-    $("wPt").textContent = OPS.tide ? t("wpoint") : loc(w.point);
+    const op = OPS.tide ? " O.P." : "";
+    $("wNow").textContent = cur.toFixed(2) + "m" + op;
+    $("wLimV").textContent = lim.toFixed(2) + "m" + op;
+    $("wPt").textContent = OPS.obs ? `${t("wpoint_obs")} ${String(OPS.obs.time.getHours()).padStart(2,"0")}:${String(OPS.obs.time.getMinutes()).padStart(2,"0")}` : OPS.tide ? t("wpoint") : loc(w.point);
     renderDCheck();
   }
 
@@ -1801,6 +1818,10 @@ const App = (() => {
     js.forEach(j=>{const a=hm(j.slot),b=a+CONFIG.ops.cruiseMin; g+=`<rect x="${x(a)}" y="${pt}" width="${x(b)-x(a)}" height="${H-pt-pb}" fill="${col[j.v]}" fill-opacity="${j.past?.04:.09}"/>`;});
     g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(lim)}" y2="${y(lim)}" stroke="#e08a7d" stroke-width="1.2" stroke-dasharray="5 4"/>`;
     g+=`<polyline points="${pts.join(" ")}" fill="none" stroke="#8fc1d6" stroke-width="2" stroke-linejoin="round"/>`;
+    if(OPS.obs){ const [yy,mm,dd]=key.split("-").map(Number), d0=new Date(yy,mm-1,dd), d1=new Date(d0); d1.setDate(d1.getDate()+1);
+      const op=OPS.obs.series.filter(r=>r.t>=d0&&r.t<=d1).map(r=>`${x((r.t-d0)/6e4).toFixed(1)},${y(r.v).toFixed(1)}`);
+      if(op.length>1) g+=`<polyline points="${op.join(" ")}" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" opacity=".9"/>`;
+      $("dcLgObs").hidden = op.length<2; }
     if(key===dkey(today)){const m=today.getHours()*60+today.getMinutes(),v=tideAt(key,m); if(v!=null) g+=`<line x1="${x(m)}" x2="${x(m)}" y1="${pt}" y2="${H-pb}" stroke="rgba(255,255,255,.35)" stroke-dasharray="2 3"/><circle cx="${x(m)}" cy="${y(v)}" r="4" fill="#fff"/>`;}
     $("dcChart").innerHTML=g;
     const hd=`<div class="dc-row hd"><span>${t("dc_h_time")}</span><span class="c-tide">${t("dc_h_tide")}</span><span class="c-br">${t("dc_h_br")}</span><span class="c-wx">${t("dc_h_wx")}</span><span>${t("dc_h_vd")}</span></div>`;
@@ -1812,8 +1833,23 @@ const App = (() => {
     }).join("");
   }
 
+  async function loadObs(){
+    const c=CONFIG.ops.obs, P=s=>{ const [d,tm]=s.split(" "), [Y,M,D]=d.split("/").map(Number), [h,mi]=tm.split(":").map(Number); return new Date(Y,M-1,D,h,mi); };
+    try{
+      const ct=await (await fetch(c.base.replace("files/","system/")+"tmCrntTime.json",{cache:"no-cache"})).json();
+      const tt=P(ct.crntObsTime), ymd=`${tt.getFullYear()}${String(tt.getMonth()+1).padStart(2,"0")}${String(tt.getDate()).padStart(2,"0")}`, hhmm=`${String(tt.getHours()).padStart(2,"0")}${String(tt.getMinutes()).padStart(2,"0")}`;
+      const j=await (await fetch(`${c.base}tmlist/stg/${ymd}/${hhmm}/${c.code}.json`)).json();
+      const m=new Map(); for(const r of [...(j.hrValues||[]),...(j.min10Values||[])]) if(r&&r.stg!=null) m.set(r.obsTime,{t:P(r.obsTime),v:r.stg});
+      const series=[...m.values()].sort((a,b)=>a.t-b.t); if(!series.length) return;
+      const last=series[series.length-1]; if((Date.now()-last.t)/6e4>c.staleMin) return;   // 欠測・古いデータは使わず予測のみ
+      OPS.obs={series,cur:last.v,time:last.t,bias:0};
+      const p=predAt(dkey(last.t), last.t.getHours()*60+last.t.getMinutes()); if(p!=null) OPS.obs.bias=last.v-p;
+      renderStatus(); renderSlots();
+    }catch(_){}
+  }
   async function loadOps(){
     try{ const r=await fetch("data/tide-osaka.json",{cache:"no-cache"}); if(r.ok){ OPS.tide=(await r.json()).hourly; renderStatus(); renderSlots(); } }catch(_){}
+    loadObs();
     try{
       const o=CONFIG.ops, u=`https://api.open-meteo.com/v1/forecast?latitude=${o.lat}&longitude=${o.lng}&hourly=temperature_2m,precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m&wind_speed_unit=ms&timezone=Asia%2FTokyo&forecast_days=8`;
       const r=await fetch(u); if(r.ok){ const j=await r.json(); const idx={}; j.hourly.time.forEach((k,i)=>idx[k]=i); OPS.wx={h:j.hourly,idx}; renderStatus(); }
@@ -2065,7 +2101,7 @@ const App = (() => {
     const hdr=$("hdr"), mbar=$("mbar"), bk=$("book");
     addEventListener("scroll",()=>{ hdr.classList.toggle("solid", scrollY>40); const r=bk.getBoundingClientRect(); mbar.classList.toggle("show", r.top<innerHeight*.6 && r.bottom>innerHeight); },{passive:true});
     upG(); renderAll(); loadOps();
-    setInterval(()=>{ if(OPS.tide) renderStatus(); }, 10*60*1000);
+    setInterval(()=>{ if(OPS.tide){ loadObs(); renderStatus(); } }, 10*60*1000);
   }
   function upG(){ $("gOut").textContent=S.guests; $("gMinus").disabled=S.guests<=1; $("gPlus").disabled=S.guests>=8; renderSummary(); }
   function closeDone(){ $("done").classList.remove("open"); }
