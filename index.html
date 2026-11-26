@@ -717,6 +717,7 @@ html.xl .dc-t{font-family:var(--serif);font-weight:400;font-size:28px;letter-spa
 .dc-chart{width:100%;height:170px;margin-top:26px;display:block}
 .dc-legend{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--sans);font-size:11px;color:#bdbdbd;margin-top:8px}
 .dc-legend .ln{display:inline-block;width:22px;height:0;vertical-align:middle;margin-right:8px;border-top:2px solid #8fc1d6}
+.dreq{display:block;margin:14px 0 4px}.dreq span{display:block;font-size:12px;letter-spacing:.06em;color:var(--gold2);margin-bottom:6px}.dreq textarea{width:100%;box-sizing:border-box;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.18);color:inherit;font:inherit;font-size:14px;padding:10px 12px;resize:vertical}
 .dc-legend .ln.obs{border-top:2px solid #fff}
 .dc-legend .ln.lim{border-top:1.5px dashed #e08a7d}
 .dc-rows{margin-top:22px;border-top:1px solid rgba(255,255,255,.18)}
@@ -1459,9 +1460,17 @@ const CONFIG = {
   ],
 
   options: [
-    { id:"wine", price:null, name:{ja:"ワイン", en:"Wine"}, en:"Wine Selection",
-      desc:{ja:"クルーズ中にお楽しみいただけるワインをご用意します。銘柄は後日ご案内いたします。", en:"A selection of wines to enjoy on board. The list will be announced soon."}},
-    { id:"unagi", price:null, name:{ja:"柴藤の鰻", en:"Unagi by Shibato"}, en:"Shibato Unagi",
+    { id:"wine", price:null, name:{ja:"ワイン・お酒", en:"Wine & Drinks"}, en:"Premium Wine Selection", req:true,
+      desc:{ja:"中之島の水辺を彩るクルーズに、厳選したシャンパーニュとロゼをご用意しました。記念日には世界が認めるプレステージ シャンパーニュも。上記以外のお酒もご要望を承ります。", en:"Hand-picked Champagne and a signature rosé for your cruise on the Nakanoshima waterfront, with world-renowned prestige Champagne for special occasions. Other drinks can be arranged on request."},
+      src:{ja:"価格は1本（750ml）・税込です（税抜価格に消費税10%を加算）。在庫状況によりご提供できない場合がございます。ドン・ペリニヨン／ヴーヴ・クリコは事前予約制で、仕入状況と価格を確認のうえご案内いたします。", en:"Prices are per 750 ml bottle, tax included. Subject to availability. Dom Pérignon and Veuve Clicquot are by advance request; we will confirm vintage and price."},
+      // 出典：STARCRAFT_Wine_Selection_JP.pdf（税抜 ¥9,408／¥3,744 → 税込表示）
+      menu:[
+        { id:"goulard", price:10349, name:{ja:"J.M. グラール ラ・セレーヌ（シャンパーニュ）", en:"J.M. Goulard La Sereine (Champagne)"}, d:{ja:"有機栽培・苺とリンゴの蜜の香り。心に花火が打ち上がるような一本", en:"Organic; strawberry and apple-honey notes, bright and lively"} },
+        { id:"anges",   price:4118,  name:{ja:"アンクロ・デ・ザンジュ フラティチェロ ロゼ 2022", en:"Enclos des Anges Fraticellu Rosé 2022"}, d:{ja:"コルシカ島。野イチゴと島のスパイスが香る陽気なロゼ", en:"Corsica; wild strawberry and gentle island spice"} },
+        { id:"dom",     price:null,  name:{ja:"ドン・ペリニヨン ヴィンテージ ブリュット", en:"Dom Pérignon Vintage Brut"}, d:{ja:"17のグラン・クリュのみ、約7〜8年の澱熟成", en:"Grand Cru only, aged about 7–8 years on lees"} },
+        { id:"clicquot",price:null,  name:{ja:"ヴーヴ・クリコ イエローラベル ブリュット", en:"Veuve Clicquot Yellow Label Brut"}, d:{ja:"構造・力強さ・絹のような舌触り。祝祭のシャンパーニュ", en:"Structure, power and silky texture — a celebratory Champagne"} }
+      ]},
+    { id:"unagi", price:null, name:{ja:"柴藤の鰻", en:"Unagi by Shibato"}, en:"Shibato Unagi", src:"u_src",
       desc:{ja:"創業約300年、大阪・高麗橋の老舗「本家柴藤」の鰻を、お持ち帰りメニューから船上へお届けします。ご注文を受けてから焼き上げます。", en:"Unagi from Honke Shibato, a Koraibashi institution of some 300 years, chosen from their takeaway menu and grilled to order for your cruise."},
       // 価格＝本家柴藤 公式「お持ち帰り/配達メニュー」（shibato.net/takeout.html、2026-11確認）。店側で予告なく改定あり
       menu:[
@@ -1558,7 +1567,7 @@ const T = {
   open_map:["Googleマップで開く ↗","Open in Google Maps ↗"],
   photo_soon:["船着場の写真 近日掲載","Pier photo coming soon"],
   landmark:["目印","Landmark"], access:["アクセス","Access"], route:["ルート","Route"],
-  opt_req:["ご希望として承ります","Request"], u_pick:["メニューと数量をお選びください","Choose items and quantities"], u_none:["メニュー未選択","No items chosen"], u_from:["{p}〜","from {p}"], u_src:["価格は本家柴藤のお持ち帰り価格です（2026年11月時点・店舗の改定により変わる場合があります）","Prices are Honke Shibato takeaway prices (as of Nov 2026; subject to change by the restaurant)"], u_menu:["メニューと料金を見る","View menu & prices"], price_tba:["料金 近日公開","Price TBA"],
+  opt_req:["ご希望として承ります","Request"], u_pick:["メニューと数量をお選びください","Choose items and quantities"], u_none:["メニュー未選択","No items chosen"], u_from:["{p}〜","from {p}"], quote:["お見積り","Price on request"], drink_req:["その他のお酒のご要望","Other drink requests"], drink_req_ph:["例：日本酒、白ワイン、ノンアルコールのスパークリング など","e.g. sake, white wine, alcohol-free sparkling"], u_src:["価格は本家柴藤のお持ち帰り価格です（2026年11月時点・店舗の改定により変わる場合があります）","Prices are Honke Shibato takeaway prices (as of Nov 2026; subject to change by the restaurant)"], u_menu:["メニューと料金を見る","View menu & prices"], price_tba:["料金 近日公開","Price TBA"],
   guests_u:["名","guests"], none:["なし","None"],
   st_green:["通常運航","Operating normally"], st_yellow:["運航確認中","Checking conditions"], st_red:["欠航","Suspended"],
   st_green_m:["現在、運航可能です。","Cruises are operating as scheduled."],
@@ -1619,7 +1628,8 @@ const LOCALE = () => LANG === "zh-Hans" ? "zh-CN" : LANG === "zh-Hant" ? "zh-TW"
    APP
    ============================================================ */
 const App = (() => {
-  const S = { plan:null, pier:null, date:null, time:null, guests:2, opts:new Set(), menu:{} };
+  const S = { plan:null, pier:null, date:null, time:null, guests:2, opts:new Set(), menu:{}, drinkReq:"" };
+  const esc = x => String(x).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const today = new Date(); today.setHours(0,0,0,0);
   let viewY = today.getFullYear(), viewM = today.getMonth();
   const $ = id => document.getElementById(id);
@@ -1706,7 +1716,7 @@ const App = (() => {
           <div class="eyebrow">${o.en}</div>
           <h3 style="margin-top:6px">${loc(o.name)}</h3>
           <p>${loc(o.desc)}</p>
-          ${o.menu?`<details class="umenu"><summary>${t("u_menu")}<span>${yen(Math.min(...o.menu.map(m=>m.price)))}〜${yen(Math.max(...o.menu.map(m=>m.price)))}</span></summary>${o.menu.map(m=>`<div class="ui"><span>${loc(m.name)}<small>${loc(m.d)}</small></span><b>${yen(m.price)}</b></div>`).join("")}<p class="us">${t("u_src")}</p></details>`
+          ${o.menu?`<details class="umenu"><summary>${t("u_menu")}<span>${(r=>r?yen(r.min)+"〜"+yen(r.max):"")(pRange(o))}</span></summary>${o.menu.map(m=>`<div class="ui"><span>${loc(m.name)}<small>${loc(m.d)}</small></span><b>${pv(m.price)}</b></div>`).join("")}<p class="us">${srcTxt(o)}</p></details>`
             :`<div class="pr">${o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}</div>`}
         </div>
       </div>`).join("");
@@ -1880,8 +1890,8 @@ const App = (() => {
     $("cOpt").innerHTML = CONFIG.options.map(o=>`
       <div class="optrow ${S.opts.has(o.id)?'on':''}" onclick="App.toggleOpt('${o.id}')" role="checkbox" aria-checked="${S.opts.has(o.id)}" tabindex="0">
         <div class="l"><span class="bx"></span><div><b style="font-weight:500">${loc(o.name)}</b><small>${t("opt_req")}</small></div></div>
-        ${o.menu?`<b>${t("u_from").replace("{p}", yen(Math.min(...o.menu.map(m=>m.price))))}</b>`:o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}
-      </div>${o.menu&&S.opts.has(o.id)?`<div class="uqty"><p>${t("u_pick")}</p>${o.menu.map(m=>{const q=S.menu[m.id]||0;return `<div class="uq"><span>${loc(m.name)}<small>${yen(m.price)}</small></span><span class="st"><button type="button" ${q?"":"disabled"} onclick="App.menuQty('${m.id}',-1)" aria-label="-">−</button><output>${q}</output><button type="button" ${q>=20?"disabled":""} onclick="App.menuQty('${m.id}',1)" aria-label="+">＋</button></span></div>`}).join("")}<p class="us">${t("u_src")}</p></div>`:""}`).join("");
+        ${o.menu?`<b>${t("u_from").replace("{p}", yen(pRange(o).min))}</b>`:o.price!=null?`<b>${yen(o.price)}</b>`:`<span class="tbd">${t("price_tba")}</span>`}
+      </div>${o.menu&&S.opts.has(o.id)?`<div class="uqty"><p>${t("u_pick")}</p>${o.menu.map(m=>{const q=S.menu[m.id]||0;return `<div class="uq"><span>${loc(m.name)}<small>${pv(m.price)}</small></span><span class="st"><button type="button" ${q?"":"disabled"} onclick="App.menuQty('${m.id}',-1)" aria-label="-">−</button><output>${q}</output><button type="button" ${q>=20?"disabled":""} onclick="App.menuQty('${m.id}',1)" aria-label="+">＋</button></span></div>`}).join("")}${o.id==="wine"?`<label class="dreq"><span>${t("drink_req")}</span><textarea rows="2" maxlength="300" placeholder="${t("drink_req_ph")}" oninput="App.drinkReq(this.value)">${esc(S.drinkReq)}</textarea></label>`:""}<p class="us">${srcTxt(o)}</p></div>`:""}`).join("");
   }
 
   function renderCal(){
@@ -1947,13 +1957,25 @@ const App = (() => {
     if (S.pier==="other"){ const f=document.querySelector("[name=reqFrom]").value, to=document.querySelector("[name=reqTo]").value; return `${t("other_pier")}${f||to?`<br><small>${f||"—"} → ${to||"—"}</small>`:""}`; }
     const p = CONFIG.piers.find(x=>x.id===S.pier); return p ? loc(p.name) : "—";
   }
+  const pv = x => x==null ? `<span class="tbd">${t("quote")}</span>` : yen(x);
+  const pRange = o => { const ps=o.menu.map(m=>m.price).filter(x=>x!=null); return ps.length? {min:Math.min(...ps), max:Math.max(...ps)} : null; };
+  const srcTxt = o => typeof o.src==="string" ? t(o.src) : loc(o.src);
   function menuLines(o){ return o.menu.filter(m=>S.menu[m.id]).map(m=>({id:m.id, name:m.name, qty:S.menu[m.id], price:m.price})); }
-  function menuSum(o){ return menuLines(o).reduce((a,x)=>a+x.qty*x.price,0); }
+  function menuSum(o){ return menuLines(o).reduce((a,x)=>a+x.qty*(x.price||0),0); }
+  const menuQuote = o => menuLines(o).some(x=>x.price==null);
+  function drinkNote(){            // ワイン・お酒の内容はご要望欄（note）に追記して送る（管理画面・メールにそのまま表示される）
+    if(!S.opts.has("wine")) return "";
+    const o=CONFIG.options.find(x=>x.id==="wine"), ls=menuLines(o), out=[];
+    if(ls.length) out.push("【ワイン】"+ls.map(x=>`${x.name.ja} ×${x.qty}（${x.price==null?"お見積り":"¥"+(x.qty*x.price).toLocaleString()}）`).join("／"));
+    if(S.drinkReq.trim()) out.push("【その他のお酒のご要望】"+S.drinkReq.trim());
+    if(!out.length) out.push("【ワイン・お酒】希望あり（銘柄未選択）");
+    return out.join("\n");
+  }
   function totals(){
     const p = planOf(); if (!p) return {txt:"—", unknown:false};
     let unknown = p.price==null, sum = p.price||0;
     S.opts.forEach(id=>{ const o=CONFIG.options.find(x=>x.id===id);
-      if(o.menu){ const s=menuSum(o); if(!s) unknown=true; else sum+=s; }
+      if(o.menu){ const s=menuSum(o); if(!s||menuQuote(o)) unknown=true; sum+=s; }
       else if(o.price==null) unknown=true; else sum+=o.price; });
     if (p.price==null) return {txt:t("ask"), unknown:true};
     return {txt: yen(sum) + (unknown? t("plus_opt") : ""), unknown};
@@ -1965,7 +1987,7 @@ const App = (() => {
     $("sPier").innerHTML = (S.plan==="dtb90"||S.pier) ? pierLabel() : "—";
     $("sGuests").textContent = `${S.guests} ${t("guests_u")}`;
     $("sOpt").innerHTML = S.opts.size ? [...S.opts].map(id=>{ const o=CONFIG.options.find(x=>x.id===id);
-      if(o.menu){ const ls=menuLines(o); return loc(o.name)+"<br>"+(ls.length? ls.map(x=>`<small>${loc(x.name)} ×${x.qty}　${yen(x.qty*x.price)}</small>`).join("<br>") : `<small style="color:var(--gold2)">${t("u_none")}</small>`); }
+      if(o.menu){ const ls=menuLines(o); return loc(o.name)+"<br>"+(ls.length? ls.map(x=>`<small>${loc(x.name)} ×${x.qty}　${x.price==null?t("quote"):yen(x.qty*x.price)}</small>`).join("<br>") : (o.id==="wine"&&S.drinkReq.trim()?"":`<small style="color:var(--gold2)">${t("u_none")}</small>`)) + (o.id==="wine"&&S.drinkReq.trim()?`<br><small>${t("drink_req")}：${esc(S.drinkReq.trim()).slice(0,60)}</small>`:""); }
       return loc(o.name)+` <span class="tbd" style="color:var(--gold2)">${t("ask")}</span>`; }).join("<br>") : t("none");
     const tt = totals(); $("sTotal").textContent = tt.txt; $("mTotal").textContent = tt.txt;
     $("sTotal").style.fontSize = tt.txt.length > 12 ? "26px" : "";
@@ -2009,7 +2031,7 @@ const App = (() => {
       unagi_items: S.opts.has("unagi") ? menuLines(CONFIG.options.find(o=>o.id==="unagi")).map(x=>({id:x.id, name:x.name.ja, qty:x.qty, price:x.price})) : [],
       price_plan:p.price, price_total:sum, price_note: tt.unknown ? "＋料金未定のオプション" : "",
       name:v("name"), room:v("room"), email:v("email"), tel:v("tel"),
-      checkin:v("checkin"), checkout:v("checkout"), note:v("note")
+      checkin:v("checkin"), checkout:v("checkout"), note:[v("note"), drinkNote()].filter(Boolean).join("\n\n")
     };
     $("submitBtn").disabled = true;
     let ref;
@@ -2121,7 +2143,8 @@ const App = (() => {
     },
     pickTime(s){ S.time=s; renderSlots(); renderSummary(); },
     pickDay(k){ OPS.day=k; renderDCheck(); },
-    toggleOpt(id){ if(S.opts.has(id)){ S.opts.delete(id); if(id==="unagi") S.menu={}; } else S.opts.add(id); renderChoices(); renderSummary(); },
+    drinkReq(v){ S.drinkReq=v; renderSummary(); },
+    toggleOpt(id){ if(S.opts.has(id)){ S.opts.delete(id); const o=CONFIG.options.find(x=>x.id===id); (o.menu||[]).forEach(m=>delete S.menu[m.id]); if(id==="wine") S.drinkReq=""; } else S.opts.add(id); renderChoices(); renderSummary(); },
     menuQty(mid,d){ const q=Math.max(0,Math.min(20,(S.menu[mid]||0)+d)); if(q) S.menu[mid]=q; else delete S.menu[mid]; renderChoices(); renderSummary(); }
   };
 })();

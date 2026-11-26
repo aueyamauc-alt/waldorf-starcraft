@@ -426,7 +426,7 @@ var CFG = window.WA_BACKEND || null, DEMO = !CFG;
 var $ = function(id){ return document.getElementById(id); };
 var ST = { new:"新規", confirmed:"確定", done:"乗船済み", cancelled:"キャンセル" };
 var ORG = { hotel:"ホテル", company:"スタークラフト" };
-var OPT = { wine:"ワイン", unagi:"柴藤の鰻" };
+var OPT = { wine:"ワイン・お酒", unagi:"柴藤の鰻" };
 var S = { rows:[], view:"list", status:"active", range:"upcoming", q:"", calY:0, calM:0, open:null, me:null };
 
 function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
