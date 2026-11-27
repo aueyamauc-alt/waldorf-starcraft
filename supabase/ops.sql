@@ -126,11 +126,11 @@ begin
         || '<div style="display:inline-block;font-size:11px;letter-spacing:.12em;padding:3px 10px;border:1px solid #b89b5e;color:#8c6f33">'
         || case when en then 'NOTICE' else '運航のお知らせ' end || '</div>'
         || '<h1 style="font-size:19px;font-weight:500;margin:14px 0 16px;line-height:1.5">' || public.wa_h(v_sub) || '</h1>'
-        || '<p style="font-size:14px;line-height:1.95;margin:0">' || replace(public.wa_h(v_body), E'\n', '<br>') || '</p>'
+        || '<p style="font-size:14px;line-height:1.95;margin:0">' || replace(public.wa_h(v_body), chr(10), '<br>') || '</p>'
         || '<p style="font-size:12px;color:#8a8476;margin:22px 0 0">' || case when en then 'Booking reference: ' else '予約番号：' end || public.wa_h(b.ref) || '</p>'
         || '</div><div style="font-size:11px;color:#8a8476;margin-top:16px;line-height:1.8">' || public.wa_h(v_sign) || '</div></div></body></html>';
       perform public.wa_send_mail(b.ref, 'notice', b.email, v_sub,
-        v_html, v_body || E'\n\n' || case when en then 'Booking reference: ' else '予約番号：' end || b.ref || E'\n――――――――――\n' || v_sign || E'\n');
+        v_html, v_body || (chr(10)||chr(10)) || case when en then 'Booking reference: ' else '予約番号：' end || b.ref || (chr(10)||'――――――――――'||chr(10)) || v_sign || chr(10));
       n_sent := n_sent + 1;
     end if;
     insert into public.wa_log (ref, who, action, detail) values (b.ref, v_who, 'notice', left(p_subject_ja, 200));

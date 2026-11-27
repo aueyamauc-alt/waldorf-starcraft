@@ -25,7 +25,11 @@ a{color:var(--navy)}
 .logo b{font-family:Jost,sans-serif;font-weight:500;letter-spacing:.18em;font-size:15px}
 .logo small{font-family:Jost,sans-serif;letter-spacing:.24em;font-size:9.5px;color:var(--mute);margin-top:4px}
 .tabs{display:flex;gap:4px;margin-left:12px}
-.tabs button{padding:8px 14px;border-bottom:2px solid transparent;color:var(--mute);font-weight:500}
+.tabs button{padding:8px 11px;border-bottom:2px solid transparent;color:var(--mute);font-weight:500;white-space:nowrap}
+.tabs{overflow-x:auto;scrollbar-width:none;flex:0 1 auto;min-width:0}
+.me #who{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.me .org{white-space:nowrap}
+@media(max-width:1180px){.me #who{display:none}}
 .tabs button.on{color:var(--ink);border-color:var(--navy)}
 .me{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--mute)}
 .me .org{font-size:11px;border:1px solid var(--line);padding:2px 8px}
