@@ -1012,6 +1012,7 @@ $("dActs").addEventListener("click", function(e){
   var r = find(S.open), st = b.dataset.st;
   var noMail = !r.email;
   if(st === "cancelled" && !confirm(r.name + " 様の予約をキャンセルにします。よろしいですか？\n\n" + (noMail ? "（メールアドレスがないため、お客様へのメールは送られません）" : "お客様（" + r.email + "）にキャンセルのメールが自動で送られます。"))) return;
+  if(st === "confirmed" && r.status === "new" && r.source !== "staff" && !confirm("【宿泊の確認】\n" + r.name + " 様が宿泊ゲストであることを、ホテルの宿泊者情報で確認しましたか？\n\nチェックイン：" + (r.checkin ? fdate(r.checkin) : "未入力") + "／部屋番号：" + (r.room || "未入力") + "\n\n確認済みなら「OK」を押してください。")) return;
   if(st === "confirmed" && r.status !== "done" && !noMail && !confirm(r.name + " 様の予約を確定にします。\n\nお客様（" + r.email + "）に確定メールが自動で送られます（同じ予約に2回は送りません）。")) return;
   b.disabled = true;
   patch(r.ref, { status:st }).then(function(){ toast("「" + ST[st] + "」にしました"); render(); fillDrawer(); })
