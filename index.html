@@ -154,6 +154,7 @@ html:not(.xl) .intro .quote{font-family:var(--mincho);font-style:normal;font-siz
 .vspecs span{font-family:var(--sans);font-size:9.5px;letter-spacing:.24em;color:#9d9483;text-transform:uppercase}
 .vthumbs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
 .vthumbs svg{width:100%;height:auto;display:block}
+.vthumbs .vphoto{width:100%;height:100%;aspect-ratio:300/380;object-fit:cover;object-position:center 60%;display:block;outline:1px solid rgba(207,178,127,.35);outline-offset:-8px}
 .vmain{display:flex;align-items:center;background:linear-gradient(180deg,#0d0e17 0%,#0d0e17 30%,#060606 70%)}
 .vmain img{position:relative;width:100%;height:auto;display:block;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
 @media(max-width:960px){.vgrid{grid-template-columns:1fr}.vmain{min-height:300px}.vmain::after{background:linear-gradient(180deg,rgba(28,26,23,0) 50%,rgba(28,26,23,1))}.vcopy{padding:30px 22px 80px}}
@@ -897,62 +898,52 @@ html[data-script=sc] *,html[data-script=tc] *,html[data-script=kr] *,html[data-s
 <section class="vessel" id="vessel">
   <div class="vgrid">
     <div class="vmain"><div class="vthumbs"><svg viewBox="0 0 300 380" class="vplan" aria-label="Deck plan">
+  <defs>
+    <linearGradient id="lth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8643a"/><stop offset="1" stop-color="#7a3416"/></linearGradient>
+  </defs>
   <rect width="300" height="380" fill="#1c1a17"/>
   <rect x="8" y="8" width="284" height="364" fill="none" stroke="#cfb27f" stroke-opacity=".35"/>
   <text x="150" y="34" text-anchor="middle" fill="#cfb27f" font-family="Jost" font-size="8.5" letter-spacing="3" data-svg="v_plan">DECK PLAN</text>
-  <!-- hull top view, bow up -->
-  <path d="M150 56 C 200 80 214 130 214 190 L214 318 Q214 336 196 338 L104 338 Q86 336 86 318 L86 190 C 86 130 100 80 150 56 Z" fill="#0b0b0e" stroke="#cfb27f" stroke-width="1.2"/>
-  <path d="M150 64 C 194 86 206 132 206 190 L206 316 Q206 330 192 330 L108 330 Q94 330 94 316 L94 190 C 94 132 106 86 150 64 Z" fill="none" stroke="#d8dde2" stroke-opacity=".45"/>
-  <!-- bow U lounge -->
-  <path d="M112 182 L112 140 C 116 112 130 98 150 92 C 170 98 184 112 188 140 L188 182 L176 182 L176 142 C 172 124 162 114 150 110 C 138 114 128 124 124 142 L124 182 Z" fill="#93451f"/>
-  <!-- helm -->
-  <rect x="160" y="196" width="26" height="30" rx="3" fill="#2a2a30" stroke="#cfb27f" stroke-width=".6"/>
-  <circle cx="173" cy="203" r="5" fill="none" stroke="#b9bfc6" stroke-width="1.2"/>
-  <rect x="114" y="200" width="22" height="22" rx="4" fill="#93451f"/>
-  <!-- side benches -->
-  <rect x="98" y="232" width="12" height="40" rx="3" fill="#93451f"/><rect x="190" y="232" width="12" height="40" rx="3" fill="#93451f"/>
-  <!-- stern lounge -->
-  <path d="M106 282 H194 Q198 282 198 286 V316 H102 V286 Q102 282 106 282 Z" fill="#93451f"/>
-  <rect x="112" y="290" width="76" height="14" rx="3" fill="#b5602f" opacity=".6"/>
-  <!-- outboard -->
-  <rect x="136" y="338" width="28" height="18" rx="3" fill="#4a4c55"/>
+  <!-- hull top view, bow up (black gelcoat) -->
+  <path d="M150 52 C 200 76 214 128 214 190 L214 322 Q214 338 196 338 L104 338 Q86 338 86 322 L86 190 C 86 128 100 76 150 52 Z" fill="#0b0b0e" stroke="#cfb27f" stroke-width="1.2"/>
+  <path d="M150 60 C 194 82 206 130 206 190 L206 320 Q206 330 194 330 L106 330 Q94 330 94 320 L94 190 C 94 130 106 82 150 60 Z" fill="none" stroke="#d8dde2" stroke-opacity=".4"/>
+  <!-- centre walkway -->
+  <path d="M138 96 H162 L170 190 L170 300 H130 L130 190 Z" fill="#fff" fill-opacity=".035"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- bow lounges (port / starboard) -->
+    <path d="M139 88 C 119 102 109 128 109 158 L109 176 Q109 184 117 184 L127 184" stroke="url(#lth)" stroke-width="15"/>
+    <path d="M161 88 C 181 102 191 128 191 158 L191 176 Q191 184 183 184 L173 184" stroke="url(#lth)" stroke-width="15"/>
+    <!-- port lounge wrapping into the stern lounge (L shape) -->
+    <path d="M107 238 L107 300 Q107 316 123 316 L193 316" stroke="url(#lth)" stroke-width="18"/>
+    <!-- pleats -->
+    <g stroke="#4a1c08" stroke-opacity=".45" stroke-width="12" stroke-dasharray="1 5">
+      <path d="M139 88 C 119 102 109 128 109 158 L109 176"/><path d="M161 88 C 181 102 191 128 191 158 L191 176"/>
+      <path d="M107 240 L107 300 Q107 316 123 316 L191 316"/>
+    </g>
+    <!-- starboard aft side bolster -->
+    <path d="M199 258 V300" stroke="#b8643a" stroke-width="7"/>
+  </g>
+  <!-- port console (cup holders) -->
+  <rect x="99" y="194" width="34" height="24" rx="5" fill="#141418" stroke="#cfb27f" stroke-width=".6"/>
+  <circle cx="110" cy="206" r="3.2" fill="none" stroke="#b9bfc6" stroke-width=".8"/><circle cx="121" cy="206" r="3.2" fill="none" stroke="#b9bfc6" stroke-width=".8"/>
+  <!-- helm console + wheel -->
+  <rect x="165" y="192" width="36" height="28" rx="5" fill="#141418" stroke="#cfb27f" stroke-width=".6"/>
+  <circle cx="181" cy="210" r="6.5" fill="none" stroke="#d8dde2" stroke-width="1.4"/><path d="M181 203.5 V216.5 M174.5 210 H187.5" stroke="#d8dde2" stroke-width=".6"/>
+  <!-- captain's bucket seat -->
+  <path d="M170 228 H192 Q195 228 195 231 V246 Q195 250 191 250 H171 Q167 250 167 246 V231 Q167 228 170 228 Z" fill="url(#lth)"/>
+  <path d="M170 231 H192" stroke="#4a1c08" stroke-opacity=".5" stroke-width="2"/>
+  <!-- swim platform with deck lights -->
+  <rect x="100" y="338" width="100" height="12" rx="2" fill="#141418" stroke="#cfb27f" stroke-width=".5"/>
+  <g fill="#e9e1d3" opacity=".85"><rect x="118" y="342" width="8" height="4"/><rect x="146" y="342" width="8" height="4"/><rect x="174" y="342" width="8" height="4"/></g>
   <!-- labels -->
   <g fill="#e9e1d3" font-family="Jost" font-size="7" letter-spacing="1.6">
-    <path d="M188 150 H236" stroke="#cfb27f" stroke-width=".5"/><text x="238" y="152" data-svg="v_bow">BOW</text>
-    <path d="M186 210 H236" stroke="#cfb27f" stroke-width=".5"/><text x="238" y="212" data-svg="v_helm">HELM</text>
-    <path d="M102 252 H64" stroke="#cfb27f" stroke-width=".5"/><text x="62" y="254" text-anchor="end" data-svg="v_side">SIDE</text>
-    <path d="M198 300 H236" stroke="#cfb27f" stroke-width=".5"/><text x="238" y="302" data-svg="v_stern">STERN</text>
+    <path d="M194 140 H236" stroke="#cfb27f" stroke-width=".5"/><text x="238" y="142" data-svg="v_bow">BOW</text>
+    <path d="M201 206 H236" stroke="#cfb27f" stroke-width=".5"/><text x="238" y="208" data-svg="v_helm">HELM</text>
+    <path d="M98 270 H64" stroke="#cfb27f" stroke-width=".5"/><text x="62" y="272" text-anchor="end" data-svg="v_side">SIDE</text>
+    <path d="M202 316 H236" stroke="#cfb27f" stroke-width=".5"/><text x="238" y="318" data-svg="v_stern">STERN</text>
   </g>
-  <text x="150" y="364" text-anchor="middle" fill="#9d9483" font-family="Jost" font-size="7" letter-spacing="2" data-svg="v_illu">ILLUSTRATIVE</text>
-</svg><svg viewBox="0 0 300 380" class="vplan" aria-hidden="true">
-  <defs>
-    <linearGradient id="dL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9633a"/><stop offset="1" stop-color="#5e2710"/></linearGradient>
-    <radialGradient id="dB" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd99a" stop-opacity=".8"/><stop offset="1" stop-color="#ffd99a" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="300" height="380" fill="#16141a"/>
-  <g fill="url(#dB)"><circle cx="40" cy="70" r="22" opacity=".5"/><circle cx="110" cy="50" r="14" opacity=".4"/><circle cx="200" cy="80" r="26" opacity=".45"/><circle cx="262" cy="46" r="16" opacity=".5"/><circle cx="160" cy="120" r="12" opacity=".35"/><circle cx="70" cy="130" r="10" opacity=".3"/></g>
-  <!-- leather seat back -->
-  <path d="M0 210 Q150 190 300 210 L300 380 L0 380 Z" fill="url(#dL)"/>
-  <g stroke="#4f200c" stroke-width="1.4" opacity=".55"><path d="M40 205 V380 M90 200 V380 M140 197 V380 M190 198 V380 M240 202 V380"/></g>
-  <path d="M0 214 Q150 194 300 214" stroke="#e39a68" stroke-width="2" fill="none" opacity=".6"/>
-  <!-- chrome rail -->
-  <path d="M0 180 Q150 166 300 180" stroke="#dfe3e7" stroke-width="5" fill="none"/>
-  <path d="M0 178 Q150 164 300 178" stroke="#fff" stroke-width="1.2" fill="none" opacity=".7"/>
-  <!-- coupes -->
-  <g transform="translate(96,150)">
-    <path d="M0 0 H50 Q47 26 25 29 Q3 26 0 0 Z" fill="#e8c76e" fill-opacity=".85" stroke="#f6e6bb" stroke-width="1"/>
-    <path d="M3 4 H47" stroke="#fff4d6" stroke-width="1" opacity=".7"/>
-    <path d="M25 29 V62 M10 64 H40" stroke="#f6e6bb" stroke-width="1.6"/>
-    <circle cx="18" cy="14" r="1.2" fill="#fff"/><circle cx="30" cy="18" r="1" fill="#fff"/><circle cx="24" cy="10" r=".9" fill="#fff"/>
-  </g>
-  <g transform="translate(160,158)">
-    <path d="M0 0 H50 Q47 26 25 29 Q3 26 0 0 Z" fill="#e8c76e" fill-opacity=".85" stroke="#f6e6bb" stroke-width="1"/>
-    <path d="M3 4 H47" stroke="#fff4d6" stroke-width="1" opacity=".7"/>
-    <path d="M25 29 V54 M10 56 H40" stroke="#f6e6bb" stroke-width="1.6"/>
-    <circle cx="20" cy="15" r="1" fill="#fff"/><circle cx="32" cy="12" r="1.2" fill="#fff"/>
-  </g>
-  <rect x="8" y="8" width="284" height="364" fill="none" stroke="#cfb27f" stroke-opacity=".35"/>
-</svg></div></div>
+  <text x="150" y="366" text-anchor="middle" fill="#9d9483" font-family="Jost" font-size="7" letter-spacing="2" data-svg="v_illu">ILLUSTRATIVE</text>
+</svg><img class="vplan vphoto" src="img/deck-seats.jpg" alt="STARCRAFT deck — cognac leather lounges" loading="lazy"></div></div>
     <div class="vcopy reveal">
       <div class="eyebrow">The Vessel</div>
       <h2 class="h2" data-ih="v_h">STARCRAFT<small>スタークラフト</small></h2>
@@ -1557,7 +1548,7 @@ const T = {
   svg_m_b_oe:["大江橋","Oe"], svg_m_b_yodoya:["淀屋橋","Yodoya"], svg_m_b_naniwa:["難波橋","Naniwa"], svg_m_b_tenjin:["天神橋","Tenjin"], svg_m_b_tenma:["天満橋","Tenma"],
   svg_m_museum:["中之島美術館","Museum of Art"], svg_m_hall:["中央公会堂","Public Hall"], svg_m_park:["中之島公園","Nakanoshima Park"], svg_m_walk:["徒歩・お車","On foot / by car"],
   svg_m_lg_route:["クルーズルート（矢印は進行方向）","Cruise route (arrows show direction)"], svg_m_lg_pier:["船着場","Pier"], svg_m_lg_bridge:["主な橋","Bridge"], svg_m_okawa:["大川","OKAWA RIVER"], svg_m_neya:["寝屋川","NEYA RIVER"], svg_m_castle:["大阪城","Osaka Castle"], svg_m_turn:["折り返し地点","Turning point"], svg_m_turn2:["大阪城付近","NEAR OSAKA CASTLE"],
-  svg_v_plan:["デッキプラン","DECK PLAN"], svg_v_bow:["船首ソファ","BOW"], svg_v_helm:["操縦席","HELM"], svg_v_side:["サイド","SIDE"], svg_v_stern:["船尾ソファ","STERN"], svg_v_illu:["イメージ図","ILLUSTRATIVE"],
+  svg_v_plan:["デッキプラン","DECK PLAN"], svg_v_bow:["船首ソファ","BOW"], svg_v_helm:["操縦席","HELM"], svg_v_side:["L字ソファ","SIDE"], svg_v_stern:["船尾ソファ","STERN"], svg_v_illu:["イメージ図","ILLUSTRATIVE"],
   svg_datum:["基準面","Datum"], svg_bridge:["橋（いちばん低い部分）","Bridge (lowest point)"], svg_clear:["桁下高","Clearance"], svg_tide:["潮位","Tide"], svg_air:["船の高さ","Air draft"], svg_margin:["マージン（残りの余裕）","Margin (space left)"],
   rule:["ご乗船希望日の<b>4日前まで</b>オンライン予約を承っております。<b>3日前から当日</b>のご予約をご希望の場合は、ホテルスタッフまでお問い合わせください。","Online reservations are available up to <b>4 days before</b> your cruise. For cruises <b>within 3 days</b> (including today), please contact the hotel staff."],
   s1:["クルーズプランを選ぶ","Choose a plan"], s2:["乗船場所を選ぶ","Choose a pier"], s3:["乗船日・時間を選ぶ","Choose date & time"], s4:["ご乗船人数","Number of guests"], s5:["オプションを追加","Add options"], s6:["お客様情報","Your details"],
