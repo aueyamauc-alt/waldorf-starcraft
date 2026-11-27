@@ -2231,7 +2231,7 @@ const App = (() => {
   function closeDone(){ $("done").classList.remove("open"); }
 
   return {
-    init, closeDone, setLang:c=>setLang(c,true),
+    init, closeDone, pp, setLang:c=>setLang(c,true),
     pickPlan(id, inForm){ S.plan=id; renderChoices(); renderSlots(); renderSummary(); },
     pickPier(id){ S.pier=id; renderChoices(); renderSummary(); },
     pickDate(key, st){
