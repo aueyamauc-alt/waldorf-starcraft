@@ -40,13 +40,9 @@
  "2bvvsa": "Neon-lit streets up close",
  "1l27wzg": "Boarding point announced separately",
  "4tpq4m": "Dojimahama Pier",
- "ad15f5": "Access from the hotel: to be announced",
  "f0p261": "Look for the white pontoon on the Dojima River, beneath the elevated expressway.",
- "i2d02p": "Leave the hotel",
- "r7nqn8": "(route TBA)",
- "8hez65": "Arrive at pier",
  "1aq8x8y": "Central Wholesale Market Pier",
- "7h868": "About 9 min walk from Tamagawa Station (Subway, Exit 6), 11 min from JR Noda Station, or 10 min from Nakanoshima Station (Keihan, Exit 1). Route from the hotel to be announced.",
+ "1yz7y2t": "About 9 min walk from Tamagawa Station (Subway, Exit 6), 11 min from JR Noda Station, or 10 min from Nakanoshima Station (Keihan, Exit 1).",
  "jx9345": "Located in front of the Osaka Central Wholesale Market.",
  "1hrq31x": "Wine & Drinks",
  "mbmfhz": "Hand-picked Champagne and a signature rosé for your cruise on the Nakanoshima waterfront, with world-renowned prestige Champagne for special occasions. Other drinks can be arranged on request.",
@@ -212,6 +208,9 @@
  "vjjlq9": "Check-in",
  "8nuh1e": "Check-out",
  "1vy1iqi": "Special requests / occasion",
+ "ab2tcv": "Privacy Policy",
+ "15qyg2x": "Your personal information will be handled in accordance with our <button type=\"button\" onclick=\"App.pp(true)\">Privacy Policy</button>.",
+ "drj5vi": "<h2 id=\"ppTitle\">Privacy Policy</h2><div class=\"date\">Effective: November 27, 2026</div>\n<p>The operator of this service (the booking site for STARCRAFT private cruises for guests of Waldorf Astoria Osaka; \"we\") handles your personal information as follows.</p>\n<h3>1. Information we collect</h3><ul><li>Name, email address and phone number</li><li>Room number, check-in and check-out dates</li><li>Booking details (date, time, plan, pier, number of guests, options)</li><li>Anything you enter in the requests field (e.g. allergies, celebrations)</li></ul>\n<h3>2. How we use it</h3><ul><li>To receive, confirm, change or cancel your booking</li><li>To notify you if a cruise is suspended due to river levels or weather</li><li>For payment at the hotel and confirmation of your stay</li><li>To arrange options (food and drinks)</li><li>To respond to your enquiries</li><li>To compile anonymous statistics and improve our service</li></ul>\n<h3>3. Joint use with the hotel</h3><p>To confirm bookings, settle payment and assist you, the information in section 1 is used jointly with Waldorf Astoria Osaka. We are responsible for its management.</p>\n<h3>4. Disclosure to third parties</h3><p>We do not disclose your information to third parties without your consent, except as required by law. Option suppliers receive only what is needed to prepare your order (date, time, items and quantities).</p>\n<h3>5. Service providers and overseas transfer</h3><p>We use external cloud services, including providers based in the United States, to store booking data and send emails. We supervise these providers appropriately.</p>\n<h3>6. Security</h3><p>We take measures such as encrypted connections and restricting the management screen to registered staff to prevent leaks, loss or damage.</p>\n<h3>7. Retention</h3><p>We keep your information only as long as needed for the purposes above, and then delete it appropriately.</p>\n<h3>8. Browser storage and maps</h3><p>Your language choice is saved in your browser (no personal information). Pier maps are provided by Google Maps, which is subject to Google's privacy policy.</p>\n<h3>9. Access, correction and deletion</h3><p>To request access to, correction, suspension of use or deletion of your information, reply to your booking confirmation email or ask the hotel staff. We will respond after verifying your identity.</p>\n<h3>10. Changes</h3><p>We may update this policy and will publish any changes on this page.</p>",
  "1g9ww98": "I understand the cruise may be cancelled due to river levels or weather.",
  "i4c62b": "Summary",
  "18ten82": "PLAN",
@@ -315,5 +314,5 @@
  "1sy9atm": "What happens in rain or high water?",
  "5i86yg": "Cruises may be suspended due to river levels or weather. Check the status on this page; we will contact you if your cruise is cancelled.",
  "1i9yjeo": "Payment and cancellation policy?",
- "11w598": "These will be published here shortly."
+ "alpx6d": "Payment is made at the hotel — there is no payment on this website. The cancellation policy will be published here shortly."
 }

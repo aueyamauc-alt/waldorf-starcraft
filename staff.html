@@ -98,6 +98,46 @@ button.stat:hover{border-color:var(--ink)}
 .ug li:last-child{border:0}
 .ug li a{cursor:pointer;text-decoration:underline}
 .note{font-size:12px;color:var(--mute);margin:-4px 0 16px}
+/* blocks & notice */
+.cal .blk{display:block;font-size:11px;padding:2px 6px;margin-bottom:3px;background:repeating-linear-gradient(135deg,#efedea 0 6px,#e6e3de 6px 12px);color:#5a554e;border-left:3px solid #8a8580;line-height:1.35;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cal .d.blocked{background:#faf9f7}
+.tl .bl{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,rgba(138,133,128,.28) 0 5px,rgba(138,133,128,.12) 5px 10px);border-left:1px solid #8a8580;border-right:1px solid #8a8580}
+.pane{border:1px solid var(--line);background:#fff;margin-bottom:18px}
+.pane>h3{font-size:14px;font-weight:500;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper);display:flex;align-items:center;gap:10px}
+.pane>h3 small{font-weight:400;color:var(--mute);font-size:12px}
+.pane .in{padding:16px}
+.frm{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end}
+.frm label{font-size:12px;color:var(--mute);display:flex;flex-direction:column;gap:4px}
+.frm input,.frm select,.frm textarea{border:1px solid var(--line);padding:8px 10px;background:#fff;color:var(--ink)}
+.frm textarea{width:100%;min-height:120px;resize:vertical;line-height:1.7}
+.frm .w100{flex:1 1 100%}
+.blist{list-style:none}
+.blist li{display:flex;gap:14px;align-items:center;padding:10px 0;border-bottom:1px dotted var(--line);font-size:13px;flex-wrap:wrap}
+.blist li:last-child{border:0}
+.blist li b{font-weight:500;min-width:150px}
+.blist li .rs{color:var(--mute);flex:1}
+.pill{display:inline-block;font-size:11px;padding:1px 8px;border:1px solid #8a8580;color:#5a554e;background:#f3f1ee}
+.ntc{list-style:none;margin:10px 0 14px;border-top:1px solid var(--line)}
+.ntc li{display:flex;gap:10px;align-items:center;padding:9px 2px;border-bottom:1px solid var(--line);font-size:13px;flex-wrap:wrap}
+.ntc li input{width:16px;height:16px;accent-color:var(--navy)}
+.ntc li small{color:var(--mute)}
+.warnbox{background:#fff4f2;border:1px solid #f0c8c2;color:#8a2a20;padding:10px 14px;font-size:12.5px;margin-bottom:14px}
+.okbox{background:var(--ok-bg);border:1px solid #bfe0cd;color:var(--ok);padding:10px 14px;font-size:12.5px;margin-top:12px}
+/* report */
+.rp-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.rp-h h2{font-family:Jost,sans-serif;font-weight:400;font-size:22px;min-width:140px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+.kpi{border:1px solid var(--line);padding:14px 16px;background:#fff}
+.kpi small{display:block;font-size:11.5px;color:var(--mute)}
+.kpi b{font-family:Jost,sans-serif;font-size:26px;font-weight:400;display:block;margin-top:2px}
+.kpi em{font-style:normal;font-size:11.5px;color:var(--mute)}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rt{width:100%;border-collapse:collapse;font-size:13px}
+.rt th{font-size:11px;font-weight:500;color:var(--mute);text-align:left;padding:7px 8px;border-bottom:1px solid var(--ink)}
+.rt td{padding:8px;border-bottom:1px solid var(--line)}
+.rt .n{text-align:right;font-family:Jost,sans-serif;white-space:nowrap}
+.rt tr.tot td{font-weight:500;border-top:1px solid var(--ink)}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.rgrid{grid-template-columns:1fr}}
 
 /* drawer */
 .scrim{position:fixed;inset:0;background:rgba(20,20,20,.35);z-index:40}
@@ -267,6 +307,9 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
       <button data-v="list" class="on">予約一覧</button>
       <button data-v="cal">カレンダー</button>
       <button data-v="unagi">鰻の発注</button>
+      <button data-v="wine">ワインの手配</button>
+      <button data-v="ops">運休・欠航連絡</button>
+      <button data-v="report">月次レポート</button>
     </nav>
     <div class="me"><span id="who"></span><span class="org" id="org"></span><button class="btn" id="bOut">ログアウト</button></div>
   </div></header>
@@ -326,6 +369,66 @@ textarea.memo{width:100%;min-height:90px;border:1px solid var(--line);padding:10
     <section id="vUnagi" hidden>
       <p class="note">今日以降・キャンセル以外の予約から、柴藤への発注数を日別にまとめています。品目をクリックすると、その予約を開きます。</p>
       <div id="ugList"></div>
+    </section>
+
+    <!-- ワイン -->
+    <section id="vWine" hidden>
+      <p class="note">今日以降・キャンセル以外の予約から、ワイン・お酒の手配を日別にまとめています。銘柄はお客様が予約ページで選んだ内容です（お見積りの銘柄は金額未定）。</p>
+      <div id="wnList"></div>
+    </section>
+
+    <!-- 運休・欠航連絡 -->
+    <section id="vOps" hidden>
+      <div class="warnbox" id="opsNoDb" hidden>データベースの準備がまだです（supabase/ops.sql が未実行）。運休設定と一斉連絡は、実行後に使えます。</div>
+      <div class="pane">
+        <h3>運休・ブロック設定<small>点検日・他の貸切など。設定した日時は予約ページで選べなくなります</small></h3>
+        <div class="in">
+          <form class="frm" id="bkForm" autocomplete="off">
+            <label>日付<input type="date" name="date" required></label>
+            <label>時間<select name="all"><option value="1">終日</option><option value="0">時間を指定</option></select></label>
+            <label class="bkT" hidden>開始<input type="time" name="from" step="300"></label>
+            <label class="bkT" hidden>終了<input type="time" name="to" step="300"></label>
+            <label style="flex:1;min-width:200px">理由（社内用・お客様には表示されません）<input name="reason" maxlength="200" placeholder="例：船舶点検／他社貸切"></label>
+            <button class="btn pri">追加する</button>
+          </form>
+          <div class="warnbox" id="bkWarn" hidden style="margin:12px 0 0"></div>
+          <ul class="blist" id="bkList" style="margin-top:10px"></ul>
+        </div>
+      </div>
+      <div class="pane">
+        <h3>欠航・運航変更の一斉連絡<small>選んだ日の予約者へ、まとめてメールを送ります</small></h3>
+        <div class="in">
+          <div class="frm">
+            <label>乗船日<input type="date" id="ntDate"></label>
+            <label>文面のひな形<select id="ntTpl"><option value="cancel">欠航（水位・天候）</option><option value="change">時間変更のご相談</option><option value="free">白紙</option></select></label>
+          </div>
+          <ul class="ntc" id="ntList"></ul>
+          <div class="frm">
+            <label class="w100">件名（日本語）<input id="ntSubJa" maxlength="200"></label>
+            <label class="w100">本文（日本語）<textarea id="ntBodyJa"></textarea></label>
+            <label class="w100">件名（英語：英語で予約したお客様へ）<input id="ntSubEn" maxlength="200"></label>
+            <label class="w100">本文（英語）<textarea id="ntBodyEn"></textarea></label>
+          </div>
+          <p class="note" style="margin:8px 0 12px">{name}＝お名前、{date}＝乗船日、{time}＝出航時刻 に置き換わります。メールが無い予約には送られません（電話でご連絡ください）。</p>
+          <label class="ck" style="max-width:520px"><input type="checkbox" id="ntCancel"> 送信と同時に、選んだ予約を「キャンセル」にする<small>欠航のとき</small></label>
+          <div style="display:flex;gap:10px;align-items:center;margin-top:10px"><button class="btn pri" id="ntSend">選んだ予約者に送信する</button><span id="ntInfo" style="font-size:12.5px;color:var(--mute)"></span></div>
+          <div id="ntRes"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 月次レポート -->
+    <section id="vReport" hidden>
+      <div class="rp-h">
+        <button class="btn" id="rPrev" aria-label="前の月">‹</button>
+        <h2 id="rTitle"></h2>
+        <button class="btn" id="rNext" aria-label="次の月">›</button>
+        <button class="btn" id="rNow">今月</button>
+        <span style="flex:1"></span>
+        <button class="btn" id="rCsv">この月の予約をCSV出力</button>
+      </div>
+      <p class="note">乗船日の月で集計しています。売上は「確定」「乗船済み」の合計（税込・予約時の表示額。ワイン等のお見積り分は含みません）。</p>
+      <div id="rBody"></div>
     </section>
   </main>
 </div>
@@ -427,7 +530,7 @@ var $ = function(id){ return document.getElementById(id); };
 var ST = { new:"新規", confirmed:"確定", done:"乗船済み", cancelled:"キャンセル" };
 var ORG = { hotel:"ホテル", company:"スタークラフト" };
 var OPT = { wine:"ワイン・お酒", unagi:"柴藤の鰻" };
-var S = { rows:[], view:"list", status:"active", range:"upcoming", q:"", calY:0, calM:0, open:null, me:null };
+var S = { blocks:[], noOps:false, rpY:0, rpM:0, rows:[], view:"list", status:"active", range:"upcoming", q:"", calY:0, calM:0, open:null, me:null };
 
 function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
 function pad(n){ return String(n).padStart(2,"0"); }
@@ -559,7 +662,9 @@ function demoRows(){
 /* ── データ ── */
 function load(quiet){
   if(DEMO){ if(!S.rows.length) S.rows = demoRows(); render(); return Promise.resolve(); }
-  return api("wa_bookings?select=*&order=date.asc,time.asc").then(function(rows){
+  var bl = api("wa_blocks?select=*&order=date.asc,from_t.asc").then(function(b){ S.blocks = b || []; S.noOps = false; }).catch(function(e){ if(e.message === "auth") throw e; S.blocks = []; S.noOps = true; });
+  return Promise.all([api("wa_bookings?select=*&order=date.asc,time.asc"), bl]).then(function(res){
+    var rows = res[0];
     S.rows = rows || [];
     $("upd").textContent = "最終更新 " + dt(new Date().toISOString());
     render();
@@ -583,7 +688,7 @@ function loadLog(ref){
   if(DEMO){ var r = find(ref); return Promise.resolve((r.source === "staff" ? [] : [{ at:r.created_at, who:"guest", action:"created", detail:"" }]).concat(r._log || [])); }
   return api("wa_log?ref=eq." + encodeURIComponent(ref) + "&order=at.asc");
 }
-var MK = { received:"受付メール", confirmed:"確定メール", cancelled:"キャンセルメール", notify:"スタッフ通知" };
+var MK = { received:"受付メール", confirmed:"確定メール", cancelled:"キャンセルメール", notify:"スタッフ通知", notice:"運航のお知らせ" };
 function loadMail(ref){
   if(DEMO){
     var r = find(ref), out = r.source === "staff" ? [] : [{ at:r.created_at, kind:"received", to_addr:r.email, result:"送信済み" }];
@@ -650,6 +755,9 @@ function render(){
   $("empty").hidden = list.length > 0;
   if(S.view === "cal") renderCal();
   if(S.view === "unagi") renderUnagi();
+  if(S.view === "wine") renderWine();
+  if(S.view === "ops") renderOps();
+  if(S.view === "report") renderReport();
 }
 function renderCal(){
   var y = S.calY, m = S.calM, first = new Date(y, m, 1), start = new Date(y, m, 1 - first.getDay()), t = today();
@@ -659,7 +767,9 @@ function renderCal(){
     var d = new Date(start); d.setDate(start.getDate() + i); var k = ymd(d);
     if(i >= 35 && d.getMonth() !== m) break;
     var evs = S.rows.filter(function(r){ return r.date === k; }).sort(function(a, b){ return a.time.localeCompare(b.time); });
-    h += '<div class="d' + (d.getMonth() !== m ? " out" : "") + (k === t ? " today" : "") + (k >= t ? ' pick" data-day="' + k : "") + '"><div class="n">' + d.getDate() + "</div>" +
+    var bks = blocksOn(k);
+    h += '<div class="d' + (d.getMonth() !== m ? " out" : "") + (k === t ? " today" : "") + (bks.length ? " blocked" : "") + (k >= t ? ' pick" data-day="' + k : "") + '"><div class="n">' + d.getDate() + "</div>" +
+      bks.map(function(b){ return '<span class="blk" title="' + esc(blkLabel(b) + (b.reason ? "　" + b.reason : "")) + '">運休 ' + esc(blkLabel(b)) + (b.reason ? "　" + esc(b.reason) : "") + "</span>"; }).join("") +
       evs.map(function(r){ return '<button class="ev ' + r.status + '" data-ref="' + esc(r.ref) + '" title="' + esc(ST[r.status] + " " + r.name) + '">' + hm(r.time) + " " + esc(r.name) + "（" + r.guests + "）</button>"; }).join("") + "</div>";
   }
   $("cal").innerHTML = h;
@@ -681,6 +791,167 @@ function renderUnagi(){
       "</ul></div>";
   }).join("");
 }
+
+/* ── 運休・ブロック ── */
+function blocksOn(k){ return S.blocks.filter(function(b){ return b.date === k; }); }
+function blkLabel(b){ return b.all_day ? "終日" : hm(b.from_t) + "〜" + hm(b.to_t); }
+function blocksHit(k, s, e){ return blocksOn(k).filter(function(b){ return b.all_day || (mins(b.from_t) < e && mins(b.to_t) > s); }); }
+function renderOps(){
+  $("opsNoDb").hidden = !S.noOps;
+  var t = today(), up = S.blocks.filter(function(b){ return b.date >= t; });
+  $("bkList").innerHTML = up.length ? up.map(function(b){
+    var hit = S.rows.filter(function(r){ return r.date === b.date && r.status !== "cancelled" && (b.all_day || (mins(b.from_t) < mins(r.end_time) && mins(b.to_t) > mins(r.time))); });
+    return "<li><b>" + fdate(b.date) + '</b><span class="pill">' + blkLabel(b) + '</span><span class="rs">' + esc(b.reason || "（理由なし）") + (hit.length ? '<br><span style="color:var(--warn)">この時間に予約が ' + hit.length + " 件あります：" + hit.map(function(r){ return hm(r.time) + " " + esc(r.name); }).join("、") + "</span>" : "") +
+      '<br><small style="color:var(--mute)">' + esc(b.created_by || "") + "</small></span>" + '<button class="btn" data-bdel="' + b.id + '">解除</button></li>';
+  }).join("") : '<li style="color:var(--mute)">今日以降の運休設定はありません</li>';
+  if(!$("ntDate").value) $("ntDate").value = t;
+  ntPaint();
+}
+$("bkForm").addEventListener("change", function(e){ if(e.target.name === "all") document.querySelectorAll(".bkT").forEach(function(x){ x.hidden = e.target.value === "1"; }); });
+$("bkForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var f = this, all = f.all.value === "1", body = { date:f.date.value, all_day:all, from_t:all ? "" : f.from.value, to_t:all ? "" : f.to.value, reason:f.reason.value.trim() };
+  var w = $("bkWarn"); w.hidden = true;
+  if(!body.date){ w.textContent = "日付を入れてください。"; w.hidden = false; return; }
+  if(!all && (!body.from_t || !body.to_t || body.to_t <= body.from_t)){ w.textContent = "開始と終了の時刻を確認してください。"; w.hidden = false; return; }
+  var hit = S.rows.filter(function(r){ return r.date === body.date && r.status !== "cancelled" && (all || (mins(body.from_t) < mins(r.end_time) && mins(body.to_t) > mins(r.time))); });
+  if(hit.length && !confirm("この時間には予約が " + hit.length + " 件あります（" + hit.map(function(r){ return hm(r.time) + " " + r.name; }).join("、") + "）。\n運休を設定しても、既存の予約はそのままです。設定しますか？")) return;
+  var req = DEMO ? Promise.resolve((S.blocks.push(Object.assign({ id:Date.now(), created_by:S.me.email }, body, { from_t:all ? null : body.from_t + ":00", to_t:all ? null : body.to_t + ":00" })), { ok:true }))
+                 : api("rpc/wa_block_add", { method:"POST", body:{ p:body } });
+  req.then(function(r){
+    if(!r || !r.ok){ w.textContent = r && r.error === "forbidden" ? "権限がありません。" : "追加できませんでした。"; w.hidden = false; return; }
+    toast("運休を設定しました（" + fdate(body.date) + " " + (all ? "終日" : body.from_t + "〜" + body.to_t) + "）"); f.reason.value = "";
+    return load(true);
+  }).catch(function(err){ if(err.message === "auth") return; w.textContent = /wa_block_add/.test(err.message) ? "データベースの準備がまだです（ops.sql が未実行）。" : "追加できませんでした：" + err.message; w.hidden = false; });
+});
+$("bkList").addEventListener("click", function(e){
+  var b = e.target.closest("[data-bdel]"); if(!b) return;
+  var id = +b.dataset.bdel, bk = S.blocks.find(function(x){ return x.id === id; });
+  if(!bk || !confirm(fdate(bk.date) + " " + blkLabel(bk) + " の運休設定を解除しますか？")) return;
+  var req = DEMO ? Promise.resolve((S.blocks = S.blocks.filter(function(x){ return x.id !== id; }), { ok:true })) : api("rpc/wa_block_del", { method:"POST", body:{ p_id:id } });
+  req.then(function(){ toast("運休設定を解除しました"); return load(true); }).catch(function(err){ if(err.message !== "auth") toast("解除できませんでした：" + err.message, true); });
+});
+
+/* ── 欠航・運航変更の一斉連絡 ── */
+var NT_TPL = {
+  cancel:{ sj:"【欠航のお知らせ】{date} のクルーズについて",
+    bj:"{name} 様\n\nこのたびはウォルドーフ・アストリア大阪 × スタークラフト プライベートクルーズをご予約いただき、誠にありがとうございます。\n\n誠に申し訳ございませんが、河川の水位・天候の影響により、{date} {time} 出航のクルーズは安全のため欠航とさせていただきます。\n本件による料金は発生いたしません。\n\n別の日時へのご変更をご希望の場合は、ホテルスタッフまでお申し付けください。\nご期待に沿えず、心よりお詫び申し上げます。",
+    se:"Cruise cancelled — {date}",
+    be:"Dear {name},\n\nThank you for booking a private cruise with Waldorf Astoria Osaka × StarCraft.\n\nWe regret to inform you that, due to river levels and weather conditions, your cruise departing at {time} on {date} has been cancelled for safety reasons. There is no charge for this cancellation.\n\nIf you would like to rebook for another date or time, please let the hotel staff know.\nWe sincerely apologise for the inconvenience." },
+  change:{ sj:"【運航のご相談】{date} のクルーズについて",
+    bj:"{name} 様\n\nこのたびはご予約いただき、誠にありがとうございます。\n\n河川の水位・天候の影響により、{date} {time} 出航のクルーズについて、出航時刻の変更をご相談させていただきたく存じます。\n恐れ入りますが、ご都合のよい時間帯をホテルスタッフまでお知らせください。",
+    se:"About your cruise on {date}",
+    be:"Dear {name},\n\nThank you for your booking.\n\nDue to river levels and weather conditions, we would like to discuss changing the departure time of your cruise at {time} on {date}.\nPlease let the hotel staff know which times would suit you." },
+  free:{ sj:"", bj:"", se:"", be:"" }
+};
+function ntFill(){ var tp = NT_TPL[$("ntTpl").value]; $("ntSubJa").value = tp.sj; $("ntBodyJa").value = tp.bj; $("ntSubEn").value = tp.se; $("ntBodyEn").value = tp.be; $("ntCancel").checked = $("ntTpl").value === "cancel"; }
+function ntRows(){ var d = $("ntDate").value; return S.rows.filter(function(r){ return r.date === d && r.status !== "cancelled"; }).sort(function(a, b){ return a.time.localeCompare(b.time); }); }
+function ntPaint(){
+  var rows = ntRows();
+  $("ntList").innerHTML = rows.length ? rows.map(function(r){
+    var ok = !!(r.email || "").trim();
+    return '<li><input type="checkbox" data-nt="' + esc(r.ref) + '"' + (ok ? " checked" : " disabled") + "><b>" + hm(r.time) + "〜" + hm(r.end_time) + "</b> " + esc(r.name) + ' 様 <span class="st ' + r.status + '">' + ST[r.status] + "</span>" +
+      "<small>" + (ok ? esc(r.email) + (r.lang === "en" ? "（英語）" : "") : "メールなし：電話でご連絡ください" + (r.tel ? "（" + esc(r.tel) + "）" : "")) + "</small></li>";
+  }).join("") : '<li style="color:var(--mute)">この日の予約（キャンセル以外）はありません</li>';
+  ntInfo();
+}
+function ntInfo(){ var n = document.querySelectorAll("#ntList input:checked").length; $("ntInfo").textContent = n ? n + " 件に送信します" : ""; $("ntSend").disabled = !n; }
+$("ntDate").addEventListener("change", ntPaint);
+$("ntTpl").addEventListener("change", ntFill);
+$("ntList").addEventListener("change", ntInfo);
+$("ntSend").addEventListener("click", function(){
+  var refs = [].map.call(document.querySelectorAll("#ntList input:checked"), function(x){ return x.dataset.nt; });
+  var sj = $("ntSubJa").value.trim(), bj = $("ntBodyJa").value.trim(), se = $("ntSubEn").value.trim(), be = $("ntBodyEn").value.trim(), cx = $("ntCancel").checked;
+  if(!refs.length) return;
+  if(!sj || !bj){ toast("日本語の件名と本文を入れてください", true); return; }
+  var names = refs.map(function(r){ var x = find(r); return x ? x.name + " 様" : r; });
+  if(!confirm(names.join("、") + "\nへメールを送信します" + (cx ? "。あわせて「キャンセル」にします" : "") + "。\n\n件名：" + sj + "\n\nよろしいですか？")) return;
+  $("ntSend").disabled = true;
+  var req = DEMO ? Promise.resolve((refs.forEach(function(r){ var x = find(r); (x._log = x._log || []).push({ at:new Date().toISOString(), who:S.me.email, action:"notice", detail:sj }); if(cx) x.status = "cancelled"; }), { ok:true, sent:refs.length, skipped:0, cancelled:cx ? refs.length : 0 }))
+                 : api("rpc/wa_notice", { method:"POST", body:{ p_refs:refs, p_subject_ja:sj, p_body_ja:bj, p_subject_en:se, p_body_en:be, p_cancel:cx } });
+  req.then(function(r){
+    if(!r || !r.ok){ toast("送信できませんでした" + (r && r.error === "forbidden" ? "（権限がありません）" : ""), true); return; }
+    $("ntRes").innerHTML = '<div class="okbox">' + r.sent + " 件に送信しました" + (r.skipped ? "（メールなし " + r.skipped + " 件）" : "") + (r.cancelled ? "。" + r.cancelled + " 件をキャンセルにしました" : "") + "。送信結果は各予約の「お客様へのメール」で確認できます。</div>";
+    return load(true);
+  }).catch(function(err){ if(err.message !== "auth") toast(/wa_notice/.test(err.message) ? "データベースの準備がまだです（ops.sql が未実行）" : "送信できませんでした：" + err.message, true); })
+    .then(function(){ ntInfo(); });
+});
+
+/* ── ワインの手配 ── */
+function wineOf(r){
+  var note = r.note || "", items = [], req = "";
+  note.split("\n").forEach(function(line){
+    var m = line.match(/^【ワイン】(.*)$/);
+    if(m) m[1].split("／").forEach(function(x){ var q = x.match(/^(.*?)\s*×(\d+)(?:（(.*)）)?$/); if(q) items.push({ name:q[1].trim(), qty:+q[2], price:q[3] || "" }); });
+    var o = line.match(/^【その他のお酒のご要望】(.*)$/); if(o) req = o[1];
+  });
+  return { items:items, req:req };
+}
+function renderWine(){
+  var t = today(), byDay = {};
+  S.rows.filter(function(r){ return r.date >= t && r.status !== "cancelled" && (r.options || []).indexOf("wine") >= 0; })
+    .sort(function(a, b){ return (a.date + a.time).localeCompare(b.date + b.time); })
+    .forEach(function(r){ (byDay[r.date] = byDay[r.date] || []).push(r); });
+  var days = Object.keys(byDay).sort();
+  if(!days.length){ $("wnList").innerHTML = '<div class="empty">今日以降のワイン・お酒の手配はありません</div>'; return; }
+  $("wnList").innerHTML = days.map(function(k){
+    var tot = {}, n = 0;
+    byDay[k].forEach(function(r){ wineOf(r).items.forEach(function(x){ tot[x.name] = (tot[x.name] || 0) + x.qty; n += x.qty; }); });
+    var names = Object.keys(tot);
+    return '<div class="ug"><h3>' + fdate(k) + (k === t ? "　本日" : "") + "<small>" + (n ? "合計 " + n + " 本" : "銘柄の指定なし") + "</small></h3>" +
+      (names.length ? '<div class="sum">' + names.map(function(nm){ return "<span>" + esc(nm) + "<b>×" + tot[nm] + "</b></span>"; }).join("") + "</div>" : "") + "<ul>" +
+      byDay[k].map(function(r){
+        var w = wineOf(r);
+        return '<li><a data-ref="' + esc(r.ref) + '">' + hm(r.time) + "出航　" + esc(r.name) + "（" + r.guests + "名）</a>" +
+          '<span class="st ' + r.status + '">' + ST[r.status] + "</span><span>" +
+          (w.items.length ? w.items.map(function(x){ return esc(x.name) + "×" + x.qty + (x.price === "お見積り" ? "（お見積り）" : ""); }).join("、") : '<span style="color:var(--mute)">銘柄未選択</span>') +
+          "</span>" + (w.req ? '<span style="flex-basis:100%;color:var(--mute)">ご要望：' + esc(w.req) + "</span>" : "") + "</li>";
+      }).join("") + "</ul></div>";
+  }).join("");
+}
+
+/* ── 月次レポート ── */
+function rpRows(){ var ym = S.rpY + "-" + pad(S.rpM + 1); return S.rows.filter(function(r){ return r.date.slice(0, 7) === ym; }); }
+function pct(a, b){ return b ? Math.round(a / b * 100) + "%" : "—"; }
+function renderReport(){
+  if(!S.rpY){ var d = new Date(); S.rpY = d.getFullYear(); S.rpM = d.getMonth(); }
+  $("rTitle").textContent = S.rpY + "年 " + (S.rpM + 1) + "月";
+  var all = rpRows(), act = all.filter(function(r){ return r.status !== "cancelled"; }), cx = all.length - act.length;
+  var sold = act.filter(function(r){ return r.status === "confirmed" || r.status === "done"; });
+  var rev = sold.reduce(function(a, r){ return a + (r.price_total || 0); }, 0), pax = act.reduce(function(a, r){ return a + r.guests; }, 0);
+  var py = S.rpM === 0 ? S.rpY - 1 : S.rpY, pm = S.rpM === 0 ? 12 : S.rpM, pym = py + "-" + pad(pm);
+  var prev = S.rows.filter(function(r){ return r.date.slice(0, 7) === pym && (r.status === "confirmed" || r.status === "done"); }), prevRev = prev.reduce(function(a, r){ return a + (r.price_total || 0); }, 0);
+  var kp = [["予約（キャンセル除く）", act.length + "<em> 件</em>", "うち新規（未確定） " + act.filter(function(r){ return r.status === "new"; }).length + " 件"],
+    ["売上（確定・乗船済み）", yen(rev), prevRev ? "前月 " + yen(prevRev) : "前月 —"],
+    ["乗船人数", pax + "<em> 名</em>", act.length ? "1便平均 " + (pax / act.length).toFixed(1) + " 名" : ""],
+    ["1便あたりの単価", sold.length ? yen(Math.round(rev / sold.length)) : "—", "確定・乗船済み " + sold.length + " 便"],
+    ["キャンセル", cx + "<em> 件</em>", "キャンセル率 " + pct(cx, all.length)]];
+  var h = '<div class="kpis">' + kp.map(function(k){ return '<div class="kpi"><small>' + k[0] + "</small><b>" + k[1] + "</b><em>" + k[2] + "</em></div>"; }).join("") + "</div>";
+  var grp = function(list, key){ var o = {}; list.forEach(function(r){ var k = key(r); o[k] = o[k] || { n:0, pax:0, rev:0 }; o[k].n++; o[k].pax += r.guests; if(r.status === "confirmed" || r.status === "done") o[k].rev += r.price_total || 0; }); return o; };
+  var tbl = function(title, o, label){
+    var ks = Object.keys(o).sort(function(a, b){ return o[b].n - o[a].n; });
+    if(!ks.length) return '<div class="pane"><h3>' + title + '</h3><div class="in" style="color:var(--mute)">データなし</div></div>';
+    return '<div class="pane"><h3>' + title + '</h3><div class="in"><table class="rt"><thead><tr><th>' + label + '</th><th class="n">件数</th><th class="n">構成比</th><th class="n">人数</th><th class="n">売上</th></tr></thead><tbody>' +
+      ks.map(function(k){ return "<tr><td>" + esc(k) + '</td><td class="n">' + o[k].n + '</td><td class="n">' + pct(o[k].n, act.length) + '</td><td class="n">' + o[k].pax + '</td><td class="n">' + yen(o[k].rev) + "</td></tr>"; }).join("") + "</tbody></table></div></div>";
+  };
+  var hr = function(r){ var x = +hm(r.time).slice(0, 2); return x < 12 ? "午前（〜11時台）" : x < 17 ? "午後（12〜16時台）" : "夕方・夜（17時〜）"; };
+  var WDJ = ["日","月","火","水","木","金","土"];
+  h += '<div class="rgrid">' + tbl("プラン別", grp(act, function(r){ return r.plan_name; }), "プラン") + tbl("船着場別", grp(act, function(r){ return r.pier_name || "—"; }), "船着場") +
+    tbl("時間帯別", grp(act, hr), "時間帯") + tbl("曜日別", grp(act, function(r){ var p = r.date.split("-").map(Number); return WDJ[new Date(p[0], p[1]-1, p[2]).getDay()] + "曜日"; }), "曜日") +
+    tbl("受付経路", grp(act, function(r){ return r.source === "staff" ? "管理画面（電話・フロント）" : "予約ページ"; }), "経路") + tbl("言語", grp(act, function(r){ return r.lang === "en" ? "英語" : "日本語"; }), "言語") + "</div>";
+  // options
+  var un = {}, unSum = 0, wn = {}, wnN = 0;
+  act.forEach(function(r){ (r.unagi_items || []).forEach(function(x){ un[x.name] = (un[x.name] || 0) + x.qty; unSum += x.qty * x.price; }); wineOf(r).items.forEach(function(x){ wn[x.name] = (wn[x.name] || 0) + x.qty; wnN += x.qty; }); });
+  var useU = act.filter(function(r){ return (r.options || []).indexOf("unagi") >= 0; }).length, useW = act.filter(function(r){ return (r.options || []).indexOf("wine") >= 0; }).length;
+  var list = function(o){ var ks = Object.keys(o).sort(function(a, b){ return o[b] - o[a]; }); return ks.length ? '<table class="rt"><tbody>' + ks.map(function(k){ return "<tr><td>" + esc(k) + '</td><td class="n">' + o[k] + "</td></tr>"; }).join("") + "</tbody></table>" : '<span style="color:var(--mute)">なし</span>'; };
+  h += '<div class="rgrid"><div class="pane"><h3>柴藤の鰻<small>利用 ' + useU + " 便（" + pct(useU, act.length) + "）・柴藤価格の合計 " + yen(unSum) + '</small></h3><div class="in">' + list(un) + "</div></div>" +
+    '<div class="pane"><h3>ワイン・お酒<small>利用 ' + useW + " 便（" + pct(useW, act.length) + "）・" + wnN + ' 本</small></h3><div class="in">' + list(wn) + "</div></div></div>";
+  $("rBody").innerHTML = h;
+}
+$("rPrev").onclick = function(){ S.rpM--; if(S.rpM < 0){ S.rpM = 11; S.rpY--; } renderReport(); };
+$("rNext").onclick = function(){ S.rpM++; if(S.rpM > 11){ S.rpM = 0; S.rpY++; } renderReport(); };
+$("rNow").onclick = function(){ var d = new Date(); S.rpY = d.getFullYear(); S.rpM = d.getMonth(); renderReport(); };
+$("rCsv").onclick = function(){ csvOut(rpRows().sort(function(a, b){ return (a.date + a.time).localeCompare(b.date + b.time); }), "予約_" + S.rpY + "-" + pad(S.rpM + 1) + ".csv"); };
 
 /* ── 詳細 ── */
 function openDrawer(ref){ S.open = ref; $("scrim").hidden = false; $("drawer").hidden = false; fillDrawer(); }
@@ -866,7 +1137,12 @@ function nbPaint(){
     g += '<div class="tz" style="left:' + X(a - TURN) + "%;width:" + (X(b + TURN) - X(a - TURN)) + '%"></div>';
     g += '<div class="bk ' + r.status + '" style="left:' + X(a) + "%;width:" + (X(b) - X(a)) + '%" title="' + esc(hm(r.time) + "〜" + hm(r.end_time) + " " + r.name) + '">' + hm(r.time) + " " + esc(r.name) + "</div>";
   });
+  blocksOn(date).forEach(function(b){
+    var a = b.all_day ? lo : mins(b.from_t), e = b.all_day ? hi : mins(b.to_t);
+    g += '<div class="bl" style="left:' + X(a) + "%;width:" + (X(e) - X(a)) + '%" title="' + esc("運休 " + blkLabel(b) + " " + (b.reason || "")) + '"></div>';
+  });
   var ok = !isNaN(s) && m >= 30 && m <= 240;
+  NB.blk = ok ? blocksHit(date, s, s + m) : [];
   if(ok){
     NB.clash = nbClashes(date, s, s + m);
     g += '<div class="me' + (NB.clash.length ? " ng" : "") + '" style="left:' + X(s) + "%;width:" + (X(s + m) - X(s)) + '%"></div>';
@@ -880,6 +1156,10 @@ function nbPaint(){
     if(s + m >= 24 * 60) warn.push("日付をまたぐ予約は登録できません");
   }
   if(!ok){ av.className = "av"; av.textContent = day.length ? fdate(date) + "はほかに " + day.length + " 件の予約があります。出航時刻を入れてください。" : fdate(date) + "はまだ予約がありません。出航時刻を入れてください。"; }
+  else if(NB.blk.length){
+    av.className = "av ng";
+    av.innerHTML = "<b>" + mm2(s) + "〜" + mm2(s + m) + " は運休設定の時間です。</b><br>" + NB.blk.map(function(b){ return "運休 " + esc(blkLabel(b)) + (b.reason ? "　" + esc(b.reason) : ""); }).join("<br>") + "<br>登録する場合は、運休設定を確認してください。";
+  }
   else if(NB.clash.length){
     av.className = "av ng";
     av.innerHTML = "<b>" + mm2(s) + "〜" + mm2(s + m) + " は、ほかの予約と重なります。</b><br>" + NB.clash.map(function(r){ return hm(r.time) + "〜" + hm(r.end_time) + "　" + esc(r.name) + " 様（" + ST[r.status] + "）"; }).join("<br>") + "<br>便と便の間は " + TURN + " 分空ける設定です。";
@@ -928,6 +1208,7 @@ function nbSubmit(){
       '<br>時間を変えるか、重なりを承知のうえで登録してください。<br><button type="button" class="btn" id="nbForce">重なりを承知で登録する</button>');
     return;
   }
+  if(NB.blk && NB.blk.length && !confirm("この日時は運休設定（" + NB.blk.map(blkLabel).join("、") + "）と重なっています。\nそれでも登録しますか？")) return;
   if(p.send_mail && !confirm(p.name + " 様に" + (p.status === "confirmed" ? "確定メール" : "受付メール") + "が送られます（" + p.email + "）。\nこの内容で登録しますか？")) return;
   $("nbSubmit").disabled = true; nbErr("");
   var done = function(ref){ toast("予約を登録しました（" + ref + "）"); nbClose(); return load().then(function(){ openDrawer(ref); }); };
@@ -989,18 +1270,19 @@ $("cal").addEventListener("click", function(e){
 });
 
 /* ── CSV ── */
-$("bCsv").addEventListener("click", function(){
+$("bCsv").addEventListener("click", function(){ csvOut(filtered(), "予約一覧_" + today() + ".csv"); });
+function csvOut(list, fname){
   var cols = [["予約番号","ref"],["状態",function(r){ return ST[r.status]; }],["乗船日","date"],["出航",function(r){ return hm(r.time); }],["下船予定",function(r){ return hm(r.end_time); }],
     ["プラン","plan_name"],["人数","guests"],["船着場","pier_name"],["乗船希望地","req_from"],["下船希望地","req_to"],
     ["オプション",function(r){ return (r.options || []).map(function(o){ return OPT[o] || o; }).join("・"); }],
     ["鰻の注文",function(r){ return (r.unagi_items || []).map(function(x){ return x.name + "×" + x.qty; }).join("・"); }],
     ["合計（表示額）","price_total"],["お名前","name"],["部屋番号","room"],["メール","email"],["電話","tel"],["チェックイン","checkin"],["チェックアウト","checkout"],
     ["ご要望","note"],["スタッフメモ","memo"],["受付経路",function(r){ return r.source === "staff" ? "管理画面" : "予約ページ"; }],["受付日時",function(r){ return dt(r.created_at); }],["最終更新者","updated_by"]];
-  var rows = filtered().map(function(r){ return cols.map(function(c){ var v = typeof c[1] === "function" ? c[1](r) : r[c[1]]; v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); });
+  var rows = list.map(function(r){ return cols.map(function(c){ var v = typeof c[1] === "function" ? c[1](r) : r[c[1]]; v = v == null ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","); });
   var csv = "﻿" + cols.map(function(c){ return c[0]; }).join(",") + "\n" + rows.join("\n");
-  var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type:"text/csv" })); a.download = "予約一覧_" + today() + ".csv"; a.click();
+  var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type:"text/csv" })); a.download = fname; a.click();
   setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
-});
+}
 
 /* ── 操作 ── */
 document.querySelector(".tabs").addEventListener("click", function(e){
@@ -1010,6 +1292,7 @@ function setView(v){
   S.view = v;
   document.querySelectorAll(".tabs button").forEach(function(x){ x.classList.toggle("on", x.dataset.v === v); });
   $("vList").hidden = v !== "list"; $("vCal").hidden = v !== "cal"; $("vUnagi").hidden = v !== "unagi";
+  $("vWine").hidden = v !== "wine"; $("vOps").hidden = v !== "ops"; $("vReport").hidden = v !== "report";
   render();
 }
 $("fStatus").addEventListener("click", function(e){ var b = e.target.closest("[data-s]"); if(!b) return; S.status = b.dataset.s; render(); });
@@ -1028,6 +1311,7 @@ $("cNext").onclick = function(){ S.calM++; if(S.calM > 11){ S.calM = 0; S.calY++
 $("cToday").onclick = function(){ var d = new Date(); S.calY = d.getFullYear(); S.calM = d.getMonth(); renderCal(); };
 
 var timer = null;
+ntFill();
 function start(){
   $("vLogin").hidden = true; $("vApp").hidden = false; $("demoBar").hidden = !DEMO;
   $("who").textContent = S.me.name ? S.me.name + "（" + S.me.email + "）" : S.me.email;

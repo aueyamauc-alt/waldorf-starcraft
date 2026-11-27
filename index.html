@@ -441,6 +441,19 @@ footer .brand .loc{color:var(--gold2)}
 footer nav{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:36px;text-transform:uppercase;letter-spacing:.3em;font-size:10px}
 footer nav a{text-decoration:none}
 footer .deco{justify-content:center;margin:34px 0}
+footer .legal{margin-top:26px}
+footer .legal button,.ppnote button{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;letter-spacing:inherit}
+.ppnote{font-size:12px;color:var(--mute,#8a8478);margin:10px 0 0 26px;line-height:1.8}
+.pp{position:fixed;inset:0;z-index:200;background:rgba(14,12,10,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px}
+.pp[hidden]{display:none}
+.pp .box{background:#fbfaf7;color:#2a2520;max-width:720px;width:100%;max-height:86vh;overflow:auto;padding:46px 48px 40px;position:relative;border:1px solid #d9d2c4;box-shadow:0 30px 80px -30px rgba(0,0,0,.5);font-family:var(--sans);text-align:left}
+.pp h2{font-family:var(--serif);font-weight:400;font-size:26px;letter-spacing:.06em;margin:0 0 6px}
+.pp .date{font-size:11.5px;color:#8a8478;letter-spacing:.08em;margin-bottom:26px}
+.pp h3{font-size:14px;font-weight:600;letter-spacing:.06em;margin:26px 0 8px;color:#1c1a17;padding-left:12px;border-left:2px solid #b08d52}
+.pp p,.pp li{font-size:13.5px;line-height:1.95}
+.pp ul{margin:6px 0;padding-left:1.3em}
+.pp .x{position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid #d9d2c4;background:#fff;border-radius:50%;font-size:18px;cursor:pointer;color:#2a2520}
+@media(max-width:560px){.pp .box{padding:36px 22px 28px}.pp h2{font-size:21px}}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1)}
 .reveal.shown{opacity:1;transform:none}
 
@@ -1377,6 +1390,7 @@ html[data-script=sc] *,html[data-script=tc] *,html[data-script=kr] *,html[data-s
             <label class="f full"><span><b data-i="fm">ご要望・記念日など</b></span><textarea name="note"></textarea></label>
           </div>
           <label class="agree"><input type="checkbox" id="agree"><span data-ih="agree">運航状況（河川水位・天候）により欠航となる場合があることを了承します。</span></label>
+          <p class="ppnote" data-ih="pp_note"></p>
           <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <p class="err hidden" id="formErr"></p>
         </div>
@@ -1420,8 +1434,10 @@ html[data-script=sc] *,html[data-script=tc] *,html[data-script=kr] *,html[data-s
     <div class="deco"><i></i><b></b><i></i></div>
     <p data-i="foot_op">クルーズ運航：スタークラフト</p>
     <nav><a href="#plans" data-i="nav_plans">Cruises</a><a href="#piers" data-i="nav_piers">Piers</a><a href="#status" data-i="nav_status">Status</a><a href="#book" data-i="nav_book">Reserve</a></nav>
+    <div class="legal"><button type="button" onclick="App.pp(true)" data-i="pp_link">Privacy Policy</button></div>
   </div>
 </footer>
+<div class="pp notranslate" id="pp" hidden onclick="if(event.target===this)App.pp(false)"><div class="box" role="dialog" aria-modal="true" aria-labelledby="ppTitle"><button type="button" class="x" onclick="App.pp(false)" aria-label="Close">×</button><div id="ppBody"></div></div></div>
 
 <div class="mbar" id="mbar"><div><small data-i="k_total">TOTAL</small><b id="mTotal">—</b></div><a class="btn gold" href="#summary" data-i="m_review">Review</a></div>
 
@@ -1534,15 +1550,14 @@ const CONFIG = {
     { id:"dojimahama", img:"img/pier-dojimahama.jpg",
       name:{ja:"堂島浜船着場", en:"Dojimahama Pier"},
       map:"堂島浜船着場 大阪",
-      access:{ja:"ホテルからのアクセス：確定後に掲載", en:"Access from the hotel: to be announced"},
       landmark:{ja:"阪神高速の高架下、堂島川沿いの白い桟橋が目印です。", en:"Look for the white pontoon on the Dojima River, beneath the elevated expressway."},
-      steps:{ja:["ホテル出発","（経路 確定後に掲載）","船着場へ"], en:["Leave the hotel","(route TBA)","Arrive at pier"]} },
+    },
     { id:"ichiba", img:"img/pier-ichiba.jpg",
       name:{ja:"中央卸売市場前港", en:"Central Wholesale Market Pier"},
       map:"大阪市中央卸売市場前港",
-      access:{ja:"地下鉄千日前線「玉川」駅6番出口より徒歩約9分／JR「野田」駅より徒歩約11分／京阪中之島線「中之島」駅1番出口より徒歩約10分（ホテルからの経路は確定後に掲載）", en:"About 9 min walk from Tamagawa Station (Subway, Exit 6), 11 min from JR Noda Station, or 10 min from Nakanoshima Station (Keihan, Exit 1). Route from the hotel to be announced."},
+      access:{ja:"地下鉄千日前線「玉川」駅6番出口より徒歩約9分／JR「野田」駅より徒歩約11分／京阪中之島線「中之島」駅1番出口より徒歩約10分", en:"About 9 min walk from Tamagawa Station (Subway, Exit 6), 11 min from JR Noda Station, or 10 min from Nakanoshima Station (Keihan, Exit 1)."},
       landmark:{ja:"大阪市中央卸売市場（本場）前の船着場です。", en:"Located in front of the Osaka Central Wholesale Market."},
-      steps:{ja:["ホテル出発","（経路 確定後に掲載）","船着場へ"], en:["Leave the hotel","(route TBA)","Arrive at pier"]} }
+    }
   ],
 
   options: [
@@ -1636,6 +1651,9 @@ const T = {
   g_note:["最大8名様まで（料金は1艇貸切のため人数で変わりません）","Up to 8 guests. The price is per boat and does not change with party size."],
   opt_note:["オプションの内容・料金は確定次第掲載いたします。現在はご希望として承り、詳細はスタッフよりご案内いたします。","Option details and prices will be published soon. For now we take your selection as a request and staff will follow up."],
   fn:["お名前","Full name"], fr:["ご宿泊の部屋番号","Room number"], fe:["メールアドレス","Email"], fp:["電話番号","Phone"], fci:["チェックイン日","Check-in"], fco:["チェックアウト日","Check-out"], fm:["ご要望・記念日など","Special requests / occasion"],
+  pp_link:["プライバシーポリシー", "Privacy Policy"],
+  pp_note:["ご入力いただいた個人情報は、<button type=\"button\" onclick=\"App.pp(true)\">プライバシーポリシー</button>に従って取り扱います。", "Your personal information will be handled in accordance with our <button type=\"button\" onclick=\"App.pp(true)\">Privacy Policy</button>."],
+  pp_body:["<h2 id=\"ppTitle\">プライバシーポリシー</h2><div class=\"date\">制定日：2026年11月27日</div>\n<p>本サービス（ウォルドーフ・アストリア大阪 宿泊ゲスト向け スタークラフト プライベートクルーズのご予約サイト）の運航事業者（以下「当社」）は、お客様の個人情報を以下のとおり取り扱います。</p>\n<h3>1. 取得する情報</h3><ul><li>お名前、メールアドレス、電話番号</li><li>客室番号、チェックイン日・チェックアウト日</li><li>ご予約内容（日時・プラン・乗船場所・人数・オプション）</li><li>ご要望欄にご入力いただいた内容（アレルギー・記念日など）</li></ul>\n<h3>2. 利用目的</h3><ul><li>ご予約の受付・確認・変更・キャンセルのご連絡</li><li>河川水位・天候による欠航・運航可否のご連絡</li><li>ホテルでのご精算およびご宿泊の確認</li><li>オプション（お料理・お飲み物）の手配</li><li>お問い合わせへの対応</li><li>個人を特定しない形での利用状況の集計・サービス改善</li></ul>\n<h3>3. ホテルとの共同利用</h3><p>ご予約の確認・ご精算・ご案内のため、上記1の情報をウォルドーフ・アストリア大阪と共同で利用します。共同利用における管理責任者は当社です。</p>\n<h3>4. 第三者への提供</h3><p>法令に基づく場合を除き、ご本人の同意なく第三者に提供しません。オプションの手配先には、手配に必要な範囲（日時・内容・数量）のみをお伝えします。</p>\n<h3>5. 業務の委託・外国にある事業者の利用</h3><p>予約データの保管およびメール送信のため、外部のクラウドサービス（米国の事業者を含みます）を利用しています。委託先とは適切な管理のもとで取り扱い、必要かつ適切な監督を行います。</p>\n<h3>6. 安全管理</h3><p>通信の暗号化、管理画面へのアクセスを登録スタッフに限定するなど、個人情報の漏えい・滅失・毀損の防止に努めます。</p>\n<h3>7. 保管期間</h3><p>利用目的の達成に必要な期間保管し、その後は適切な方法で削除します。</p>\n<h3>8. ブラウザへの保存・地図の表示</h3><p>表示言語の設定をお使いのブラウザに保存します（個人情報は保存しません）。船着場の地図には Google マップを使用しており、Google 社のプライバシーポリシーが適用されます。</p>\n<h3>9. 開示・訂正・削除のご請求</h3><p>ご自身の個人情報の開示・訂正・利用停止・削除をご希望の場合は、予約確認メールへのご返信、またはホテルスタッフを通じてお申し出ください。ご本人であることを確認のうえ、対応いたします。</p>\n<h3>10. 改定</h3><p>本ポリシーは必要に応じて改定し、本ページに掲載します。</p>", "<h2 id=\"ppTitle\">Privacy Policy</h2><div class=\"date\">Effective: November 27, 2026</div>\n<p>The operator of this service (the booking site for STARCRAFT private cruises for guests of Waldorf Astoria Osaka; \"we\") handles your personal information as follows.</p>\n<h3>1. Information we collect</h3><ul><li>Name, email address and phone number</li><li>Room number, check-in and check-out dates</li><li>Booking details (date, time, plan, pier, number of guests, options)</li><li>Anything you enter in the requests field (e.g. allergies, celebrations)</li></ul>\n<h3>2. How we use it</h3><ul><li>To receive, confirm, change or cancel your booking</li><li>To notify you if a cruise is suspended due to river levels or weather</li><li>For payment at the hotel and confirmation of your stay</li><li>To arrange options (food and drinks)</li><li>To respond to your enquiries</li><li>To compile anonymous statistics and improve our service</li></ul>\n<h3>3. Joint use with the hotel</h3><p>To confirm bookings, settle payment and assist you, the information in section 1 is used jointly with Waldorf Astoria Osaka. We are responsible for its management.</p>\n<h3>4. Disclosure to third parties</h3><p>We do not disclose your information to third parties without your consent, except as required by law. Option suppliers receive only what is needed to prepare your order (date, time, items and quantities).</p>\n<h3>5. Service providers and overseas transfer</h3><p>We use external cloud services, including providers based in the United States, to store booking data and send emails. We supervise these providers appropriately.</p>\n<h3>6. Security</h3><p>We take measures such as encrypted connections and restricting the management screen to registered staff to prevent leaks, loss or damage.</p>\n<h3>7. Retention</h3><p>We keep your information only as long as needed for the purposes above, and then delete it appropriately.</p>\n<h3>8. Browser storage and maps</h3><p>Your language choice is saved in your browser (no personal information). Pier maps are provided by Google Maps, which is subject to Google's privacy policy.</p>\n<h3>9. Access, correction and deletion</h3><p>To request access to, correction, suspension of use or deletion of your information, reply to your booking confirmation email or ask the hotel staff. We will respond after verifying your identity.</p>\n<h3>10. Changes</h3><p>We may update this policy and will publish any changes on this page.</p>"],
   agree:["運航状況（河川水位・天候）により欠航となる場合があることを了承します。","I understand the cruise may be cancelled due to river levels or weather."],
   sum_h:["ご予約内容","Summary"], k_plan:["プラン","PLAN"], k_date:["日時","DATE"], k_pier:["乗船場所","PIER"], k_guests:["人数","GUESTS"], k_opt:["オプション","OPTIONS"], k_total:["合計","TOTAL"],
   tax:["税込・1艇貸切","Tax incl. · per boat"],
@@ -1687,7 +1705,7 @@ const T = {
     [["料金は1人あたりですか？","Is the price per person?"],["いいえ。1艇貸切の料金です。最大8名様までご乗船いただけます。","No. The price is for the entire boat, for up to 8 guests."]],
     [["直前でも予約できますか？","Can I book at short notice?"],["オンライン予約は乗船日の4日前までです。3日前〜当日はホテルスタッフまでお問い合わせください。","Online booking closes 4 days before. Within 3 days, please ask the hotel staff."]],
     [["雨や増水の場合はどうなりますか？","What happens in rain or high water?"],["河川の水位や天候により欠航となる場合があります。運航状況はこのページでご確認いただけます。欠航時はスタッフよりご連絡いたします。","Cruises may be suspended due to river levels or weather. Check the status on this page; we will contact you if your cruise is cancelled."]],
-    [["お支払い方法・キャンセル規定は？","Payment and cancellation policy?"],["確定次第こちらに掲載いたします。","These will be published here shortly."]]
+    [["お支払い方法・キャンセル規定は？","Payment and cancellation policy?"],["お支払いはホテルにて承ります（本サイトでのお支払いはありません）。キャンセル規定は確定次第こちらに掲載いたします。","Payment is made at the hotel — there is no payment on this website. The cancellation policy will be published here shortly."]]
   ]
 };
 /* ── 言語 ──
@@ -1768,8 +1786,8 @@ const App = (() => {
           <div class="en">${L?"":p.name.en}</div>
           <dl>
             <dt>${t("landmark")}</dt><dd>${loc(p.landmark)}</dd>
-            <dt>${t("access")}</dt><dd>${loc(p.access)}</dd>
-            <dt>${t("route")}</dt><dd><div class="steps" style="margin-top:6px">${loc(p.steps).map((s,j)=>`<span><b>${j+1}</b>${s}</span>`).join("")}</div></dd>
+            ${p.access?`<dt>${t("access")}</dt><dd>${loc(p.access)}</dd>`:""}
+            ${p.steps?`<dt>${t("route")}</dt><dd><div class="steps" style="margin-top:6px">${loc(p.steps).map((s,j)=>`<span><b>${j+1}</b>${s}</span>`).join("")}</div></dd>`:""}
           </dl>
         </div>
         <div class="map">
@@ -2038,6 +2056,12 @@ const App = (() => {
   function menuLines(o){ return o.menu.filter(m=>S.menu[m.id]).map(m=>({id:m.id, name:m.name, qty:S.menu[m.id], price:m.price})); }
   function menuSum(o){ return menuLines(o).reduce((a,x)=>a+x.qty*(x.price||0),0); }
   const menuQuote = o => menuLines(o).some(x=>x.price==null);
+  function pp(open){
+    const el=$("pp"); if(!el) return;
+    if(open){ $("ppBody").innerHTML=t("pp_body"); el.hidden=false; document.body.style.overflow="hidden"; el.querySelector(".x").focus(); }
+    else { el.hidden=true; document.body.style.overflow=""; }
+  }
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("pp")&&!$("pp").hidden) pp(false); });
   function drinkNote(){            // ワイン・お酒の内容はご要望欄（note）に追記して送る（管理画面・メールにそのまま表示される）
     if(!S.opts.has("wine")) return "";
     const o=CONFIG.options.find(x=>x.id==="wine"), ls=menuLines(o), out=[];
@@ -2125,7 +2149,6 @@ const App = (() => {
         ref = res.ref; loadBusy(S.date, true);
       } else {
         const d = new Date(); ref = `WA-${String(d.getFullYear()).slice(2)}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}-DEMO`;
-        try { const a = JSON.parse(localStorage.getItem("wa_requests")||"[]"); a.push({...payload, ref}); localStorage.setItem("wa_requests", JSON.stringify(a)); } catch(_){}
       }
     } catch(err){ return fail(t("send_fail")); }
     $("dRef").textContent = `${t("ref")}  ${ref}`;
